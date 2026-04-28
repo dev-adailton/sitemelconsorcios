@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Consórcio CRM</title>
+    <style>
+        :root {
+            --bg-color: #f4f7fb;
+            --primary: #0D52CF;
+            --primary-hover: #0b45b3;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --card-bg: #ffffff;
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* TABS HEADER */
+        .tabs-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid transparent;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(13, 82, 207, 0.3);
+        }
+
+        /* VIEWS */
+        .view-content {
+            display: none;
+        }
+
+        .view-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* GRID E CARDS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .card p.subtitle {
+            color: var(--text-muted);
+            margin-top: 0;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        /* FORMS */
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+            border-radius: 8px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .input-control {
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: white;
+            outline: none;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .input-control:focus {
+            border-color: var(--primary);
+        }
+
+        .input-control[readonly] {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+
+        .main-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(13, 82, 207, 0.2);
+        }
+
+        .main-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        /* SLIDER */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            outline: none;
+            margin: 15px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* RELATORIO */
+        .relatorio-hero {
+            background: var(--primary);
+            border-radius: 10px;
+            padding: 25px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(13, 82, 207, 0.25);
+            margin-bottom: 20px;
+        }
+
+        .line-hero {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .line-hero:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .text-hero-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .text-hero-val {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .hero-main {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .lista-detalhes {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .linha-detalhe {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 10px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .linha-detalhe span:last-child {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .linha-contratado {
+            background: #f1f5ff;
+            border-left: 4px solid #0D52CF;
+            border-radius: 6px;
+        }
+
+        .linha-liquido {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            border-radius: 6px;
+        }
+
+        .label-mini {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* TABELAS GENERICAS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .td-input {
+            width: 90px;
+            padding: 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .td-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .bg-aberto {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .bg-analise {
+            background: #fef08a;
+            color: #a16207;
+        }
+
+        .bg-fechada {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .bg-declinada {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* ALERTA DE RENDA */
+        .alerta-renda {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f87171;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        @media print {
+
+            .tabs-header,
+            .card:first-child .toggle-group,
+            .main-btn,
+            input[type="range"],
+            .range-labels,
+            nav,
+            #painel-salvar-prop {
+                display: none !important;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- CABEÇALHO MENU TABS -->
+        <div class="tabs-header">
+            <button id="tab-sim" class="tab-btn active" onclick="switchTab('sim')">📊 Simulador</button>
+            <button id="tab-cli" class="tab-btn" onclick="switchTab('cli')">👥 Clientes</button>
+            <button id="tab-prop" class="tab-btn" onclick="switchTab('prop')">📄 Propostas</button>
+            <button id="tab-cfg" class="tab-btn" onclick="switchTab('cfg')">⚙️ Configurações / Tabelas</button>
+        </div>
+
+        <!-- ======================= 1. VIEW SIMULADOR ======================= -->
+        <div id="view-sim" class="view-content active">
+            <div class="grid-2">
+                <!-- PAINEL DE CONTROLES -->
+                <div class="card">
+                    <h2 id="lbl-nome-empresa-simulador">Simulador de Consórcio</h2>
+                    <p class="subtitle">Configure a simulação comercial da corretora.</p>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label">Modo de Cálculo</label>
+                        <div class="toggle-group">
+                            <div class="toggle-btn active" id="btn-modo-credito" onclick="setModo('credito')">💰
+                                Informar Crédito</div>
+                            <div class="toggle-btn" id="btn-modo-parcela" onclick="setModo('parcela')">🔢 Informar
+                                Parcela</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Produto</label>
+                            <select class="input-control" id="sim-produto" onchange="quandoMudarProduto()">
+                                <option value="AUTOMOVEL">Automóvel</option>
+                                <option value="IMOVEIS">Imóveis</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Prazo (Meses)</label>
+                            <select class="input-control" id="sim-prazo" onchange="calcular()">
+                                <!-- Preenchido via JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label">Plano Comercial</label>
+                        <div class="toggle-group">
+                            <div class="toggle-btn active" id="btn-plano-1" onclick="setPlano(1)">Parcela Integral</div>
+                            <div class="toggle-btn" id="btn-plano-07" onclick="setPlano(0.7)">Plano 70 - Reduzida 30%
+                            </div>
+                            <div class="toggle-btn" id="btn-plano-05" onclick="setPlano(0.5)">Plano 50 - Meia Parcela
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label" id="lbl-valor-base">Valor do Crédito Base</label>
+                        <input type="text" id="sim-valor-input" class="input-control" oninput="maskMoeda(this)">
+                        <input type="range" id="sim-valor-range" oninput="syncRange(this.value)">
+                        <div class="range-labels">
+                            <span id="range-min-lbl">R$ 0</span>
+                            <span id="range-max-lbl">R$ 0</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row"
+                        style="margin-top: 25px; padding-top: 25px; border-top: 1px dashed var(--border-color);">
+                        <div class="form-group">
+                            <label class="form-label">Vincular Cliente / Lead</label>
+                            <select class="input-control" id="sim-cliente-sel"
+                                onchange="aoSelecionarClienteSimulador()">
+                                <option value="">-- Simulação Avulsa --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Renda do Cliente (R$)</label>
+                            <input type="text" id="sim-renda-input" class="input-control"
+                                oninput="maskMoedaGeneric(this); calcular();" placeholder="R$ 0,00">
+                        </div>
+                    </div>
+
+                    <div id="alerta-renda" class="alerta-renda"></div>
+
+                    <button class="main-btn" onclick="window.print()" style="margin-top: 0">📄 Emitir Proposta em
+                        PDF</button>
+                </div>
+
+                <!-- PAINEL DE RESULTADOS -->
+                <div class="card">
+                    <h2>Relatório da Simulação</h2>
+                    <br>
+
+                    <div class="relatorio-hero">
+                        <div class="line-hero hero-main">
+                            <span class="text-hero-label">Parcela Inicial</span>
+                            <span class="text-hero-val" id="res-d6">R$ 0,00</span>
+                        </div>
+                        <div class="line-hero">
+                            <span class="text-hero-label">Saldo Devedor I.</span>
+                            <span class="text-hero-val" id="res-d7">R$ 0,00</span>
+                        </div>
+                        <div class="line-hero">
+                            <span class="text-hero-label">Custo Efetivo Total</span>
+                            <span class="text-hero-val" id="res-d8">0,00%</span>
+                        </div>
+                        <div class="line-hero">
+                            <span class="text-hero-label">Custo Efetivo Mensal</span>
+                            <span class="text-hero-val" id="res-d9">0,00%</span>
+                        </div>
+                    </div>
+
+                    <ul class="lista-detalhes">
+                        <li class="linha-detalhe linha-contratado">
+                            <span>
+                                Crédito Contratado
+                                <span class="label-mini">Valor cheio aprovado pela administradora</span>
+                            </span>
+                            <span id="res-credito-contratado">R$ 0,00</span>
+                        </li>
+                        <li class="linha-detalhe linha-liquido">
+                            <span>
+                                Crédito Líquido
+                                <span class="label-mini">Valor disponível conforme plano</span>
+                            </span>
+                            <span id="res-cred">R$ 0,00</span>
+                        </li>
+                        <li class="linha-detalhe"><span>Fundo Comum (Amortização)</span><span id="res-d3">R$ 0,00</span>
+                        </li>
+                        <li class="linha-detalhe"><span>Taxa Adm Rateada</span><span id="res-d4">R$ 0,00</span></li>
+                        <li class="linha-detalhe"><span>Seguro de Vida OBR.</span><span id="res-d5">R$ 0,00</span></li>
+                        <li class="linha-detalhe"><span>Prazo da Cota</span><span id="res-prazos">0 meses</span></li>
+                    </ul>
+
+                    <!-- PAINEL CRM DENTRO DO SIMULADOR -->
+                    <div id="painel-salvar-prop"
+                        style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border-color); background: #f8fafc; padding: 20px; border-radius: 8px;">
+                        <h3 style="font-size: 1.05rem; margin-top:0; color: var(--primary); margin-bottom: 15px;">💾
+                            Enviar para Pipeline</h3>
+                        <div class="form-row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="form-label">Vendedor Proprietário</label>
+                                <select id="sim-vendedor-save" class="input-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Estágio Comercial</label>
+                                <select id="sim-status-save" class="input-control">
+                                    <option value="Em Aberto">Em Aberto</option>
+                                    <option value="Enviada">Proposta Enviada</option>
+                                    <option value="Em Análise">Em Análise do Cliente</option>
+                                    <option value="Fechada">Fechada / Ganha</option>
+                                    <option value="Declinada">Declinada / Perdida</option>
+                                    <option value="Adiada">Adiada pela Renda</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="main-btn" onclick="salvarPropostaNoCRM()"
+                            style="background:#16a34a; margin-top:5px; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.2);">✅
+                            Gravar Simulação como Proposta</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================= 2. VIEW CLIENTES ======================= -->
+        <div id="view-cli" class="view-content">
+            <div class="card">
+                <h2>Gestão de Clientes e Leads</h2>
+                <p class="subtitle">Dica: Cadastre clientes aqui para depois vinculá-los às fáceis propostas e não
+                    precisar digitar a renda manual.</p>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Nome Completo *</label><input type="text"
+                            id="frm-cli-nome" class="input-control"></div>
+                    <div class="form-group"><label class="form-label">CPF (Opcional)</label><input type="text"
+                            id="frm-cli-cpf" class="input-control"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">WhatsApp *</label><input type="text"
+                            id="frm-cli-wpp" class="input-control" placeholder="(00) 00000-0000"></div>
+                    <div class="form-group"><label class="form-label">Renda Mensal Apurada (R$) *</label><input
+                            type="text" id="frm-cli-renda" class="input-control" oninput="maskMoedaGeneric(this)"></div>
+                </div>
+                <button class="main-btn" onclick="cadastrarCliente()" style="max-width: 250px;">➕ Cadastrar
+                    Cliente</button>
+
+                <h3 style="margin-top: 40px; color: var(--primary);">Base de Clientes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>WhatsApp</th>
+                            <th>CPF</th>
+                            <th>Renda Confirmada</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl-body-clientes"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ======================= 3. VIEW PROPOSTAS ======================= -->
+        <div id="view-prop" class="view-content">
+            <div class="card">
+                <h2>Pipeline de Vendas (Propostas)</h2>
+                <p class="subtitle">Visão geral do comitê comercial da organização.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Crédito</th>
+                            <th>Responsável (Vend.)</th>
+                            <th>Estágio / Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl-body-propostas"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ======================= 4. VIEW CONFIGURAÇÕES ======================= -->
+        <div id="view-cfg" class="view-content">
+
+            <!-- Empresa e Usuarios -->
+            <div class="grid-2">
+                <div class="card">
+                    <h2>🏢 Dados da Empresa</h2>
+                    <p class="subtitle">Aparecerá nos cabeçalhos da organização.</p>
+                    <div class="form-group">
+                        <label class="form-label">Nome Fantasia da Empresa</label>
+                        <input type="text" class="input-control" id="cfg-empresa-nome">
+                    </div>
+                    <button class="main-btn" onclick="salvarEmpresaCRM()" style="max-width: 200px;">💾 Salvar
+                        Empresa</button>
+                </div>
+
+                <div class="card">
+                    <h2>👥 Equipe Comercial</h2>
+                    <div class="form-group" style="margin-bottom:15px"><label class="form-label">Nome da
+                            Pessoa</label><input type="text" id="frm-usr-nome" class="input-control"></div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">E-mail corporativo</label><input type="text"
+                                id="frm-usr-email" class="input-control"></div>
+                        <div class="form-group">
+                            <label class="form-label">Nível</label>
+                            <select id="frm-usr-nivel" class="input-control">
+                                <option>Vendedor</option>
+                                <option>Supervisor</option>
+                                <option>Gerente</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="main-btn" onclick="cadastrarUsuarioCRM()">Adicionar Membro</button>
+
+                    <h3 style="margin-top: 25px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
+                        Vendedores Ativos</h3>
+                    <table style="margin-top:10px; border:none; box-shadow:none;">
+                        <tbody id="tbl-body-usuarios"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Tabelas Matemáticas -->
+            <div class="grid-2" style="grid-template-columns: 1fr 1fr;">
+                <div class="tabela-container">
+                    <h3><span>🚗 TABELA MESTRE: AUTOMÓVEL</span><button class="add-row"
+                            onclick="addLinhaTabela('AUTOMOVEL')" style="float: right; margin-top:-5px;">+
+                            Prazo</button></h3>
+                    <div class="edit-seguro" style="margin-bottom: 15px;">
+                        <label class="form-label" style="margin:0;">Taxa Seguro Vida (%) Mensal</label>
+                        <input type="text" class="td-input" id="cfg-seguro-auto" onblur="salvarTabela()">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prazo</th>
+                                <th>Tx ADM (%)</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-body-auto"></tbody>
+                    </table>
+                </div>
+
+                <div class="tabela-container">
+                    <h3><span>🏠 TABELA MESTRE: IMÓVEIS</span><button class="add-row"
+                            onclick="addLinhaTabela('IMOVEIS')" style="float: right; margin-top:-5px;">+ Prazo</button>
+                    </h3>
+                    <div class="edit-seguro" style="margin-bottom: 15px;">
+                        <label class="form-label" style="margin:0;">Taxa Seguro Vida (%) Mensal</label>
+                        <input type="text" class="td-input" id="cfg-seguro-imoveis" onblur="salvarTabela()">
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prazo</th>
+                                <th>Tx ADM (%)</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-body-imoveis"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. BANCO DE DADOS (LOCALSTORAGE CRM)
+        // ==========================================
+        let CRM_DB = {
+            empresa: { nome: "Corretora Consórcios Brasil" },
+            usuarios: [],
+            clientes: [],
+            propostas: []
+        };
+
+        let DATA_TAXAS = {
+            AUTOMOVEL: { seguro: 0.04880, taxas: { 36: 12.80, 46: 13.80, 56: 15.80, 66: 16.80, 76: 18.80, 86: 19.80, 96: 20.80 } },
+            IMOVEIS: { seguro: 0.04746, taxas: { 40: 13.00, 60: 15.00, 100: 19.50, 120: 21.00, 140: 23.00, 160: 24.00, 180: 25.00 } }
+        };
+
+        // Migração de bases antigas se existirem envelopada em try/catch por extrema segurança
+        if (localStorage.getItem('bancoConsorcioPro')) { try { DATA_TAXAS = JSON.parse(localStorage.getItem('bancoConsorcioPro')); } catch (e) { } }
+        if (localStorage.getItem('crmConsorcioPro')) { try { CRM_DB = JSON.parse(localStorage.getItem('crmConsorcioPro')); } catch (e) { } }
+
+        function saveCRM() {
+            localStorage.setItem('crmConsorcioPro', JSON.stringify(CRM_DB));
+            atualizarDropdowsDoSimulador(); // atualiza combos
+        }
+
+        // ==========================================
+        // 2. FUNÇÕES DO CRM (USUARIOS E CLIENTES)
+        // ==========================================
+
+        function salvarEmpresaCRM() {
+            CRM_DB.empresa.nome = document.getElementById('cfg-empresa-nome').value;
+            saveCRM();
+            let lbl = document.getElementById('lbl-nome-empresa-simulador');
+            if (lbl) lbl.innerText = "Simulador - " + CRM_DB.empresa.nome;
+            alert('Dados da empresa salvos com sucesso!');
+        }
+
+        function cadastrarUsuarioCRM() {
+            let nome = document.getElementById('frm-usr-nome').value;
+            let email = document.getElementById('frm-usr-email').value;
+            let nivel = document.getElementById('frm-usr-nivel').value;
+
+            if (!nome || !email) return alert("Preencha Nome e E-mail da pessoa!");
+
+            CRM_DB.usuarios.push({ id: Date.now(), nome, email, nivel });
+            document.getElementById('frm-usr-nome').value = '';
+            document.getElementById('frm-usr-email').value = '';
+            saveCRM(); renderTabelasCRM();
+        }
+        function removerUsuario(id) { CRM_DB.usuarios = CRM_DB.usuarios.filter(u => u.id !== id); saveCRM(); renderTabelasCRM(); }
+
+        function cadastrarCliente() {
+            let nome = document.getElementById('frm-cli-nome').value;
+            let cpf = document.getElementById('frm-cli-cpf').value;
+            let wpp = document.getElementById('frm-cli-wpp').value;
+            let renda = document.getElementById('frm-cli-renda').value;
+
+            if (!nome || !wpp || !renda) return alert("Campos obrigatórios: Nome, WhastApp e Renda!");
+
+            CRM_DB.clientes.push({ id: Date.now(), nome, cpf, wpp, renda });
+            document.getElementById('frm-cli-nome').value = '';
+            document.getElementById('frm-cli-cpf').value = '';
+            document.getElementById('frm-cli-wpp').value = '';
+            document.getElementById('frm-cli-renda').value = '';
+            saveCRM(); renderTabelasCRM();
+            alert("Cliente/Lead capturado na base!");
+        }
+        function removerCliente(id) { CRM_DB.clientes = CRM_DB.clientes.filter(c => c.id !== id); saveCRM(); renderTabelasCRM(); }
+
+        function renderTabelasCRM() {
+            // Usuarios / Equipe (Com Avatar DiceBear dinâmico usando o Nome da Pessoa)
+            let strUsr = '';
+            CRM_DB.usuarios.forEach(u => {
+                let colorClass = u.nivel === 'Gerente' ? 'bg-fechada' : (u.nivel === 'Supervisor' ? 'bg-analise' : 'bg-aberto');
+                strUsr += `<tr>
+                    <td style="display:flex; align-items:center; gap:12px; text-align:left;">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=${u.nome.replace(' ', '')}&backgroundColor=0D52CF" width="34" style="border-radius:50%">
+                        <div><strong>${u.nome}</strong><br><small>${u.email}</small></div>
+                    </td>
+                    <td><span class="badge ${colorClass}">${u.nivel}</span></td>
+                    <td style="cursor:pointer; color:red;" onclick="removerUsuario(${u.id})">🗑️</td>
+                </tr>`;
+            });
+            let tblUsr = document.getElementById('tbl-body-usuarios');
+            if (tblUsr) tblUsr.innerHTML = strUsr;
+
+            // Clientes
+            let strCli = '';
+            CRM_DB.clientes.forEach(c => {
+                strCli += `<tr>
+                    <td style="font-weight:600; text-align:left;">${c.nome}</td><td>${c.wpp}</td><td>${c.cpf || '-'}</td>
+                    <td>${c.renda}</td><td style="cursor:pointer; color:red;" onclick="removerCliente(${c.id})">🗑️</td>
+                </tr>`;
+            });
+            let tblCli = document.getElementById('tbl-body-clientes');
+            if (tblCli) tblCli.innerHTML = strCli;
+
+            // Propostas
+            let strProp = '';
+            CRM_DB.propostas.sort((a, b) => b.id - a.id).forEach(p => {
+                let cli = CRM_DB.clientes.find(x => x.id == p.cli_id)?.nome || "** Simulação Avulsa **";
+                let vend = CRM_DB.usuarios.find(x => x.id == p.vend_id)?.nome || "Não alocado";
+
+                // Selector com cor adaptável pro Status
+                let c_bg = p.status.includes('Fechada') ? '#dcfce7' : (p.status.includes('Enviada') ? '#fef08a' : (p.status.includes('Declinada') ? '#fee2e2' : '#f1f5f9'));
+
+                strProp += `<tr>
+                    <td>${p.data}</td>
+                    <td style="font-weight:bold;text-align:left;">${cli}</td>
+                    <td>${vend}</td>
+                    <td style="color:var(--primary); font-weight:700;">${fmtBRL(p.credito_aprovado)}</td>
+                    <td>
+                        <select onchange="trocarStatusProposta(${p.id}, this.value)" style="border:none; border-radius:6px; padding:6px; font-weight:600; font-size:0.8rem; background:${c_bg}; cursor:pointer;">
+                            <option value="Em Aberto" ${p.status == 'Em Aberto' ? 'selected' : ''}>Em Aberto</option>
+                            <option value="Enviada" ${p.status == 'Enviada' ? 'selected' : ''}>Enviada</option>
+                            <option value="Em Análise" ${p.status == 'Em Análise' ? 'selected' : ''}>Em Análise</option>
+                            <option value="Fechada" ${p.status == 'Fechada' ? 'selected' : ''}>Fechada</option>
+                            <option value="Declinada" ${p.status == 'Declinada' ? 'selected' : ''}>Declinada</option>
+                            <option value="Adiada" ${p.status == 'Adiada' ? 'selected' : ''}>Adiada</option>
+                        </select>
+                    </td>
+                    <td style="cursor:pointer; color:red;" onclick="removerProposta(${p.id})">🗑️</td>
+                </tr>`;
+            });
+            let tblProp = document.getElementById('tbl-body-propostas');
+            if (tblProp) tblProp.innerHTML = strProp;
+        }
+
+        function atualizarDropdowsDoSimulador() {
+            let selCli = document.getElementById('sim-cliente-sel');
+            if (selCli) {
+                let baseValCli = selCli.value;
+                selCli.innerHTML = '<option value="">-- Simulação/Cliente Avulso --</option>';
+                CRM_DB.clientes.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.nome}</option>`);
+                selCli.value = baseValCli;
+            }
+
+            let selVend = document.getElementById('sim-vendedor-save');
+            if (selVend) {
+                let baseValVend = selVend.value;
+                selVend.innerHTML = '<option value="">-- Selecione Vendedor --</option>';
+                CRM_DB.usuarios.forEach(u => selVend.innerHTML += `<option value="${u.id}">${u.nome}</option>`);
+                selVend.value = baseValVend;
+            }
+
+            let cmpEmpresa = document.getElementById('cfg-empresa-nome');
+            if (cmpEmpresa) cmpEmpresa.value = CRM_DB.empresa.nome;
+
+            let lblSim = document.getElementById('lbl-nome-empresa-simulador');
+            if (lblSim) lblSim.innerText = "Simulador - " + CRM_DB.empresa.nome;
+        }
+
+        function trocarStatusProposta(id, status) {
+            let p = CRM_DB.propostas.find(x => x.id == id);
+            if (p) { p.status = status; saveCRM(); renderTabelasCRM(); }
+        }
+        function removerProposta(id) { CRM_DB.propostas = CRM_DB.propostas.filter(x => x.id !== id); saveCRM(); renderTabelasCRM(); }
+
+        // ==========================================
+        // 3. MOTOR MATEMÁTICO PADRÃO VALIDADO
+        // ==========================================
+        let STATE = { modo: 'credito', plano: 1, valorBaseRaw: 50000 };
+        let ulitmoCreditoBrutoCalculado = 0;
+
+        function fmtBRL(v) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v); }
+        function fmtPct(v) { return Number(v).toFixed(2).replace('.', ',') + '%'; }
+        function fmtPct5(v) { return Number(v).toFixed(5).replace('.', ',') + '%'; }
+        function parsePct(s) { return Number(s.replace(/[^\d,-]/g, '').replace(',', '.')) || 0; }
+
+        function maskMoeda(e) {
+            let v = e.value.replace(/\D/g, '');
+            if (!v || v == '0') { e.value = 'R$ 0,00'; STATE.valorBaseRaw = 0; document.getElementById('sim-valor-range').value = 0; calcular(); return; }
+            let num = parseFloat(v) / 100;
+            e.value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(num);
+            STATE.valorBaseRaw = num; document.getElementById('sim-valor-range').value = num;
+            calcular();
+        }
+
+        function maskMoedaGeneric(e) {
+            let v = e.value.replace(/\D/g, '');
+            if (!v || v == '0') { e.value = ''; return; }
+            let num = parseFloat(v) / 100;
+            e.value = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(num);
+        }
+
+        function renderTabelasConfigMaster() {
+            document.getElementById('cfg-seguro-auto').value = fmtPct5(DATA_TAXAS.AUTOMOVEL.seguro);
+            let hAuto = '';
+            Object.keys(DATA_TAXAS.AUTOMOVEL.taxas).sort((a, b) => a - b).forEach(p => {
+                hAuto += `<tr><td><input type="text" class="td-input pz-auto" value="${p}" onblur="salvarTabela()"></td><td><input type="text" class="td-input tx-auto" value="${fmtPct(DATA_TAXAS.AUTOMOVEL.taxas[p])}" onblur="salvarTabela()"></td><td style="cursor:pointer" onclick="deleteRow('AUTOMOVEL', '${p}')">🗑️</td></tr>`;
+            });
+            document.getElementById('tbl-body-auto').innerHTML = hAuto;
+
+            document.getElementById('cfg-seguro-imoveis').value = fmtPct5(DATA_TAXAS.IMOVEIS.seguro);
+            let hImob = '';
+            Object.keys(DATA_TAXAS.IMOVEIS.taxas).sort((a, b) => a - b).forEach(p => {
+                hImob += `<tr><td><input type="text" class="td-input pz-imovel" value="${p}" onblur="salvarTabela()"></td><td><input type="text" class="td-input tx-imovel" value="${fmtPct(DATA_TAXAS.IMOVEIS.taxas[p])}" onblur="salvarTabela()"></td><td style="cursor:pointer" onclick="deleteRow('IMOVEIS', '${p}')">🗑️</td></tr>`;
+            });
+            document.getElementById('tbl-body-imoveis').innerHTML = hImob;
+        }
+
+        function salvarTabela() {
+            DATA_TAXAS.AUTOMOVEL.seguro = parsePct(document.getElementById('cfg-seguro-auto').value);
+            DATA_TAXAS.IMOVEIS.seguro = parsePct(document.getElementById('cfg-seguro-imoveis').value);
+
+            let dAuto = {};
+            let pA = document.querySelectorAll('.pz-auto'), tA = document.querySelectorAll('.tx-auto');
+            for (let i = 0; i < pA.length; i++) { let pv = parseInt(pA[i].value); if (pv > 0) dAuto[pv] = parsePct(tA[i].value); }
+            DATA_TAXAS.AUTOMOVEL.taxas = dAuto;
+
+            let dImo = {};
+            let pI = document.querySelectorAll('.pz-imovel'), tI = document.querySelectorAll('.tx-imovel');
+            for (let i = 0; i < pI.length; i++) { let pv = parseInt(pI[i].value); if (pv > 0) dImo[pv] = parsePct(tI[i].value); }
+            DATA_TAXAS.IMOVEIS.taxas = dImo;
+
+            localStorage.setItem('bancoConsorcioPro', JSON.stringify(DATA_TAXAS));
+            renderTabelasConfigMaster(); atualizarPrazosEFormula();
+        }
+        function addLinhaTabela(tx) { DATA_TAXAS[tx].taxas['999'] = 0; renderTabelasConfigMaster(); }
+        function deleteRow(tx, p) { delete DATA_TAXAS[tx].taxas[p]; salvarTabela(); }
+
+        // ==========================================
+        // REGRAS DE NEGÓCIO DA SIMULAÇÃO
+        // ==========================================
+
+        // Quando o usuário seleciona um cliente no Dropdown do simulador, a renda dele preenche automática
+        function aoSelecionarClienteSimulador() {
+            let id = document.getElementById('sim-cliente-sel').value;
+            let inpRenda = document.getElementById('sim-renda-input');
+            if (id) {
+                let cliente = CRM_DB.clientes.find(x => x.id == id);
+                if (cliente) { inpRenda.value = cliente.renda; inpRenda.style.background = "#f0fdf4"; }
+            } else {
+                inpRenda.value = ''; inpRenda.style.background = "#fff";
+            }
+            calcular();
+        }
+
+        function setModo(m) {
+            STATE.modo = m;
+            document.getElementById('btn-modo-credito').classList.toggle('active', m === 'credito');
+            document.getElementById('btn-modo-parcela').classList.toggle('active', m === 'parcela');
+
+            let lbl = document.getElementById('lbl-valor-base');
+            let sli = document.getElementById('sim-valor-range');
+            if (m === 'credito') {
+                lbl.innerText = "Valor do Crédito Base";
+                STATE.valorBaseRaw = (document.getElementById('sim-produto').value === 'AUTOMOVEL') ? 50000 : 200000;
+            } else {
+                lbl.innerText = "Valor da Parcela Desejada";
+                sli.min = 500; sli.max = 10000; sli.step = 50; STATE.valorBaseRaw = 1500;
+                document.getElementById('range-min-lbl').innerText = 'R$ 500,00';
+                document.getElementById('range-max-lbl').innerText = 'R$ 10.000,00';
+            }
+            atualizarLimitesRanges();
+        }
+
+        function setPlano(p) {
+            STATE.plano = p;
+            document.getElementById('btn-plano-1').classList.toggle('active', p === 1);
+            document.getElementById('btn-plano-07').classList.toggle('active', p === 0.7);
+            document.getElementById('btn-plano-05').classList.toggle('active', p === 0.5);
+            calcular();
+        }
+
+        function syncRange(val) { STATE.valorBaseRaw = parseFloat(val); document.getElementById('sim-valor-input').value = fmtBRL(STATE.valorBaseRaw); calcular(); }
+
+        function quandoMudarProduto() {
+            if (STATE.modo === 'credito') STATE.valorBaseRaw = (document.getElementById('sim-produto').value === 'AUTOMOVEL') ? 50000 : 200000;
+            atualizarLimitesRanges(); atualizarPrazosEFormula();
+        }
+
+        function atualizarLimitesRanges() {
+            let pdt = document.getElementById('sim-produto').value;
+            let sli = document.getElementById('sim-valor-range');
+            if (STATE.modo === 'credito') {
+                sli.max = 480000; sli.step = 1000;
+                sli.min = (pdt === 'AUTOMOVEL') ? 30000 : 200000;
+                document.getElementById('range-min-lbl').innerText = fmtBRL(sli.min);
+                document.getElementById('range-max-lbl').innerText = fmtBRL(sli.max);
+            }
+            if (STATE.valorBaseRaw < sli.min) STATE.valorBaseRaw = parseInt(sli.min);
+            if (STATE.valorBaseRaw > sli.max) STATE.valorBaseRaw = parseInt(sli.max);
+            sli.value = STATE.valorBaseRaw;
+            document.getElementById('sim-valor-input').value = fmtBRL(STATE.valorBaseRaw);
+            calcular();
+        }
+
+        function atualizarPrazosEFormula() {
+            let pdt = document.getElementById('sim-produto').value;
+            let pzSel = document.getElementById('sim-prazo');
+            pzSel.innerHTML = '';
+            Object.keys(DATA_TAXAS[pdt].taxas).sort((a, b) => b - a).forEach(p => {
+                pzSel.innerHTML += `<option value="${p}">${p} meses</option>`;
+            });
+            calcular();
+        }
+
+        function calcular() {
+            let pdtElement = document.getElementById('sim-produto');
+            let praElement = document.getElementById('sim-prazo');
+
+            if (!pdtElement || !praElement) return;
+
+            let produto = pdtElement.value;
+            let C1 = STATE.plano;
+            let C3 = parseInt(praElement.value);
+
+            // Aborta calculo graciosamente se os selects passarem em branco/indefinidos na inicialização
+            if (!C3 || isNaN(C3)) return;
+
+            let C4 = DATA_TAXAS[produto].taxas[C3] / 100;
+            let C5 = DATA_TAXAS[produto].seguro / 100;
+
+            // ==========================================
+            // Correção Aplicada: Os readonly originais haviam sido removidos da UI
+            // CÓDIGO CAUSADOR DA TELA BRANCA CONGELADA FOI REMOVIDO DAQUI
+            // ==========================================
+
+            let C2_Credito;
+            if (STATE.modo === 'credito') {
+                C2_Credito = STATE.valorBaseRaw;
+            } else {
+                let fator = (C1 / C3) + (C4 / C3) + C5;
+                C2_Credito = STATE.valorBaseRaw / fator;
+            }
+
+            let D3 = (C2_Credito * C1) / C3; // fundo comum
+            let D4 = (C2_Credito * C4) / C3; // tx adm rateada
+            let D5 = C2_Credito * C5;        // seguro
+
+            let D6_ParcelaInicial = D3 + D4 + D5;
+            let D7_SaldoDevedor = D6_ParcelaInicial * C3;
+
+            let D8_CET_Total = Math.abs((D7_SaldoDevedor / (C2_Credito * C1)) - 1);
+            let D9_CET_Mensal = D8_CET_Total / C3;
+
+            // Salva variavel globalmente para gerar proposta
+            ulitmoCreditoBrutoCalculado = C2_Credito;
+
+            // Atualiza os domínios perfeitamente 
+            document.getElementById('res-credito-contratado').innerText = fmtBRL(C2_Credito);
+            document.getElementById('res-cred').innerText = fmtBRL(C2_Credito * C1);
+
+            document.getElementById('res-d6').innerText = fmtBRL(D6_ParcelaInicial);
+            document.getElementById('res-d7').innerText = fmtBRL(D7_SaldoDevedor);
+            document.getElementById('res-d8').innerText = (D8_CET_Total * 100).toFixed(2) + '%';
+            document.getElementById('res-d9').innerText = (D9_CET_Mensal * 100).toFixed(2) + '%';
+
+            document.getElementById('res-d3').innerText = fmtBRL(D3);
+            document.getElementById('res-d4').innerText = fmtBRL(D4);
+            document.getElementById('res-d5').innerText = fmtBRL(D5);
+            document.getElementById('res-prazos').innerText = C3 + " meses";
+
+            // INTEGRAÇÃO FINANCEIRA COM A RENDA DECLARADA
+            let strRenda = document.getElementById('sim-renda-input').value.replace(/\D/g, '');
+            let vRenda = strRenda ? parseFloat(strRenda) / 100 : 0;
+            let boxAlerta = document.getElementById('alerta-renda');
+
+            if (vRenda > 0 && D6_ParcelaInicial > (vRenda * 0.333333)) {
+                boxAlerta.style.display = 'block';
+                boxAlerta.innerHTML = `⚠️ <b>Renda Insuficiente Aparentemente:</b><br><br>O valor da parcela inicial desejada (${fmtBRL(D6_ParcelaInicial)}) comprometeria mais de <b>33,33%</b> da renda informada (${fmtBRL(vRenda)}).<br><br> Sugerido: Alongar o prazo, Mudar o plano de meia parcela ou Indicar composição de renda para proteger aprovação do consórcio.`;
+            } else {
+                boxAlerta.style.display = 'none';
+            }
+        }
+
+        // ==========================================
+        // SALVAR A SIMULAÇÃO GERADA NO CRM
+        // ==========================================
+        function salvarPropostaNoCRM() {
+            let cliId = document.getElementById('sim-cliente-sel').value;
+            let vendId = document.getElementById('sim-vendedor-save').value;
+            let status = document.getElementById('sim-status-save').value;
+
+            if (!vendId) return alert("❌ Selecione um vendedor / responsável para salvar sua proposta!");
+            if (ulitmoCreditoBrutoCalculado <= 0) return alert("❌ Faça uma simulação numérica antes de salvar.");
+
+            CRM_DB.propostas.push({
+                id: Date.now(),
+                data: new Date().toLocaleDateString('pt-BR'),
+                cli_id: cliId,
+                vend_id: vendId,
+                status: status,
+                credito_aprovado: ulitmoCreditoBrutoCalculado
+            });
+
+            saveCRM(); renderTabelasCRM();
+
+            // Joga o usuario pra ver a tabela de propostas em tempo real 
+            switchTab('prop');
+            alert(`✅ Proposta de ${fmtBRL(ulitmoCreditoBrutoCalculado)} salva com sucesso no estágio: ${status}!`);
+        }
+
+        function switchTab(t) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.view-content').forEach(vw => vw.classList.remove('active'));
+            document.getElementById(`tab-${t}`).classList.add('active');
+            document.getElementById(`view-${t}`).classList.add('active');
+        }
+
+        // BOOT DO APLICATIVO        // BOOT DO APLICATIVO
+        window.onload = () => {
+            renderTabelasConfigMaster();
+            renderTabelasCRM();
+            atualizarDropdowsDoSimulador();
+            setModo('credito');
+
+            // 🚀 CORREÇÃO AQUI: Força o HTML a puxar as taxas e prazos do 
+            // produto inicial (Automóvel) e realiza o primeiro cálculo instantaneamente!
+            quandoMudarProduto();
+        };
+    </script>
+</body>
+
+</body>
+
+</html>
