@@ -520,7 +520,7 @@
                             <span class="text-hero-val" id="res-d6">R$ 0,00</span>
                         </div>
                         <div class="line-hero">
-                            <span class="text-hero-label">Saldo Devedor I.</span>
+                            <span class="text-hero-label">Saldo Devedor</span>
                             <span class="text-hero-val" id="res-d7">R$ 0,00</span>
                         </div>
                         <div class="line-hero">
@@ -550,8 +550,8 @@
                         </li>
                         <li class="linha-detalhe"><span>Fundo Comum (Amortização)</span><span id="res-d3">R$ 0,00</span>
                         </li>
-                        <li class="linha-detalhe"><span>Taxa Adm Rateada</span><span id="res-d4">R$ 0,00</span></li>
-                        <li class="linha-detalhe"><span>Seguro de Vida OBR.</span><span id="res-d5">R$ 0,00</span></li>
+                        <li class="linha-detalhe"><span>Taxa de Administração</span><span id="res-d4">R$ 0,00</span></li>
+                        <li class="linha-detalhe"><span>Seguro</span><span id="res-d5">R$ 0,00</span></li>
                         <li class="linha-detalhe"><span>Prazo da Cota</span><span id="res-prazos">0 meses</span></li>
                     </ul>
 
@@ -562,7 +562,7 @@
                             Enviar para Pipeline</h3>
                         <div class="form-row" style="margin-bottom:10px;">
                             <div class="form-group">
-                                <label class="form-label">Vendedor Proprietário</label>
+                                <label class="form-label">Vendedor</label>
                                 <select id="sim-vendedor-save" class="input-control"></select>
                             </div>
                             <div class="form-group">
@@ -874,7 +874,7 @@
             let selVend = document.getElementById('sim-vendedor-save');
             if (selVend) {
                 let baseValVend = selVend.value;
-                selVend.innerHTML = '<option value="">-- Selecione Vendedor --</option>';
+                selVend.innerHTML = '<option value="">-- Selecione --</option>';
                 CRM_DB.usuarios.forEach(u => selVend.innerHTML += `<option value="${u.id}">${u.nome}</option>`);
                 selVend.value = baseValVend;
             }
