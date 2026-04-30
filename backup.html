@@ -221,7 +221,7 @@
         }
 
         .sim-valor {
-            font-size: 38px;
+            font-size: 42px;
             font-weight: 800;
             color: #0a1c36;
             text-align: center;
@@ -1010,7 +1010,14 @@
         }
 
         function updateUI() {
-            const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            // Formatador atualizado sem casas decimais
+            const fmt = v => v.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
             document.getElementById('sim-valor').innerText = fmt(STATE.valor);
             document.getElementById('r-min').innerText = fmt(parseInt(rangeEl.min));
             document.getElementById('r-max').innerText = fmt(parseInt(rangeEl.max));
@@ -1019,7 +1026,15 @@
         function enviarWhats() {
             const modo = STATE.modo === 'credito' ? 'crédito de' : 'parcelas de';
             const prod = STATE.produto === 'AUTOMOVEL' ? 'Veículos' : 'Imóveis';
-            const val = STATE.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            // Formatador para o envio do WhatsApp também sem as casas decimais
+            const val = STATE.valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
             const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\n\nProduto: ${prod}\nQuero ${modo}: ${val}\n\nPode me ajudar?`;
             window.open(`https://wa.me/5511940786152?text=${encodeURIComponent(msg)}`, '_blank');
         }
