@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mel Consórcios-Imóveis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 6%;
+        }
+
+        header img {
+            height: 90px;
+            width: auto;
+            display: block;
+        }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #22c55e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+        }
+
+        .header-btn:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            padding-top: 110px;
+            background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 6%;
+            padding-right: 6%;
+            justify-content: space-between;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(10, 28, 54, 0.93) 45%, rgba(10, 28, 54, 0.35) 100%);
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 100vw;
+            flex: 1;
+
+        }
+
+        .hero-tag {
+            display: flex;
+            background: #c6a55c;
+            color: #0a1c36;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+            margin-top: 40px;
+            width: fit-content;
+        }
+
+        .hero-left h2 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.05;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .como-funciona {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 100px;
+        }
+
+        .cf-item {
+            flex: 1 1 1 calc(50% - 20px);
+            /* 2 colunas lado a lado */
+            min-width: 220px;
+        }
+
+
+        .hero-left h2 span {
+            color: #c6a55c;
+        }
+
+        .hero-left p {
+            font-size: 18px;
+            display: flex;
+            line-height: 1.7;
+            opacity: .88;
+            margin-bottom: 34px;
+            max-width: 420px;
+        }
+
+        .hero-checks {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hero-checks span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            opacity: .92;
+        }
+
+        .hero-checks span::before {
+            content: '✔';
+            background: #22c55e;
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
+        /* ===== SIMULADOR ===== */
+        .hero-right {
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            margin-left: 80px;
+        }
+
+        .simulador {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 32px;
+            width: 400px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .sim-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0a1c36;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .sim-sub {
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .pill-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .pill {
+            flex: 1;
+            padding: 9px 6px;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            text-align: center;
+            cursor: pointer;
+            transition: all .18s;
+            user-select: none;
+        }
+
+        .pill.active {
+            background: #0a1c36;
+            color: #fff;
+            border-color: #0a1c36;
+        }
+
+        .sim-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-top: 18px;
+            margin-bottom: 4px;
+        }
+
+        .sim-valor {
+            font-size: 42px;
+            font-weight: 800;
+            color: #0a1c36;
+            text-align: center;
+            margin-bottom: 14px;
+            line-height: 1;
+        }
+
+        input[type=range] {
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+            margin-bottom: 6px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #c6a55c;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(198, 165, 92, .5);
+        }
+
+        .range-minmax {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .sim-cta {
+            width: 100%;
+            background: #22c55e;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background .2s, transform .2s;
+            letter-spacing: .3px;
+        }
+
+        .sim-cta:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+
+        .sim-disclaimer {
+            font-size: 11px;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* ===== PARCERIA ===== */
+        .parceria {
+            background: #fff;
+            padding: 36px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            border-bottom: 1px solid #e8edf2;
+        }
+
+        .parceria p {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+        }
+
+        .parceria-line {
+            width: 1px;
+            height: 44px;
+            background: #e2e8f0;
+        }
+
+        .parceria img {
+            height: px;
+            object-fit: contain;
+        }
+
+        /* ===== NÚMEROS ===== */
+        .numeros {
+            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+            padding: 60px 6%;
+        }
+
+        .numeros-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .numero-item {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        .numero-item strong {
+            display: block;
+            font-size: 36px;
+            font-weight: 800;
+            color: #22c55e;
+            margin-bottom: 6px;
+        }
+
+        .numero-item span {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        /* ===== VANTAGENS ===== */
+        .vantagens {
+            padding: 80px 6%;
+            background: #f5f7fb;
+        }
+
+        .section-eyebrow {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #c6a55c;
+            margin-bottom: 10px;
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 800;
+            color: #0a1c36;
+            margin-bottom: 50px;
+            line-height: 1.2;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: #f0f9ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 26px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a1c36;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* ===== PRODUTOS ===== */
+        .produtos {
+            padding: 80px 6%;
+            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+        }
+
+        .produtos .section-heading {
+            color: #fff;
+        }
+
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .produto-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 28px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: background .2s;
+            cursor: pointer;
+        }
+
+        .produto-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .produto-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .produto-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .produto-card p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+        }
+
+        .produto-card a {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #22c55e;
+            text-decoration: none;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 80px 6%;
+            background: #f5f7fb;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-q {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a1c36;
+            cursor: pointer;
+            user-select: none;
+            gap: 12px;
+        }
+
+        .faq-arrow {
+            font-size: 12px;
+            color: #94a3b8;
+            transition: transform .25s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .faq-a-inner {
+            padding: 0 20px 18px;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 180px;
+        }
+
+        /* ===== CTA FINAL ===== */
+        .cta-final {
+            background: #fff;
+            padding: 80px 6%;
+            text-align: center;
+        }
+
+        .cta-final h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0a1c36;
+            margin-bottom: 14px;
+        }
+
+        .cta-final p {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 480px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+        }
+
+        .cta-final a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #22c55e;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 17px 44px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+        }
+
+        .cta-final a:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0e3766;
+            color: #fff;
+            padding: 60px 6% 30px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo {
+            height: 52px;
+            display: block;
+            margin-bottom: 18px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-canopus {
+            height: 38px;
+            opacity: .7;
+        }
+
+        footer h4 {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #c6a55c;
+            margin-bottom: 18px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        footer ul li a:hover {
+            color: #c6a55c;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.8;
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whats-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 58px;
+            height: 58px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55);
+            z-index: 999;
+            transition: transform .2s;
+        }
+
+        .whats-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 980px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 140px;
+                padding-bottom: 50px;
+            }
+
+            .hero-left h1 {
+                font-size: 38px;
+            }
+
+            .hero-right {
+                margin-left: 0;
+                margin-top: 36px;
+                width: 100%;
+            }
+
+            .simulador {
+                width: 100%;
+            }
+
+            .numeros-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .produtos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .parceria {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html">
+            <img src="mel.png">
+            <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
+                📲 Fale no WhatsApp
+            </a>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-left">
+            <span class="hero-tag">✦ Consórcio de Imóveis</span>
+
+            <div class="cf-item">
+                <h2>Se você quer conquistar seu imóvel sem apertar o orçamento, o Consórcio de Imóveis pode ser a
+                    solução ideal.<br><br><span>Confira as vantagens:</span></h2>
+                <p>
+                <ul>
+                    <li>Planeje no seu ritmo: parcelas flexíveis, sem juros e sem entrada</li><br>
+                    <li>Comece sem pesar no bolso: pode começar com parcela reduzida até a contemplação</li><br>
+                    <li>Taxa de administração fixa, sem surpresas ao longo do contrato</li><br>
+                    <li>Você pode antecipar a contemplação com lances, sem depender só dos sorteios</li><br>
+                    <li>Mais segurança e confiança com uma empresa que está há mais de 25 anos no mercado</li><br>
+                </ul>
+                </p>
+            </div>
+
+            <div class="como-funciona">
+
+                <div class="cf-item">
+                    <h2><span>Sem Juros</span></h2>
+                    <p>Sem sustos e sem entrada. As parcelas não correm o risco de sofrer aumento, pois permanece o
+                        acordo em contrato.</p>
+                </div>
+
+                <div class="cf-item">
+                    <h2><span>Ideal para sua mudança</span></h2>
+                    <p>QO consórcio é um parceiro dos seus sonhos: reformar o seu imóvel, ampliar seu patrimônio ou
+                        construir a casa do seu jeito.</p>
+                </div>
+
+                <div class="cf-item">
+                    <h2><span>Quite seu financiamento</span></h2>
+                    <p>Com consórcio também é possível! Com a Carta de Crédito você consegue quitar a dívida do seu
+                        imóvel.</p>
+                </div>
+
+                <div class="cf-item">
+                    <h2><span>Seu orçamento agradece</span></h2>
+                    <p>Em certos casos, o valor total pago no consórcio pode ser até metade do que seria pago em um
+                        financiamento bancário.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <!-- PARCERIA -->
+    <section class="parceria">
+        <p>Empresa autorizada e regulamentada</p>
+        <div class="parceria-line"></div>
+        <img src="logo-canopus.png">
+    </section>
+
+    <!-- NÚMEROS -->
+    <section class="numeros">
+        <div class="numeros-grid">
+            <div class="numero-item">
+                <strong>+1.500</strong>
+                <span>Contemplações por mês</span>
+            </div>
+            <div class="numero-item">
+                <strong>+16 Bi</strong>
+                <span>Em créditos administrados</span>
+            </div>
+            <div class="numero-item">
+                <strong>+78 Mil</strong>
+                <span>Clientes ativos</span>
+            </div>
+            <div class="numero-item">
+                <strong>+85%</strong>
+                <span>Taxa de aprovação</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- VANTAGENS -->
+    <section class="vantagens">
+        <p class="section-eyebrow">Por que escolher</p>
+        <h2 class="section-heading">A Mel Consórcios é tão vantajosa?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <h3>Economia Incomparável</h3>
+                <p>Sem juros e sem fundo reserva - você paga apenas a taxa administrativa. No longo prazo, economiza
+                    muito mais do que
+                    qualquer financiamento tradicional.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Maior Flexibilidade</h3>
+                <p>Escolha o valor do crédito e o prazo que cabe no seu orçamento. Planos de 36 a 180 meses adaptados à
+                    sua realidade.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3>Planejamento Seguro</h3>
+                <p>Com a solidez da Canopus — administradora regulamentada pelo Banco Central do Brasil — seu patrimônio
+                    está protegido.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos">
+        <p class="section-eyebrow" style="color:#c6a55c">Os nossos</p>
+        <h2 class="section-heading">Produtos</h2>
+        <div class="produtos-grid">
+            <div class="produto-card" onclick="abrirSimulador('AUTOMOVEL')">
+                <div class="produto-icon">🚗</div>
+                <div>
+                    <h3>Consórcio de Veículos</h3>
+                    <p>Conquiste seu veículo com parcelas que cabem no bolso, sem juros, sem fundo reserva e sem entrada
+                        obrigatória.</p>
+                    <a href="index.html">Simular agora →</a>
+                </div>
+            </div>
+            <div class="produto-card" onclick="abrirSimulador('IMOVEIS')">
+                <div class="produto-icon">🏠</div>
+                <div>
+                    <h3>Consórcio de Imóveis</h3>
+                    <p>Realize o sonho da casa própria com planejamento, segurança e sem pagar juros abusivos.</p>
+                    <a href="index.html">Simular agora →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <p class="section-eyebrow">Dúvidas</p>
+        <h2 class="section-heading">Perguntas Frequentes</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">01. Como funciona um consórcio? <span
+                        class="faq-arrow">▼</span></div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Consórcio é quando um grupo de pessoas se une para obter um bem de forma
+                        programada. Você paga parcelas mensais mais baratas pois não há juros, apenas taxa
+                        administrativa.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">05. Quando posso retirar meu crédito? <span
+                        class="faq-arrow">▼</span></div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Você pode ser contemplado por sorteio em qualquer assembleia mensal, ou
+                        antecipar com lances. Todos são contemplados até o final do grupo.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">02. O que posso adquirir? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Imóveis residenciais, comerciais, terrenos e veículos leves e pesados. A
+                        carta de
+                        crédito dá poder de compra à vista.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">06. Por que é melhor que o financiamento? <span
+                        class="faq-arrow">▼</span></div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">No financiamento você paga juros que podem dobrar o valor do bem. No
+                        consórcio a taxa é muito menor — e você paga o preço justo do início ao fim.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">03. Quem controla os consórcios? <span
+                        class="faq-arrow">▼</span></div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">Os consórcios são regulamentados e fiscalizados pelo Banco Central do
+                        Brasil, garantindo total segurança e transparência.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">07. Como pagar as parcelas? <span
+                        class="faq-arrow">▼</span></div>
+                <div class="faq-a">
+                    <div class="faq-a-inner">As parcelas podem ser pagas via boleto bancário ou débito automático,
+                        conforme as opções disponibilizadas pela Adminstradora.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <h2>Descubra quanto você pode pagar hoje</h2>
+        <p>Fale com um especialista e receba uma simulação personalizada em poucos minutos — sem compromisso.</p>
+        <a href="https://w.app/sitemelconsorcios" target="_blank">📲 Quero falar com um especialista</a>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>Consórcio de Automóveis
+        <div class="footer-top">
+            <div>
+
+                <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
+                    consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
+                <img src="canopus.png" width="250px">
+
+            </div>
+            <div>
+                <h4>Consórcios</h4>
+                <ul>
+                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
+                    <li><a href="como-funciona.html">Como Funciona</a></li>
+                    <li><a href="#">Simulador</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><img src="logo-instagram.png" width="20px" align="center"> <a
+                            href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
+                    <li><a href="https://w.app/sitemelconsorcios">📲 (11) 94078-6152</a></li>
+                    <li><a href="#">📍 São Paulo – SP</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Todas as imagens são de caráter meramente ilustrativo.</p>
+            <p>© 2025 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do
+                Brasil</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLUTUANTE -->
+    <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
+
+    <script>
+        const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
+        const rangeEl = document.getElementById('sim-range');
+
+        rangeEl.oninput = () => { STATE.valor = parseInt(rangeEl.value); updateUI(); };
+
+        function setProduto(btn, p) {
+            STATE.produto = p;
+            document.getElementById('g-produto').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (STATE.modo === 'credito') {
+                if (p === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
+                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
+                rangeEl.value = STATE.valor;
+            }
+            updateUI();
+        }
+
+        function setModo(btn, m) {
+            STATE.modo = m;
+            document.getElementById('g-modo').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (m === 'credito') {
+                document.getElementById('sim-label').innerText = 'Valor do Crédito';
+                if (STATE.produto === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
+                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
+            } else {
+                document.getElementById('sim-label').innerText = 'Valor da Parcela';
+                rangeEl.min = 500; rangeEl.max = 10000; rangeEl.step = 50; STATE.valor = 1500;
+            }
+            rangeEl.value = STATE.valor;
+            updateUI();
+        }
+
+        function updateUI() {
+            // Formatador atualizado sem casas decimais
+            const fmt = v => v.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
+            document.getElementById('sim-valor').innerText = fmt(STATE.valor);
+            document.getElementById('r-min').innerText = fmt(parseInt(rangeEl.min));
+            document.getElementById('r-max').innerText = fmt(parseInt(rangeEl.max));
+        }
+
+        function enviarWhats() {
+            const modo = STATE.modo === 'credito' ? 'crédito de' : 'parcelas de';
+            const prod = STATE.produto === 'AUTOMOVEL' ? 'Veículos' : 'Imóveis';
+
+            // Formatador para o envio do WhatsApp também sem as casas decimais
+            const val = STATE.valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
+            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\n\nProduto: ${prod}\nQuero ${modo}: ${val}\n\nPode me ajudar?`;
+            window.open(`https://wa.me/5511940786152?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function abrirSimulador(p) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const btn = document.querySelector(`#g-produto .pill${p === 'AUTOMOVEL' ? ':first-child' : ':last-child'}`);
+            if (btn) setProduto(btn, p);
+        }
+
+        function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+        updateUI();
+    </script>
+</body>
+
+</html>
