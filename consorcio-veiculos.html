@@ -99,8 +99,8 @@
             text-transform: uppercase;
             padding: 5px 14px;
             border-radius: 20px;
-            margin-bottom: 22px;
             margin-top: 40px;
+            margin-bottom: 22px;
             width: fit-content;
         }
 
@@ -738,6 +738,18 @@
                 flex-direction: column;
             }
         }
+
+        @media (max-width: 980px) {
+            #menu-desktop {
+                display: none !important;
+            }
+
+            #hamburger {
+                display: block !important;
+                color: #0a1c36;
+                font-weight: bold;
+            }
+        }
     </style>
 </head>
 
@@ -745,12 +757,87 @@
 
     <!-- HEADER -->
     <header>
+        <!-- LOGO -->
         <a href="index.html">
             <img src="mel.png">
-            <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
-                📲 Fale no WhatsApp
-            </a>
+        </a>
+
+        <!-- MENU DESKTOP -->
+        <div id="menu-desktop" style="
+        display:flex;
+        align-items:center;
+        gap:6px;
+        background: rgba(10, 28, 54, 0.6);
+        backdrop-filter: blur(10px);
+        border:1px solid rgba(255,255,255,0.08);
+        padding:6px 8px;
+        border-radius:100px;
+        box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    ">
+            <a href="consorcio-veiculos.html"
+                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
+                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
+                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Veículos</a>
+
+            <a href="consorcio-imoveis.html"
+                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
+                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
+                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Imóveis</a>
+
+            <a href="como-funciona.html"
+                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
+                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
+                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Como Funciona</a>
+
+            <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);"></div>
+
+            <a href="index.html" onclick="abrirSimulador('AUTOMOVEL')"
+                style="color:#c6a55c; text-decoration:none; font-size:13px; font-weight:700; padding:10px 18px; border-radius:100px;"
+                onmouseover="this.style.background='rgba(198,165,92,0.15)';"
+                onmouseout="this.style.background='transparent';">Simulador</a>
+        </div>
+
+        <!-- HAMBURGUER -->
+        <div id="hamburger" onclick="toggleMenu()" style="
+        display:none;
+        font-size:26px;
+        cursor:pointer;
+    ">☰</div>
+
+        <!-- BOTÃO -->
+        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
+            📲 Fale no WhatsApp
+        </a>
     </header>
+
+    <div id="menu-mobile" style="
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100%;
+    background: linear-gradient(135deg,#0a1c36,#173f66);
+    padding: 30px 20px;
+    transition: right 0.3s ease;
+    z-index: 9999;
+">
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">CONSÓRCIOS</strong>
+            <span onclick="toggleMenu()" style="font-size:22px; cursor:pointer; color:#fff;">✕</span>
+        </div>
+
+        <a href="consorcio-veiculos.html"
+            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html"
+            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Imóveis</a>
+        <a href="como-funciona.html" style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Como
+            Funciona</a>
+        <a href="javascript:void(0)" onclick="abrirSimulador('AUTOMOVEL'); toggleMenu();"
+            style="display:block; color:#c6a55c; font-weight:700;">Simulador</a>
+    </div>
+
+
 
     <!-- HERO -->
     <section class="hero">
@@ -760,26 +847,26 @@
             <span class="hero-tag">✦ Consórcio de Veículos</span>
 
             <div class="cf-item">
-                    <h2>O consórcio de veículos é uma forma inteligente de conquistar seu carro, moto, embarcação, seja
-                        ele novo, seminovo
-                        ou usado.<br><br><span>Veja as vantagens:</span></h2>
-                    <p>
-                    <ul>
-                        <li>Você planeja do seu jeito: escolha a marca, o modelo e os detalhes do carro dentro do que
-                            cabe no seu bolso.</li><br>
-                        <li>As parcelas têm taxa de administração fixa, sem surpresas ao longo do tempo.</li><br>
-                        <li>Você pode antecipar a contemplação com lances, sem precisar depender só dos sorteios.</li>
-                        <br>
-                        <li>Já tem um carro? Ele pode ser usado como lance (com até 10 anos), facilitando a troca pelo
-                            novo.</li><br>
-                        <li>Mais segurança e confiança com uma empresa que está há mais de 25 anos no mercado de
-                            consórcios.</li><br>
-                    </ul>
-                    </p>
-                </div>
+                <h2>O consórcio de veículos é uma forma inteligente de conquistar seu carro, moto, embarcação, seja
+                    ele novo, seminovo
+                    ou usado.<br><br><span>Veja as vantagens:</span></h2>
+                <p>
+                <ul>
+                    <li>Você planeja do seu jeito: escolha a marca, o modelo e os detalhes do carro dentro do que
+                        cabe no seu bolso.</li><br>
+                    <li>As parcelas têm taxa de administração fixa, sem surpresas ao longo do tempo.</li><br>
+                    <li>Você pode antecipar a contemplação com lances, sem precisar depender só dos sorteios.</li>
+                    <br>
+                    <li>Já tem um carro? Ele pode ser usado como lance (com até 10 anos), facilitando a troca pelo
+                        novo.</li><br>
+                    <li>Mais segurança e confiança com uma empresa que está há mais de 25 anos no mercado de
+                        consórcios.</li><br>
+                </ul>
+                </p>
+            </div>
 
             <div class="como-funciona">
-                
+
                 <div class="cf-item">
                     <h2><span>Quando terei meu veículo novo?</span></h2>
                     <p>Todos os meses os membros dos grupos do consórcio participam da assembleia, onde ocorrem os
@@ -997,6 +1084,16 @@
     <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
 
     <script>
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu-mobile');
+            if (menu.style.right === '0px') {
+                menu.style.right = '-100%';
+            } else {
+                menu.style.right = '0px';
+            }
+        }
+
         const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
         const rangeEl = document.getElementById('sim-range');
 

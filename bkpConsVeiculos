@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mel Consórcios</title>
+    <title>Mel Consórcios-Veículos</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         *,
@@ -84,12 +84,13 @@
             position: relative;
             z-index: 2;
             color: #fff;
-            max-width: 580px;
+            max-width: 100vw;
             flex: 1;
+
         }
 
         .hero-tag {
-            display: inline-block;
+            display: flex;
             background: #c6a55c;
             color: #0a1c36;
             font-size: 11px;
@@ -99,22 +100,38 @@
             padding: 5px 14px;
             border-radius: 20px;
             margin-bottom: 22px;
+            margin-top: 40px;
+            width: fit-content;
         }
 
-        .hero-left h1 {
-            font-size: 64px;
+        .hero-left h2 {
+            font-size: 24px;
             font-weight: 800;
             line-height: 1.05;
-            margin-bottom: 24px;
-            text-transform: uppercase;
+            margin-top: 16px;
+            margin-bottom: 8px;
         }
 
-        .hero-left h1 span {
+        .como-funciona {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 100px;
+        }
+
+        .cf-item {
+            flex: 1 1 1 calc(50% - 20px);
+            /* 2 colunas lado a lado */
+            min-width: 220px;
+        }
+
+
+        .hero-left h2 span {
             color: #c6a55c;
         }
 
         .hero-left p {
             font-size: 18px;
+            display: flex;
             line-height: 1.7;
             opacity: .88;
             margin-bottom: 34px;
@@ -720,22 +737,7 @@
             .parceria {
                 flex-direction: column;
             }
-
-            
-
         }
-
-        @media (max-width: 980px) {
-                #menu-desktop {
-                    display: none !important;
-                }
-
-                #hamburger {
-                    display: block !important;
-                    color: #0a1c36;
-                    font-weight: bold;
-                }
-            }
     </style>
 </head>
 
@@ -743,141 +745,70 @@
 
     <!-- HEADER -->
     <header>
-        <!-- LOGO -->
         <a href="index.html">
             <img src="mel.png">
-        </a>
-
-        <!-- MENU DESKTOP -->
-        <div id="menu-desktop" style="
-        display:flex;
-        align-items:center;
-        gap:6px;
-        background: rgba(10, 28, 54, 0.6);
-        backdrop-filter: blur(10px);
-        border:1px solid rgba(255,255,255,0.08);
-        padding:6px 8px;
-        border-radius:100px;
-        box-shadow:0 6px 20px rgba(0,0,0,0.08);
-    ">
-            <a href="consorcio-veiculos.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Veículos</a>
-
-            <a href="consorcio-imoveis.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Imóveis</a>
-
-            <a href="como-funciona.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Como Funciona</a>
-
-            <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);"></div>
-
-            <a href="javascript:void(0)" onclick="abrirSimulador('AUTOMOVEL')"
-                style="color:#c6a55c; text-decoration:none; font-size:13px; font-weight:700; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(198,165,92,0.15)';"
-                onmouseout="this.style.background='transparent';">Simulador</a>
-        </div>
-
-        <!-- HAMBURGUER -->
-        <div id="hamburger" onclick="toggleMenu()" style="
-        display:none;
-        font-size:26px;
-        cursor:pointer;
-    ">☰</div>
-
-        <!-- BOTÃO -->
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
-            📲 Fale no WhatsApp
-        </a>
+            <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
+                📲 Fale no WhatsApp
+            </a>
     </header>
-
-    <div id="menu-mobile" style="
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100%;
-    background: linear-gradient(135deg,#0a1c36,#173f66);
-    padding: 30px 20px;
-    transition: right 0.3s ease;
-    z-index: 9999;
-">
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">CONSÓRCIOS</strong>
-            <span onclick="toggleMenu()" style="font-size:22px; cursor:pointer; color:#fff;">✕</span>
-        </div>
-
-        <a href="consorcio-veiculos.html"
-            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Veículos</a>
-        <a href="consorcio-imoveis.html"
-            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Imóveis</a>
-        <a href="como-funciona.html" style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Como
-            Funciona</a>
-        <a href="javascript:void(0)" onclick="abrirSimulador('AUTOMOVEL'); toggleMenu();"
-            style="display:block; color:#c6a55c; font-weight:700;">Simulador</a>
-    </div>
-
-
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-overlay"></div>
 
         <div class="hero-left">
-            <span class="hero-tag">✦ Especialistas em Consórcios</span>
+            <span class="hero-tag">✦ Consórcio de Veículos</span>
 
-            <h1>Conquiste seu bem<br><span>sem pagar juros</span></h1>
+            <div class="cf-item">
+                    <h2>O consórcio de veículos é uma forma inteligente de conquistar seu carro, moto, embarcação, seja
+                        ele novo, seminovo
+                        ou usado.<br><br><span>Veja as vantagens:</span></h2>
+                    <p>
+                    <ul>
+                        <li>Você planeja do seu jeito: escolha a marca, o modelo e os detalhes do carro dentro do que
+                            cabe no seu bolso.</li><br>
+                        <li>As parcelas têm taxa de administração fixa, sem surpresas ao longo do tempo.</li><br>
+                        <li>Você pode antecipar a contemplação com lances, sem precisar depender só dos sorteios.</li>
+                        <br>
+                        <li>Já tem um carro? Ele pode ser usado como lance (com até 10 anos), facilitando a troca pelo
+                            novo.</li><br>
+                        <li>Mais segurança e confiança com uma empresa que está há mais de 25 anos no mercado de
+                            consórcios.</li><br>
+                    </ul>
+                    </p>
+                </div>
 
-            <p>Simule agora e descubra como adquirir seu imóvel ou veículo com parcelas acessíveis, sem entrada e com
-                segurança total.</p>
+            <div class="como-funciona">
+                
+                <div class="cf-item">
+                    <h2><span>Quando terei meu veículo novo?</span></h2>
+                    <p>Todos os meses os membros dos grupos do consórcio participam da assembleia, onde ocorrem os
+                        sorteios e lances. Você pode ser sorteado e conseguir sua carta de crédito tanto no primeiro
+                        mês, como no último, tudo vai depender da sua sorte. E se quiser acelerar o processo, você pode
+                        oferecer os lances. Uma coisa é certa: com o Consórcio de Carros, o seu carro na garagem vai
+                        acontecer!</p>
+                </div>
 
-            <div class="hero-checks">
-                <span>Sem juros — economia real no longo prazo</span>
-                <span>Sem entrada obrigatória</span>
-                <span>Aprovado mesmo com score médio</span>
-                <span>Regulamentado pelo Banco Central</span>
-                <span>Parceria oficial com a Canopus</span>
+                <div class="cf-item">
+                    <h2><span>Por dentro da Carta de Crédito</span></h2>
+                    <p>Quando você é contemplado no consórcio, você recebe uma carta de crédito, um documento com o
+                        valor integral para aquisição do bem escolhido em contrato. Ela pode ser utilizada para fazer um
+                        pagamento à vista, o que facilita as negociações entre o contemplado e a pessoa física ou
+                        jurídica que está comercializando o bem desejado </p>
+                </div>
+
+                <div class="cf-item">
+                    <h2><span>Parcelas do Consórcio de Veículos</span></h2>
+                    <p>Sem entrada, juros ou valores adicionais. Sem preocupações também com
+                        aprovação de crédito durante o pagamento, pois a situação cadastral e regularidade de crédito só
+                        é analisada no momento da contemplação do bem.</p>
+                </div>
+
             </div>
+
         </div>
 
-        <div class="hero-right">
-            <div class="simulador">
-                <p class="sim-title">Simule e veja sua parcela agora</p>
 
-                <p class="sim-sub">Leva menos de 30 segundos. Sem compromisso.</p>
-
-
-                <div class="pill-group" id="g-produto">
-                    <div class="pill active" onclick="setProduto(this,'AUTOMOVEL')">🚗 Veículos</div>
-                    <div class="pill" onclick="setProduto(this,'IMOVEIS')">🏠 Imóveis</div>
-                </div>
-
-                <div class="pill-group" id="g-modo">
-                    <div class="pill active" onclick="setModo(this,'credito')">Crédito</div>
-                    <div class="pill" onclick="setModo(this,'parcela')">Parcela</div>
-                </div>
-
-                <p class="sim-label" id="sim-label">Valor do Crédito</p>
-                <div class="sim-valor" id="sim-valor">R$&nbsp;50.000</div>
-
-                <input type="range" id="sim-range" min="30000" max="300000" step="1000" value="50000">
-                <div class="range-minmax">
-                    <span id="r-min">R$ 30.000</span>
-                    <span id="r-max">R$ 300.000</span>
-                </div>
-
-                <button class="sim-cta" onclick="enviarWhats()">QUERO MINHA SIMULAÇÃO 🚀</button>
-
-                <p class="sim-disclaimer">Resposta rápida no WhatsApp. 100% gratuito.</p>
-
-            </div>
-        </div>
     </section>
 
     <!-- PARCERIA -->
@@ -947,7 +878,7 @@
                     <h3>Consórcio de Veículos</h3>
                     <p>Conquiste seu veículo com parcelas que cabem no bolso, sem juros, sem fundo reserva e sem entrada
                         obrigatória.</p>
-                    <a href="#">Simular agora →</a>
+                    <a href="index.html">Simular agora →</a>
                 </div>
             </div>
             <div class="produto-card" onclick="abrirSimulador('IMOVEIS')">
@@ -955,7 +886,7 @@
                 <div>
                     <h3>Consórcio de Imóveis</h3>
                     <p>Realize o sonho da casa própria com planejamento, segurança e sem pagar juros abusivos.</p>
-                    <a href="#">Simular agora →</a>
+                    <a href="index.html">Simular agora →</a>
                 </div>
             </div>
         </div>
@@ -1013,7 +944,7 @@
                         class="faq-arrow">▼</span></div>
                 <div class="faq-a">
                     <div class="faq-a-inner">As parcelas podem ser pagas via boleto bancário ou débito automático,
-                        conforme as opções disponibilizadas pela Administradora.</div>
+                        conforme as opções disponibilizadas pela Adminstradora.</div>
                 </div>
             </div>
         </div>
@@ -1028,7 +959,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer>
+    <footer>Consórcio de Automóveis
         <div class="footer-top">
             <div>
 
@@ -1040,10 +971,9 @@
             <div>
                 <h4>Consórcios</h4>
                 <ul>
-                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
                     <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
                     <li><a href="como-funciona.html">Como Funciona</a></li>
-                    <li><a href="#">Simulador</a></li>
+                    <li><a href="index.html">Simulador</a></li>
                 </ul>
             </div>
             <div>
@@ -1067,16 +997,6 @@
     <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
 
     <script>
-
-        function toggleMenu() {
-            const menu = document.getElementById('menu-mobile');
-            if (menu.style.right === '0px') {
-                menu.style.right = '-100%';
-            } else {
-                menu.style.right = '0px';
-            }
-        }
-
         const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
         const rangeEl = document.getElementById('sim-range');
 
