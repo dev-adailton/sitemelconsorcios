@@ -113,15 +113,20 @@
             text-transform: uppercase;
         }
 
-        .como-funciona {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 100px;
+       .como-funciona {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+    max-width: 1100px;
+}
+
+}
+
         }
 
        .cf-item {
-    flex: 1 1 calc(50% - 20px);
-    min-width: 260px;
+    flex: 1 1 calc(50% - 30px);
+    min-width: 280px;
 }
 
 
@@ -136,7 +141,7 @@
             line-height: 1.7;
             opacity: .88;
             margin-bottom: 34px;
-            max-width: 420px;
+            max-width: 480px;
         }
 
         .hero-checks {
@@ -693,6 +698,10 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 980px) {
+
+            .como-funciona {
+        grid-template-columns: 1fr;
+    }
             .hero {
                 flex-direction: column;
                 align-items: flex-start;
@@ -738,6 +747,28 @@
             .parceria {
                 flex-direction: column;
             }
+    
+}
+
+.cf-item {
+    flex: 1 1 100%;
+    min-width: 100%;
+}
+
+.hero-left h2 {
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.hero-left p {
+    font-size: 16px;
+    max-width: 100%;
+}
+
+.hero-tag {
+    white-space: normal;
+}
+
         }
 
         @media (max-width: 980px) {
@@ -776,10 +807,6 @@
 
     header img {
         height: 72px;
-
-        .como-funciona {
-    flex-direction: column !important;
-    gap: 40px !important;
 }
 
 .cf-item {
@@ -793,7 +820,7 @@
 
 /* Corrige títulos gigantes (principal problema) */
 .hero-left h2 {
-    font-size: 30px !important;
+    font-size: 42px !important;
     letter-spacing: 1px;
     line-height: 1.2 !important;
     word-break: break-word;
