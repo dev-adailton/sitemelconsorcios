@@ -1,371 +1,397 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mel Consórcios - Como Funciona</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mel Consórcios - Como Funciona</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET GERAL ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!-- Fonte Oficial -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+        html,
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            overflow-x: hidden;
+            /* Previne qualquer estouro horizontal de tela */
+            width: 100%;
+        }
 
-<style>
-/* ===== RESET GERAL ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        /* ===== HEADER DESKTOP ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 6%;
+        }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: #0a1c36; /* Fundo base para o mobile caso ocorra scroll elastico */
-    color: #fff;
-    overflow-x: hidden;
-}
+        header img {
+            height: 70px;
+            width: auto;
+            display: block;
+        }
 
-/* ===== HEADER ===== */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6%;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
+        /* Menu Premium Glassmorphism */
+        #menu-desktop {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(10, 28, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 8px;
+            border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
 
-.logo img {
-    height: 60px;
-    display: block;
-}
+        .menu-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
 
-/* ===== MENU DESKTOP ===== */
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #6b7280; /* Cor igual ao seu print */
-    padding: 6px 8px;
-    border-radius: 100px;
-}
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #c6a55c;
+        }
 
-.menu a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 18px;
-    border-radius: 100px;
-    transition: all 0.3s;
-}
+        .menu-divisor {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 4px;
+        }
 
-.menu a:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #c6a55c;
-}
+        .menu-link-destaque {
+            color: #c6a55c;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
 
-.menu a.active {
-    color: #c6a55c;
-    font-weight: 700;
-}
+        .menu-link-destaque:hover {
+            background: rgba(198, 165, 92, 0.15);
+        }
 
-.menu-divisor {
-    width: 1px;
-    height: 16px;
-    background: rgba(255, 255, 255, 0.3);
-    margin: 0 4px;
-}
+        /* Botão WhatsApp Header */
+        .header-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #22c55e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+        }
 
-/* ===== BOTÃO OFICIAL WHATSAPP ===== */
-#whats-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #22c55e;
-    padding: 10px 20px;
-    border-radius: 100px;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-    transition: all 0.2s ease;
-}
+        .header-btn:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
 
-#whats-text {
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-}
+        #whats-icon {
+            display: none;
+        }
 
-#whats-btn:hover {
-    transform: scale(1.05);
-    background: #16a34a;
-}
+        /* Escondido no PC */
 
-/* ===== HAMBURGUER ===== */
-.hamburger {
-    display: none;
-    font-size: 26px;
-    cursor: pointer;
-    color: #0a1c36;
-    background: rgba(10, 28, 54, 0.05);
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-}
+        /* Ícone Hamburguer Escondido no PC */
+        #hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #0a1c36;
+        }
 
-/* ===== MENU MOBILE LATERAL ===== */
-.menu-mobile {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: #0a1c36;
-    border-left: 2px solid #c6a55c;
-    padding: 30px 20px;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2000;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-}
+        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        #menu-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a1c36, #173f66);
+            padding: 30px 20px;
+            transition: right 0.3s ease;
+            z-index: 9999;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
 
-.menu-mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
+        .menu-mob-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
 
-.menu-mobile-header h4 {
-    color: #c6a55c;
-    font-size: 13px;
-    letter-spacing: 2px;
-}
+        .menu-mob-destaque {
+            display: block;
+            color: #c6a55c;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 10px;
+        }
 
-.close-menu {
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-    line-height: 1;
-}
+        /* ===== HERO & SEÇÃO COMO FUNCIONA ===== */
+        .hero {
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            padding-left: 6%;
+            padding-right: 6%;
+        }
 
-.menu-mobile a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    margin-bottom: 24px;
-    font-size: 16px;
-    font-weight: 600;
-}
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(10, 28, 54, 0.95) 30%, rgba(10, 28, 54, 0.70) 100%);
+        }
 
-.menu-mobile a.destaque-mob {
-    color: #c6a55c;
-}
+        .hero-left {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            width: 100%;
+        }
 
-/* ===== HERO E BACKGROUND ===== */
-.hero {
-    padding-top: 130px;
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 80px;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-}
+        .hero-tag {
+            display: inline-block;
+            background: #c6a55c;
+            color: #0a1c36;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
 
-.tag {
-    display: inline-block;
-    background: #c6a55c;
-    color: #0a1c36;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    padding: 8px 18px;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-}
+        /* GRID: O SEGREDO DO LAYOUT PERFEITO */
+        .consorcio-imoveis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 Colunas no PC */
+            gap: 50px;
+            max-width: 1100px;
+        }
 
-/* ===== GRID PERFEITO (2 Colunas PC / 1 Coluna Mobile) ===== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 60px 40px;
-    max-width: 1200px;
-}
+        .ci-item h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
 
-/* ITEM DO COMO FUNCIONA */
-.item h2 {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+        .ci-item p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+        }
 
-.item p {
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.6;
-    font-size: 16px;
-}
+        /* ===== RESPONSIVIDADE (Celulares e Tablets) ===== */
+        @media (max-width: 980px) {
 
-/* ===== RESPONSIVIDADE (Tudo abaixo de 980px) ===== */
-@media(max-width: 980px) {
-    /* Ajuste Header */
-    header {
-        padding: 0 5%;
-        height: 75px;
-        position: fixed;
-    }
+            /* Ajustes HEADER Mobile */
+            header {
+                padding: 12px 5%;
+            }
 
-    .logo img {
-        height: 52px;
-    }
+            #menu-desktop {
+                display: none !important;
+                /* SOME COM O MENU PREMIUM DA TELA */
+            }
 
-    /* Some o menu de PC */
-    .menu {
-        display: none !important;
-    }
+            #hamburger {
+                display: flex !important;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
 
-    /* Aparece o Hambúrguer no Centro */
-    .hamburger {
-        display: flex;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+            /* Transforma botão do Whats num círculo */
+            #header-whats {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border-radius: 50%;
+                justify-content: center;
+            }
 
-    /* O Botão WhatsApp vira o Círculo Mágico */
-    #whats-btn {
-        width: 46px;
-        height: 46px;
-        padding: 0;
-        justify-content: center;
-        border-radius: 50%;
-        gap: 0;
-    }
+            #whats-text {
+                display: none;
+            }
 
-    /* Some o texto do Botão no Mobile */
-    #whats-text {
-        display: none;
-    }
+            #whats-icon {
+                display: block;
+                font-size: 22px;
+                margin-left: 5px;
+            }
 
-    /* Ajustes da Malha/Grid */
-    .grid {
-        grid-template-columns: 1fr; /* Vira 1 coluna de texto */
-        gap: 45px;
-    }
+            /* Ajustes HERO e GRID Mobile */
+            .consorcio-imoveis-grid {
+                grid-template-columns: 1fr;
+                /* 1 COLUNA NO CELULAR */
+                gap: 40px;
+            }
 
-    .hero {
-        padding-top: 110px;
-    }
+            .hero {
+                padding-top: 100px;
+            }
 
-    .item h2 {
-        font-size: 26px; /* Letra um pouco menor pra não estourar a tela */
-        word-break: break-word; /* Evita que "ADMINISTRADORA" passe da tela */
-    }
+            .ci-item h2 {
+                font-size: 26px;
+                /* Menor pra não estourar a tela */
+                word-break: break-word;
+                /* Quebra palavras longas como ADMINISTRADORA */
+            }
 
-    .tag {
-        font-size: 10px;
-        line-height: 1.5;
-    }
-}
-</style>
+            .hero-tag {
+                white-space: normal;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header>
-    <a href="index.html" class="logo">
-        <img src="mel.png" alt="Mel Consórcios">
-    </a>
+    <!-- HEADER LIMPO E CORRIGIDO -->
+    <header>
+        <a href="index.html">
+            <img src="mel.png" alt="Mel Consórcios">
+        </a>
 
-    <!-- MENU DO PC (PÍLULA CINZA) -->
-    <div class="menu">
-        <a href="consorcio-veiculos.html">Veículos</a>
-        <a href="consorcio-imoveis.html">Imóveis</a>
-        <a href="como-funciona.html" class="active">Como Funciona</a>
-        <div class="menu-divisor"></div>
-        <a href="index.html">Simulador</a>
+        <!-- MENU DESKTOP -->
+        <div id="menu-desktop">
+            <a href="consorcio-imoveis.html" class="menu-link">Veículos</a>
+            <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+            <a href="como-funciona.html" class="menu-link">Como Funciona</a>
+            <div class="menu-divisor"></div>
+            <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
+        </div>
+
+        <!-- HAMBURGUER MOBILE -->
+        <div id="hamburger" onclick="toggleMenu()">☰</div>
+
+        <!-- BOTÃO WHATSAPP -->
+        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
+            <span id="whats-icon">💬</span>
+            <span id="whats-text">📲 Fale no WhatsApp</span>
+        </a>
+    </header>
+
+    <!-- MENU MOBILE ESCONDIDO -->
+    <div id="menu-mobile">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
+            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
+        </div>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
+        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
     </div>
 
-    <!-- HAMBÚRGUER (SÓ APARECE NO CELULAR) -->
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
 
-    <!-- BOTÃO WHATSAPP CORRIGIDO (COM SVG REAL DO WHATS) -->
-    <a href="https://w.app/sitemelconsorcios" target="_blank" id="whats-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
-            <path d="M20.52 3.48A11.8 11.8 0 0012.01 0C5.38 0 .02 5.36.02 11.98c0 2.11.55 4.17 1.6 6L0 24l6.2-1.62a11.94 11.94 0 005.8 1.48h.01c6.63 0 12-5.36 12-11.98 0-3.2-1.25-6.2-3.49-8.4zM12 21.5c-1.8 0-3.56-.48-5.1-1.38l-.36-.21-3.68.96.98-3.58-.24-.37a9.44 9.44 0 01-1.44-5.01C2.16 6.4 6.4 2.16 12 2.16c2.52 0 4.88.98 6.66 2.76a9.36 9.36 0 012.75 6.66c0 5.6-4.24 9.92-9.41 9.92zm5.17-7.37c-.28-.14-1.64-.8-1.9-.89-.25-.09-.43-.14-.61.14-.18.28-.7.89-.86 1.07-.16.18-.32.21-.6.07-.28-.14-1.17-.43-2.23-1.38-.82-.73-1.37-1.64-1.53-1.92-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34s-.96.94-.96 2.3.98 2.67 1.12 2.85c.14.18 1.94 2.96 4.7 4.15.66.28 1.17.45 1.57.58.66.21 1.26.18 1.74.11.53-.08 1.64-.67 1.87-1.32.23-.66.23-1.22.16-1.32-.07-.11-.25-.18-.53-.32z"/>
-        </svg>
-        <span id="whats-text">Fale no WhatsApp</span>
-    </a>
-</header>
+        <div class="hero-left">
+            <span class="hero-tag">✦ Consórcio de Imóveis</span>
 
-<!-- MENU MOBILE ESCONDIDO -->
-<div class="menu-mobile" id="menuMobile">
-    <div class="menu-mobile-header">
-        <h4>CONSÓRCIOS</h4>
-        <div class="close-menu" onclick="toggleMenu()">×</div>
-    </div>
-    <a href="consorcio-veiculos.html">Consórcio de Veículos</a>
-    <a href="consorcio-imoveis.html">Consórcio de Imóveis</a>
-    <a href="como-funciona.html" class="destaque-mob">Como Funciona</a>
-    <br>
-    <a href="index.html" class="destaque-mob">Acessar Simulador →</a>
-</div>
+            <!-- GRID 100% CORRIGIDO (2 col PC / 1 col Mobile) -->
+            <div class="consorcio-imoveis-grid">
 
-<!-- CORPO DO SITE / TEXTOS -->
-<section class="hero">
+                <div class="ci-item">
+                    <h2>Confira as vantagens</span></h2>
+                    <p>
+                    <ul>
+                        <li>Planeje no seu ritmo: parcelas flexíveis, sem juros e sem entrada</li><br>
+                        <li>Comece sem pesar no bolso: pode começar com parcela reduzida até a contemplação</li><br>
+                        <li>Taxa de administração fixa, sem surpresas ao longo do contrato</li><br>
+                        <li>Você pode antecipar a contemplação com lances, sem depender só dos sorteios</li><br>
+                        <li>Mais segurança e confiança com uma empresa que está há mais de 25 anos no mercado</li><br>
+                    </ul>
+                    </p>
+                </div>
 
-    <div class="tag">✦ O QUE É O CONSÓRCIO E COMO FUNCIONA?</div>
+                <div class="ci-item">
+                    <h2><span>Sem Juros</span></h2>
+                    <p>Sem sustos e sem entrada. As parcelas não correm o risco de sofrer aumento, pois permanece o
+                        acordo em contrato.</p>
+                </div>
 
-    <div class="grid">
-        <div class="item">
-            <h2>CONSÓRCIO</h2>
-            <p>É uma forma simples de poupar, através do autofinanciamento. Grupos de pessoas com um objetivo em comum se formam para conseguirem bens, tais como: automóveis, caminhões, casas, viagens, tratamentos cirúrgicos, entre muitos outros. Além da ausência de juros o consórcio tem condições favoráveis de pagamento.</p>
+                <div class="ci-item">
+                    <h2><span>Ideal para sua mudança</span></h2>
+                    <p>QO consórcio é um parceiro dos seus sonhos: reformar o seu imóvel, ampliar seu patrimônio ou
+                        construir a casa do seu jeito.</p>
+                </div>
+
+                <div class="ci-item">
+                    <h2><span>Quite seu financiamento</span></h2>
+                    <p>Com consórcio também é possível! Com a Carta de Crédito você consegue quitar a dívida do seu
+                        imóvel.</p>
+                </div>
+
+                <div class="ci-item">
+                    <h2><span>Seu orçamento agradece</span></h2>
+                    <p>Em certos casos, o valor total pago no consórcio pode ser até metade do que seria pago em um
+                        financiamento bancário.</p>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="item">
-            <h2>ADMINISTRADORA</h2>
-            <p>A prospecção de interessados na participação no sistema de consórcio, a formação dos grupos e todos os cuidados e responsabilidades que envolvem a sua administração são tarefas que cabem à Administradora do Consórcio. Do momento em que cada cliente subscreve sua cota e durante todo o período, a Administradora responde pelo grupo.</p>
-        </div>
-
-        <div class="item">
-            <h2>GRUPO</h2>
-            <p>Ao adquirir o consórcio, o consorciado se torna parte de um grupo de pessoas que tem como objetivo conquistar um bem em comum. A partir desse momento, ele passa a receber benefícios exclusivos na aquisição parcelada e programada de bens do seu interesse.</p>
-        </div>
-
-        <div class="item">
-            <h2>ASSEMBLEIA</h2>
-            <p>Mensalmente, o Consórcio Canopus realiza uma assembleia do consórcio. A contemplação dá ao participante selecionado o direito de receber o valor do crédito subscrito na cota para adquirir o bem desejado. A seleção se dá pelo sorteio ou a oferta de lance.</p>
-        </div>
-
-        <div class="item">
-            <h2>LANCES</h2>
-            <p>O lance é feito pelo participante da assembleia, dando um adiantamento de parcelas propostas. A cada assembleia TODOS os consorciados possuem o direito de dar um lance. No caso dos lances, o maior lance (maior percentual de antecipação) será o contemplado.</p>
-        </div>
-
-        <div class="item">
-            <h2>CONTEMPLAÇÃO</h2>
-            <p>A contemplação possibilita ao consorciado o direito de utilizar o crédito proposto, para adquirir o bem desejado, tudo feito após uma análise e uma aprovação feita rigorosamente pela equipe da Administradora de Consórcios.</p>
-        </div>
-    </div>
-
-</section>
-
-<!-- SCRIPT DO MENU -->
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById('menuMobile');
-        // Se já está aparecendo (0px), joga pra fora da tela (-100%). Se não, traz para a tela.
-        menu.style.right = menu.style.right === '0px' ? '-100%' : '0px';
-    }
-</script>
-
+    <!-- SCRIPT PARA MENU -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu-mobile');
+            if (menu.style.right === '0px') {
+                menu.style.right = '-100%';
+            } else {
+                menu.style.right = '0px';
+            }
+        }
+    </script>
 </body>
+
 </html>

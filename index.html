@@ -7,6 +7,7 @@
     <title>Mel Consórcios</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ===== RESET GERAL ===== */
         *,
         *::before,
         *::after {
@@ -15,13 +16,17 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             font-family: 'Inter', sans-serif;
             background: #f5f7fb;
             color: #1e293b;
+            overflow-x: hidden;
+            /* Previne qualquer estouro horizontal de tela */
+            width: 100%;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER DESKTOP ===== */
         header {
             position: fixed;
             top: 0;
@@ -33,18 +38,70 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 6%;
+            padding: 12px 6%;
         }
 
         header img {
-            height: 90px;
+            height: 70px;
             width: auto;
             display: block;
         }
 
-        .header-btn {
-            display: inline-flex;
+        /* Menu Premium Glassmorphism */
+        #menu-desktop {
+            display: flex;
             align-items: center;
+            gap: 6px;
+            background: rgba(10, 28, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 8px;
+            border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #c6a55c;
+        }
+
+        .menu-divisor {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 4px;
+        }
+
+        .menu-link-destaque {
+            color: #c6a55c;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link-destaque:hover {
+            background: rgba(198, 165, 92, 0.15);
+        }
+
+        /* Botão WhatsApp Header */
+        .header-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
             background: #22c55e;
             color: #fff;
@@ -61,14 +118,60 @@
             transform: translateY(-1px);
         }
 
+        #whats-icon {
+            display: none;
+        }
+
+        /* Escondido no PC */
+
+        /* Ícone Hamburguer Escondido no PC */
+        #hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #0a1c36;
+        }
+
+        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        #menu-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a1c36, #173f66);
+            padding: 30px 20px;
+            transition: right 0.3s ease;
+            z-index: 9999;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-mob-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .menu-mob-destaque {
+            display: block;
+            color: #c6a55c;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
-            padding-top: 110px;
+            padding-top: 120px;
+            padding-bottom: 80px;
             background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             padding-left: 6%;
             padding-right: 6%;
             justify-content: space-between;
@@ -84,8 +187,7 @@
             position: relative;
             z-index: 2;
             color: #fff;
-            max-width: 580px;
-            flex: 1;
+            width: 100%;
         }
 
         .hero-tag {
@@ -94,11 +196,11 @@
             color: #0a1c36;
             font-size: 11px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
-            margin-bottom: 22px;
+            margin-bottom: 30px;
         }
 
         .hero-left h1 {
@@ -162,7 +264,7 @@
             background: #fff;
             border-radius: 20px;
             padding: 36px 32px;
-            width: 400px;
+            max-width: 400px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
         }
 
@@ -673,155 +775,137 @@
             transform: scale(1.1);
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 980px) {
+
+            /* Ajustes HEADER Mobile */
+            header {
+                padding: 12px 5%;
+            }
+
+            #menu-desktop {
+                display: none !important;
+                /* SOME COM O MENU PREMIUM DA TELA */
+            }
+
+            #hamburger {
+                display: flex !important;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* Transforma botão do Whats num círculo */
+            #header-whats {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border-radius: 50%;
+                justify-content: center;
+            }
+
+            #whats-text {
+                display: none;
+            }
+
+            #whats-icon {
+                display: block;
+                font-size: 22px;
+                margin-left: 5px;
+            }
+
+            /* Ajustes HERO e GRID Mobile */
+            .como-funciona-grid {
+                grid-template-columns: 1fr;
+                /* 1 COLUNA NO CELULAR */
+                gap: 40px;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .cf-item h2 {
+                font-size: 26px;
+                /* Menor pra não estourar a tela */
+                word-break: break-word;
+                /* Quebra palavras longas como ADMINISTRADORA */
+            }
+
+            .hero-tag {
+                white-space: normal;
+            }
+
             .hero {
                 flex-direction: column;
-                align-items: flex-start;
-                padding-top: 140px;
-                padding-bottom: 50px;
+                /* Transforma as colunas em linhas (empilha) */
+                align-items: center;
+                /* Centraliza os elementos */
+                gap: 40px;
+                /* Dá um espaço entre o texto e o simulador */
+                text-align: center;
+                /* Opcional: centraliza o texto do lado esquerdo */
             }
 
-            .hero-left h1 {
-                font-size: 38px;
-            }
-
+            .hero-left,
             .hero-right {
-                margin-left: 0;
-                margin-top: 36px;
                 width: 100%;
+                /* Faz ambos ocuparem a tela toda antes de descerem */
             }
-
-            .simulador {
-                width: 100%;
-            }
-
-            .numeros-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .produtos-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .parceria {
-                flex-direction: column;
-            }
-
-            
-
         }
-
-        @media (max-width: 980px) {
-    #menu-desktop {
-        display: none !important;
-    }
-
-    #hamburger {
-        display: flex !important;
-    }
-
-    #header-whats {
-        width: 46px !important;
-        height: 46px !important;
-        padding: 0 !important;
-        border-radius: 50% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 0 !important;
-        font-size: 0 !important;
-        flex-shrink: 0 !important;
-    }
-
-    #whats-text {
-        display: none !important;
-    }
-
-    #whats-icon {
-        font-size: 20px !important;
-        line-height: 1 !important;
-    }
-
-    header {
-        padding: 14px 5% !important;
-    }
-
-    header img {
-        height: 72px;
-    }
-}
-
     </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER LIMPO E CORRIGIDO -->
     <header>
-        <!-- LOGO -->
         <a href="index.html">
-            <img src="mel.png">
+            <img src="mel.png" alt="Mel Consórcios">
         </a>
 
         <!-- MENU DESKTOP -->
-        <div id="menu-desktop" style="
-        display:flex;
-        align-items:center;
-        gap:6px;
-        background: rgba(10, 28, 54, 0.6);
-        backdrop-filter: blur(10px);
-        border:1px solid rgba(255,255,255,0.08);
-        padding:6px 8px;
-        border-radius:100px;
-        box-shadow:0 6px 20px rgba(0,0,0,0.08);
-    ">
-            <a href="consorcio-veiculos.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Veículos</a>
-
-            <a href="consorcio-imoveis.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Imóveis</a>
-
-            <a href="como-funciona.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Como Funciona</a>
-
-            <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);"></div>
-
-            <a href="javascript:void(0)" onclick="abrirSimulador('AUTOMOVEL')"
-                style="color:#c6a55c; text-decoration:none; font-size:13px; font-weight:700; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(198,165,92,0.15)';"
-                onmouseout="this.style.background='transparent';">Simulador</a>
+        <div id="menu-desktop">
+            <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
+            <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+            <a href="como-funciona.html" class="menu-link">Como Funciona</a>
+            <div class="menu-divisor"></div>
+            <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
         </div>
 
-        <!-- HAMBURGUER -->
-        <div id="hamburger" onclick="toggleMenu()" style="
+        <!-- HAMBURGUER MOBILE -->
+        <div id="hamburger" onclick="toggleMenu()">☰</div>
+
+        <!-- BOTÃO WHATSAPP -->
+        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
+            <span id="whats-icon">💬</span>
+            <span id="whats-text">📲 Fale no WhatsApp</span>
+        </a>
+    </header>
+
+    <!-- MENU MOBILE ESCONDIDO -->
+    <div id="menu-mobile">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
+            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
+        </div>
+        <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
+        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
+    </div>
+
+    <!-- HAMBURGUER -->
+    <div id="hamburger" onclick="toggleMenu()" style="
         display:none;
         font-size:26px;
         cursor:pointer;
     ">☰</div>
 
-        <!-- BOTÃO -->
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
-            📲 Fale no WhatsApp
-        </a>
+    <!-- BOTÃO -->
+    <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
+        📲 Fale no WhatsApp
+    </a>
     </header>
 
     <div id="menu-mobile" style="
