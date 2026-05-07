@@ -4,47 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mel Consórcios-Como Funciona</title>
+    <title>Mel Consórcios - Como Funciona</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *,
-        *::before,
-        *::after {
+        /* ===== RESET GERAL ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             font-family: 'Inter', sans-serif;
             background: #f5f7fb;
             color: #1e293b;
+            overflow-x: hidden; /* Previne qualquer estouro horizontal de tela */
+            width: 100%;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER DESKTOP ===== */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: #fff;
             box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 6%;
+            padding: 12px 6%;
         }
 
         header img {
-            height: 90px;
+            height: 70px;
             width: auto;
             display: block;
         }
 
-        .header-btn {
-            display: inline-flex;
+        /* Menu Premium Glassmorphism */
+        #menu-desktop {
+            display: flex;
             align-items: center;
+            gap: 6px;
+            background: rgba(10, 28, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 8px;
+            border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #c6a55c;
+        }
+
+        .menu-divisor {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 4px;
+        }
+
+        .menu-link-destaque {
+            color: #c6a55c;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link-destaque:hover {
+            background: rgba(198, 165, 92, 0.15);
+        }
+
+        /* Botão WhatsApp Header */
+        .header-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
             background: #22c55e;
             color: #fff;
@@ -61,877 +112,197 @@
             transform: translateY(-1px);
         }
 
-        /* ===== HERO ===== */
+        #whats-icon { display: none; } /* Escondido no PC */
+
+        /* Ícone Hamburguer Escondido no PC */
+        #hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #0a1c36;
+        }
+
+        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        #menu-mobile {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 280px; height: 100vh;
+            background: linear-gradient(135deg, #0a1c36, #173f66);
+            padding: 30px 20px;
+            transition: right 0.3s ease;
+            z-index: 9999;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+        }
+
+        .menu-mob-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .menu-mob-destaque {
+            display: block;
+            color: #c6a55c;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        /* ===== HERO & SEÇÃO COMO FUNCIONA ===== */
         .hero {
             min-height: 100vh;
-            padding-top: 110px;
+            padding-top: 120px;
+            padding-bottom: 80px;
             background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             padding-left: 6%;
             padding-right: 6%;
-            justify-content: space-between;
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(105deg, rgba(10, 28, 54, 0.93) 45%, rgba(10, 28, 54, 0.35) 100%);
+            background: linear-gradient(105deg, rgba(10, 28, 54, 0.95) 30%, rgba(10, 28, 54, 0.70) 100%);
         }
 
         .hero-left {
             position: relative;
             z-index: 2;
             color: #fff;
-            max-width: 100vw;
-            flex: 1;
-
+            width: 100%;
         }
 
         .hero-tag {
-            display: flex;
-            background: #c6a55c;
-            color: #0a1c36;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 5px 14px;
-            border-radius: 20px;
-             margin-top: 40px;
-            margin-bottom: 22px;
-            width: fit-content;
-        }
-
-        .hero-left h2 {
-            font-size: 46px;
-            font-weight: 800;
-            line-height: 1.05;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-       .como-funciona {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 60px;
-    max-width: 1100px;
-}
-
-}
-
-        }
-
-       .cf-item {
-    flex: 1 1 calc(50% - 30px);
-    min-width: 280px;
-}
-
-
-
-        .hero-left h1 span {
-            color: #c6a55c;
-        }
-
-        .hero-left p {
-            font-size: 18px;
-            display: flex;
-            line-height: 1.7;
-            opacity: .88;
-            margin-bottom: 34px;
-            max-width: 480px;
-        }
-
-        .hero-checks {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .hero-checks span {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            opacity: .92;
-        }
-
-        .hero-checks span::before {
-            content: '✔';
-            background: #22c55e;
-            color: #fff;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            flex-shrink: 0;
-        }
-
-        /* ===== SIMULADOR ===== */
-        .hero-right {
-            position: relative;
-            z-index: 2;
-            flex-shrink: 0;
-            margin-left: 80px;
-        }
-
-        .simulador {
-            background: #fff;
-            border-radius: 20px;
-            padding: 36px 32px;
-            width: 400px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-        }
-
-        .sim-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0a1c36;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        .sim-sub {
-            font-size: 13px;
-            color: #64748b;
-            text-align: center;
-            margin-bottom: 22px;
-        }
-
-        .pill-group {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .pill {
-            flex: 1;
-            padding: 9px 6px;
-            border-radius: 8px;
-            border: 1.5px solid #e2e8f0;
-            background: #f8fafc;
-            font-size: 13px;
-            font-weight: 700;
-            color: #64748b;
-            text-align: center;
-            cursor: pointer;
-            transition: all .18s;
-            user-select: none;
-        }
-
-        .pill.active {
-            background: #0a1c36;
-            color: #fff;
-            border-color: #0a1c36;
-        }
-
-        .sim-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            margin-top: 18px;
-            margin-bottom: 4px;
-        }
-
-        .sim-valor {
-            font-size: 42px;
-            font-weight: 800;
-            color: #0a1c36;
-            text-align: center;
-            margin-bottom: 14px;
-            line-height: 1;
-        }
-
-        input[type=range] {
-            appearance: none;
-            width: 100%;
-            height: 5px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            outline: none;
-            margin-bottom: 6px;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #c6a55c;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(198, 165, 92, .5);
-        }
-
-        .range-minmax {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #94a3b8;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .sim-cta {
-            width: 100%;
-            background: #22c55e;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 800;
-            padding: 16px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background .2s, transform .2s;
-            letter-spacing: .3px;
-        }
-
-        .sim-cta:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-        }
-
-        .sim-disclaimer {
-            font-size: 11px;
-            color: #94a3b8;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        /* ===== PARCERIA ===== */
-        .parceria {
-            background: #fff;
-            padding: 36px 6%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 28px;
-            border-bottom: 1px solid #e8edf2;
-        }
-
-        .parceria p {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94a3b8;
-        }
-
-        .parceria-line {
-            width: 1px;
-            height: 44px;
-            background: #e2e8f0;
-        }
-
-        .parceria img {
-            height: px;
-            object-fit: contain;
-        }
-
-        /* ===== NÚMEROS ===== */
-        .numeros {
-            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-            padding: 60px 6%;
-        }
-
-        .numeros-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .numero-item {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 32px 20px;
-            text-align: center;
-        }
-
-        .numero-item strong {
-            display: block;
-            font-size: 36px;
-            font-weight: 800;
-            color: #22c55e;
-            margin-bottom: 6px;
-        }
-
-        .numero-item span {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
-        }
-
-        /* ===== VANTAGENS ===== */
-        .vantagens {
-            padding: 80px 6%;
-            background: #f5f7fb;
-        }
-
-        .section-eyebrow {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #c6a55c;
-            margin-bottom: 10px;
-        }
-
-        .section-heading {
-            text-align: center;
-            font-size: 34px;
-            font-weight: 800;
-            color: #0a1c36;
-            margin-bottom: 50px;
-            line-height: 1.2;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 36px 28px;
-            text-align: center;
-            border: 1px solid #f1f5f9;
-            transition: transform .25s, box-shadow .25s;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: #f0f9ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 26px;
-        }
-
-        .card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #0a1c36;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        /* ===== PRODUTOS ===== */
-        .produtos {
-            padding: 80px 6%;
-            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-        }
-
-        .produtos .section-heading {
-            color: #fff;
-        }
-
-        .produtos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .produto-card {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            padding: 28px 24px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: background .2s;
-            cursor: pointer;
-        }
-
-        .produto-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .produto-icon {
-            font-size: 36px;
-            flex-shrink: 0;
-        }
-
-        .produto-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .produto-card p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.65);
-            line-height: 1.5;
-        }
-
-        .produto-card a {
             display: inline-block;
-            margin-top: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #22c55e;
-            text-decoration: none;
-        }
-
-        /* ===== FAQ ===== */
-        .faq {
-            padding: 80px 6%;
-            background: #f5f7fb;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            max-width: 960px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .faq-q {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 20px;
-            font-size: 14px;
-            font-weight: 700;
+            background: #c6a55c;
             color: #0a1c36;
-            cursor: pointer;
-            user-select: none;
-            gap: 12px;
-        }
-
-        .faq-arrow {
-            font-size: 12px;
-            color: #94a3b8;
-            transition: transform .25s;
-            flex-shrink: 0;
-        }
-
-        .faq-item.open .faq-arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-a {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .3s ease;
-            font-size: 13px;
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        .faq-a-inner {
-            padding: 0 20px 18px;
-        }
-
-        .faq-item.open .faq-a {
-            max-height: 180px;
-        }
-
-        /* ===== CTA FINAL ===== */
-        .cta-final {
-            background: #fff;
-            padding: 80px 6%;
-            text-align: center;
-        }
-
-        .cta-final h2 {
-            font-size: 36px;
-            font-weight: 800;
-            color: #0a1c36;
-            margin-bottom: 14px;
-        }
-
-        .cta-final p {
-            font-size: 16px;
-            color: #64748b;
-            max-width: 480px;
-            margin: 0 auto 36px;
-            line-height: 1.6;
-        }
-
-        .cta-final a {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #22c55e;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 800;
-            padding: 17px 44px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: background .2s, transform .2s;
-        }
-
-        .cta-final a:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: #0e3766;
-            color: #fff;
-            padding: 60px 6% 30px;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 48px;
-        }
-
-        .footer-logo {
-            height: 52px;
-            display: block;
-            margin-bottom: 18px;
-            filter: brightness(0) invert(1);
-        }
-
-        .footer-desc {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .footer-canopus {
-            height: 38px;
-            opacity: .7;
-        }
-
-        footer h4 {
             font-size: 11px;
             font-weight: 800;
-            text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #c6a55c;
-            margin-bottom: 18px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 30px;
         }
 
-        footer ul {
-            list-style: none;
+        /* GRID: O SEGREDO DO LAYOUT PERFEITO */
+        .como-funciona-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 Colunas no PC */
+            gap: 50px;
+            max-width: 1100px;
         }
 
-        footer ul li {
-            margin-bottom: 10px;
+        .cf-item h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            color: #fff;
+            letter-spacing: 0.5px;
         }
 
-        footer ul li a {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.65);
-            text-decoration: none;
-            transition: color .2s;
+        .cf-item p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
         }
 
-        footer ul li a:hover {
-            color: #c6a55c;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 24px;
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.45);
-            line-height: 1.8;
-        }
-
-        /* ===== WHATSAPP FLOAT ===== */
-        .whats-float {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            width: 58px;
-            height: 58px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            text-decoration: none;
-            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55);
-            z-index: 999;
-            transition: transform .2s;
-        }
-
-        .whats-float:hover {
-            transform: scale(1.1);
-        }
-
-        /* ===== RESPONSIVE ===== */
+        /* ===== RESPONSIVIDADE (Celulares e Tablets) ===== */
         @media (max-width: 980px) {
+            /* Ajustes HEADER Mobile */
+            header {
+                padding: 12px 5%;
+            }
+            
+            #menu-desktop {
+                display: none !important; /* SOME COM O MENU PREMIUM DA TELA */
+            }
 
-            .como-funciona {
-        grid-template-columns: 1fr;
-    }
+            #hamburger {
+                display: flex !important;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* Transforma botão do Whats num círculo */
+            #header-whats {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border-radius: 50%;
+                justify-content: center;
+            }
+            
+            #whats-text { display: none; }
+            #whats-icon { display: block; font-size: 22px; margin-left: 5px; }
+
+            /* Ajustes HERO e GRID Mobile */
+            .como-funciona-grid {
+                grid-template-columns: 1fr; /* 1 COLUNA NO CELULAR */
+                gap: 40px;
+            }
+
             .hero {
-                flex-direction: column;
-                align-items: flex-start;
-                padding-top: 140px;
-                padding-bottom: 50px;
+                padding-top: 100px;
             }
 
-            .hero-left h1 {
-                font-size: 38px;
+            .cf-item h2 {
+                font-size: 26px; /* Menor pra não estourar a tela */
+                word-break: break-word; /* Quebra palavras longas como ADMINISTRADORA */
             }
 
-            .hero-right {
-                margin-left: 0;
-                margin-top: 36px;
-                width: 100%;
+            .hero-tag {
+                white-space: normal;
             }
-
-            .simulador {
-                width: 100%;
-            }
-
-            .numeros-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .produtos-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .parceria {
-                flex-direction: column;
-            }
-    
-}
-
-.cf-item {
-    flex: 1 1 100%;
-    min-width: 100%;
-}
-
-.hero-left h2 {
-    font-size: 30px;
-    line-height: 1.2;
-}
-
-.hero-left p {
-    font-size: 16px;
-    max-width: 100%;
-}
-
-.hero-tag {
-    white-space: normal;
-}
-
-        }
-
-        @media (max-width: 980px) {
-    #menu-desktop {
-        display: none !important;
-    }
-
-    #hamburger {
-        display: flex !important;
-    }
-
-    #header-whats {
-        width: 46px !important;
-        height: 46px !important;
-        padding: 0 !important;
-        border-radius: 50% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 0 !important;
-        font-size: 0 !important;
-        flex-shrink: 0 !important;
-    }
-
-    #whats-text {
-        display: none !important;
-    }
-
-    #whats-icon {
-        font-size: 20px !important;
-        line-height: 1 !important;
-    }
-
-    header {
-        padding: 14px 5% !important;
-    }
-
-    header img {
-        height: 72px;
-}
-
-.cf-item {
-    flex: 1 1 100% !important;
-    min-width: 100% !important;
-}
-
-.hero-left {
-    max-width: 100% !important;
-}
-
-/* Corrige títulos gigantes (principal problema) */
-.hero-left h2 {
-    font-size: 42px !important;
-    letter-spacing: 1px;
-    line-height: 1.2 !important;
-    word-break: break-word;
-}
-
-/* Corrige parágrafos */
-.hero-left p {
-    max-width: 100% !important;
-    font-size: 16px !important;
-}
-
-/* TAG dourada não estourar */
-.hero-tag {
-    max-width: 100%;
-    white-space: normal;
-}
-
-/* Remove qualquer scroll lateral */
-body, html {
-    overflow-x: hidden;
-}
-
-    }
-}
-
         }
     </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER LIMPO E CORRIGIDO -->
     <header>
-        <!-- LOGO -->
         <a href="index.html">
-            <img src="mel.png">
+            <img src="mel.png" alt="Mel Consórcios">
         </a>
 
         <!-- MENU DESKTOP -->
-        <div id="menu-desktop" style="
-        display:flex;
-        align-items:center;
-        gap:6px;
-        background: rgba(10, 28, 54, 0.6);
-        backdrop-filter: blur(10px);
-        border:1px solid rgba(255,255,255,0.08);
-        padding:6px 8px;
-        border-radius:100px;
-        box-shadow:0 6px 20px rgba(0,0,0,0.08);
-    ">
-            <a href="consorcio-veiculos.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Veículos</a>
-
-            <a href="consorcio-imoveis.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Imóveis</a>
-
-            <a href="como-funciona.html"
-                style="color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#c6a55c';"
-                onmouseout="this.style.background='transparent'; this.style.color='#fff';">Como Funciona</a>
-
-            <div style="width:1px;height:16px;background:rgba(255,255,255,0.15);"></div>
-
-            <a href="index.html"
-                style="color:#c6a55c; text-decoration:none; font-size:13px; font-weight:700; padding:10px 18px; border-radius:100px;"
-                onmouseover="this.style.background='rgba(198,165,92,0.15)';"
-                onmouseout="this.style.background='transparent';">Simulador</a>
+        <div id="menu-desktop">
+            <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
+            <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+            <a href="como-funciona.html" class="menu-link">Como Funciona</a>
+            <div class="menu-divisor"></div>
+            <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
         </div>
 
-        <!-- HAMBURGUER -->
-        <div id="hamburger" onclick="toggleMenu()" style="
-        display:none;
-        font-size:26px;
-        cursor:pointer;
-    ">☰</div>
+        <!-- HAMBURGUER MOBILE -->
+        <div id="hamburger" onclick="toggleMenu()">☰</div>
 
-        <!-- BOTÃO -->
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
-            📲 Fale no WhatsApp
+        <!-- BOTÃO WHATSAPP -->
+        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
+            <span id="whats-icon">💬</span>
+            <span id="whats-text">📲 Fale no WhatsApp</span>
         </a>
     </header>
 
-    <div id="menu-mobile" style="
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100%;
-    background: linear-gradient(135deg,#0a1c36,#173f66);
-    padding: 30px 20px;
-    transition: right 0.3s ease;
-    z-index: 9999;
-">
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">CONSÓRCIOS</strong>
-            <span onclick="toggleMenu()" style="font-size:22px; cursor:pointer; color:#fff;">✕</span>
+    <!-- MENU MOBILE ESCONDIDO -->
+    <div id="menu-mobile">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
+            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
         </div>
-
-        <a href="consorcio-veiculos.html"
-            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Veículos</a>
-        <a href="consorcio-imoveis.html"
-            style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Consórcio de Imóveis</a>
-        <a href="como-funciona.html" style="display:block; color:#fff; text-decoration:none; margin-bottom:18px;">Como
-            Funciona</a>
-        <a href="javascript:void(0)" onclick="abrirSimulador('AUTOMOVEL'); toggleMenu();"
-            style="display:block; color:#c6a55c; font-weight:700;">Simulador</a>
+        <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
+        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
     </div>
 
     <!-- HERO -->
@@ -940,263 +311,50 @@ body, html {
 
         <div class="hero-left">
             <span class="hero-tag">✦ O que é o Consórcio e como funciona?</span>
-            <div class="como-funciona">
+            
+            <!-- GRID 100% CORRIGIDO (2 col PC / 1 col Mobile) -->
+            <div class="como-funciona-grid">
+                
                 <div class="cf-item">
                     <h2>CONSÓRCIO</h2>
-                    <p>É uma forma simples de poupar, através do autofinanciamento.
-                        Grupos de pessoas com um objetivo em comum se formam para conseguirem bens, tais como:
-                        automóveis,
-                        caminhões, casas, viagens, tratamentos cirúrgicos, entre muitos outros. Além da ausência de
-                        juros o
-                        consórcio tem condições favoráveis de pagamento.</p>
+                    <p>É uma forma simples de poupar, através do autofinanciamento. Grupos de pessoas com um objetivo em comum se formam para conseguirem bens, tais como: automóveis, caminhões, casas, viagens, tratamentos cirúrgicos, entre muitos outros. Além da ausência de juros o consórcio tem condições favoráveis de pagamento.</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>ADMINISTRADORA</h2>
-                    <p>A prospecção de interessados na participação no sistema de consórcio, a formação dos grupos e
-                        todos os cuidados e responsabilidades que envolvem a sua administração são tarefas que cabem à
-                        Administradora do Consórcio.
-
-                        Do momento em que cada cliente subscreve sua cota e durante todo o período em que o Grupo está
-                        ativo, a Administradora responde pela emissão e envio dos boletos, controle de recebimentos,
-                        realização das assembleias e todos os cuidados que assegurarão a manutenção de Grupos sempre
-                        saudáveis.</p>
+                    <p>A prospecção de interessados na participação no sistema de consórcio, a formação dos grupos e todos os cuidados e responsabilidades que envolvem a sua administração são tarefas que cabem à Administradora do Consórcio. Do momento em que cada cliente subscreve sua cota e durante todo o período em que o Grupo está ativo, a Administradora responde...</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>GRUPO</h2>
-                    <p>Ao adquirir o consórcio, o consorciado se torna parte de um grupo de pessoas que tem como
-                        objetivo
-                        conquistar um bem em comum.
-                        A partir do momento em que a pessoa/empresa adquire um consórcio, ele passa a ser chamado de
-                        Consorciado e recebe benefícios exclusivos na aquisição parcelada e programada de bens do seu
-                        interesse.</p>
+                    <p>Ao adquirir o consórcio, o consorciado se torna parte de um grupo de pessoas que tem como objetivo conquistar um bem em comum. A partir do momento em que a pessoa/empresa adquire um consórcio, ele passa a ser chamado de Consorciado e recebe benefícios exclusivos na aquisição parcelada e programada de bens do seu interesse.</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>ASSEMBLEIA</h2>
-                    <p>Mensalmente, o Consórcio Canopus realiza uma assembleia do consórcio.
-                        A contemplação dá ao participante selecionado o direito de receber o valor do crédito subscrito
-                        na
-                        cota para adquirir o bem desejado. A seleção dos contemplados se dá por dois métodos: o sorteio
-                        ou a
-                        oferta de lance, proposta pelo participante.</p>
+                    <p>Mensalmente, o Consórcio Canopus realiza uma assembleia do consórcio. A contemplação dá ao participante selecionado o direito de receber o valor do crédito subscrito na cota para adquirir o bem desejado. A seleção dos contemplados se dá por dois métodos: o sorteio ou a oferta de lance, proposta pelo participante.</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>LANCES</h2>
-                    <p>O lance é feito pelo participante da assembleia, dando um adiantamento de parcelas propostas.
-                        A cada assembleia TODOS os consorciados possuem o direito de dar um lance de adiantamento de
-                        parcelas.
-                        No caso dos lances, o maior lance será o contemplado.</p>
+                    <p>O lance é feito pelo participante da assembleia, dando um adiantamento de parcelas propostas. A cada assembleia TODOS os consorciados possuem o direito de dar um lance de adiantamento de parcelas. No caso dos lances, o maior lance será o contemplado.</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>CONTEMPLAÇÃO</h2>
-                    <p>A contemplação possibilita ao consorciado o direito de utilizar o crédito proposto, após uma
-                        análise
-                        e uma aprovação feita pela equipe da Administradora de Consórcios.</p>
+                    <p>A contemplação possibilita ao consorciado o direito de utilizar o crédito proposto, após uma análise e uma aprovação feita pela equipe da Administradora de Consórcios.</p>
                 </div>
 
                 <div class="cf-item">
                     <h2>O BANCO CENTRAL</h2>
-                    <p>O Banco Central do Brasil é a autoridade responsável pela normatização e fiscalização do Sistema
-                        de Consórcios no Brasil.</p>
-                </div>
-            </div>
-
-        </div>
-
-
-    </section>
-
-    <!-- PARCERIA -->
-    <section class="parceria">
-        <p>Empresa autorizada e regulamentada</p>
-        <div class="parceria-line"></div>
-        <img src="logo-canopus.png">
-    </section>
-
-    <!-- NÚMEROS -->
-    <section class="numeros">
-        <div class="numeros-grid">
-            <div class="numero-item">
-                <strong>+1.500</strong>
-                <span>Contemplações por mês</span>
-            </div>
-            <div class="numero-item">
-                <strong>+16 Bi</strong>
-                <span>Em créditos administrados</span>
-            </div>
-            <div class="numero-item">
-                <strong>+78 Mil</strong>
-                <span>Clientes ativos</span>
-            </div>
-            <div class="numero-item">
-                <strong>+85%</strong>
-                <span>Taxa de aprovação</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- VANTAGENS -->
-    <section class="vantagens">
-        <p class="section-eyebrow">Por que escolher</p>
-        <h2 class="section-heading">A Mel Consórcios é tão vantajosa?</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">💰</div>
-                <h3>Economia Incomparável</h3>
-                <p>Sem juros e sem fundo reserva - você paga apenas a taxa administrativa. No longo prazo, economiza
-                    muito mais do que
-                    qualquer financiamento tradicional.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Maior Flexibilidade</h3>
-                <p>Escolha o valor do crédito e o prazo que cabe no seu orçamento. Planos de 36 a 180 meses adaptados à
-                    sua realidade.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🏆</div>
-                <h3>Planejamento Seguro</h3>
-                <p>Com a solidez da Canopus — administradora regulamentada pelo Banco Central do Brasil — seu patrimônio
-                    está protegido.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUTOS -->
-    <section class="produtos">
-        <p class="section-eyebrow" style="color:#c6a55c">Os nossos</p>
-        <h2 class="section-heading">Produtos</h2>
-        <div class="produtos-grid">
-            <div class="produto-card" onclick="abrirSimulador('AUTOMOVEL')">
-                <div class="produto-icon">🚗</div>
-                <div>
-                    <h3>Consórcio de Veículos</h3>
-                    <p>Conquiste seu veículo com parcelas que cabem no bolso, sem juros, sem fundo reserva e sem entrada
-                        obrigatória.</p>
-                    <a href="index.html">Simular agora →</a>
-                </div>
-            </div>
-            <div class="produto-card" onclick="abrirSimulador('IMOVEIS')">
-                <div class="produto-icon">🏠</div>
-                <div>
-                    <h3>Consórcio de Imóveis</h3>
-                    <p>Realize o sonho da casa própria com planejamento, segurança e sem pagar juros abusivos.</p>
-                    <a href="index.html">Simular agora →</a>
+                    <p>O Banco Central do Brasil é a autoridade responsável pela normatização e fiscalização do Sistema de Consórcios no Brasil.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq">
-        <p class="section-eyebrow">Dúvidas</p>
-        <h2 class="section-heading">Perguntas Frequentes</h2>
-        <div class="faq-grid">
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">01. Como funciona um consórcio? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Consórcio é quando um grupo de pessoas se une para obter um bem de forma
-                        programada. Você paga parcelas mensais mais baratas pois não há juros, apenas taxa
-                        administrativa.</div>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">05. Quando posso retirar meu crédito? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Você pode ser contemplado por sorteio em qualquer assembleia mensal, ou
-                        antecipar com lances. Todos são contemplados até o final do grupo.</div>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">02. O que posso adquirir? <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Imóveis residenciais, comerciais, terrenos e veículos leves e pesados. A
-                        carta de
-                        crédito dá poder de compra à vista.</div>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">06. Por que é melhor que o financiamento? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">No financiamento você paga juros que podem dobrar o valor do bem. No
-                        consórcio a taxa é muito menor — e você paga o preço justo do início ao fim.</div>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">03. Quem controla os consórcios? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Os consórcios são regulamentados e fiscalizados pelo Banco Central do
-                        Brasil, garantindo total segurança e transparência.</div>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">07. Como pagar as parcelas? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">As parcelas podem ser pagas via boleto bancário ou débito automático,
-                        conforme as opções disponibilizadas pela Adminstradora.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="cta-final">
-        <h2>Descubra quanto você pode pagar hoje</h2>
-        <p>Fale com um especialista e receba uma simulação personalizada em poucos minutos — sem compromisso.</p>
-        <a href="https://w.app/sitemelconsorcios" target="_blank">📲 Quero falar com um especialista</a>
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer>Consórcio de Automóveis
-        <div class="footer-top">
-            <div>
-
-                <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
-                    consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
-                <img src="canopus.png" width="250px">
-
-            </div>
-            <div>
-                <h4>Consórcios</h4>
-                <ul>
-                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
-                    <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
-                    <li><a href="index.html">Simulador</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Contato</h4>
-                <ul>
-                    <li><img src="logo-instagram.png" width="20px" align="center"> <a
-                            href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
-                    <li><a href="https://w.app/sitemelconsorcios">📲 (11) 94078-6152</a></li>
-                    <li><a href="#">📍 São Paulo – SP</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Todas as imagens são de caráter meramente ilustrativo.</p>
-            <p>© 2025 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do
-                Brasil</p>
-        </div>
-    </footer>
-
-    <!-- WHATSAPP FLUTUANTE -->
-    <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
-
+    <!-- SCRIPT PARA MENU -->
     <script>
-
         function toggleMenu() {
             const menu = document.getElementById('menu-mobile');
             if (menu.style.right === '0px') {
@@ -1205,80 +363,6 @@ body, html {
                 menu.style.right = '0px';
             }
         }
-
-        const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
-        const rangeEl = document.getElementById('sim-range');
-
-        rangeEl.oninput = () => { STATE.valor = parseInt(rangeEl.value); updateUI(); };
-
-        function setProduto(btn, p) {
-            STATE.produto = p;
-            document.getElementById('g-produto').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (STATE.modo === 'credito') {
-                if (p === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
-                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
-                rangeEl.value = STATE.valor;
-            }
-            updateUI();
-        }
-
-        function setModo(btn, m) {
-            STATE.modo = m;
-            document.getElementById('g-modo').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (m === 'credito') {
-                document.getElementById('sim-label').innerText = 'Valor do Crédito';
-                if (STATE.produto === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
-                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
-            } else {
-                document.getElementById('sim-label').innerText = 'Valor da Parcela';
-                rangeEl.min = 500; rangeEl.max = 10000; rangeEl.step = 50; STATE.valor = 1500;
-            }
-            rangeEl.value = STATE.valor;
-            updateUI();
-        }
-
-        function updateUI() {
-            // Formatador atualizado sem casas decimais
-            const fmt = v => v.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
-
-            document.getElementById('sim-valor').innerText = fmt(STATE.valor);
-            document.getElementById('r-min').innerText = fmt(parseInt(rangeEl.min));
-            document.getElementById('r-max').innerText = fmt(parseInt(rangeEl.max));
-        }
-
-        function enviarWhats() {
-            const modo = STATE.modo === 'credito' ? 'crédito de' : 'parcelas de';
-            const prod = STATE.produto === 'AUTOMOVEL' ? 'Veículos' : 'Imóveis';
-
-            // Formatador para o envio do WhatsApp também sem as casas decimais
-            const val = STATE.valor.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
-
-            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\n\nProduto: ${prod}\nQuero ${modo}: ${val}\n\nPode me ajudar?`;
-            window.open(`https://wa.me/5511940786152?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function abrirSimulador(p) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            const btn = document.querySelector(`#g-produto .pill${p === 'AUTOMOVEL' ? ':first-child' : ':last-child'}`);
-            if (btn) setProduto(btn, p);
-        }
-
-        function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
-
-        updateUI();
     </script>
 </body>
-
 </html>
