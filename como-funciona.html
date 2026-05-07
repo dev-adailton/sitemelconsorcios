@@ -7,6 +7,78 @@
     <title>Mel Consórcios - Como Funciona</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+
+         /* ===== FOOTER ===== */
+        footer {
+            background: #0e3766;
+            color: #fff;
+            padding: 60px 6% 30px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo {
+            height: 52px;
+            display: block;
+            margin-bottom: 18px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-canopus {
+            height: 38px;
+            opacity: .7;
+        }
+
+        footer h4 {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #c6a55c;
+            margin-bottom: 18px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        footer ul li a:hover {
+            color: #c6a55c;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.8;
+        }
+
+        
         /* ===== RESET GERAL ===== */
         *,
         *::before, 
@@ -366,5 +438,42 @@
             }
         }
     </script>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div>
+
+                <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
+                    consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
+                <img src="canopus.png" width="250px">
+
+            </div>
+            <div>
+                <h4>Consórcios</h4>
+                <ul>
+                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
+                    <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
+                    <li><a href="como-funciona.html">Como Funciona</a></li>
+                    <li><a href="#">Simulador</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><img src="logo-instagram.png" width="20px" align="center"> <a
+                            href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
+                    <li><a href="https://w.app/sitemelconsorcios">📲 (11) 94078-6152</a></li>
+                    <li><a href="#">📍 São Paulo – SP</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Todas as imagens são de caráter meramente ilustrativo.</p>
+            <p>© 2025 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do
+                Brasil</p>
+        </div>
+    </footer>
+
 </body>
 </html>
