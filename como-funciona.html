@@ -119,11 +119,11 @@
             gap: 100px;
         }
 
-        .cf-item {
-            flex: 1 1 1 calc(50% - 20px);
-            /* 2 colunas lado a lado */
-            min-width: 220px;
-        }
+       .cf-item {
+    flex: 1 1 calc(50% - 20px);
+    min-width: 260px;
+}
+
 
 
         .hero-left h1 span {
@@ -776,6 +776,46 @@
 
     header img {
         height: 72px;
+
+        .como-funciona {
+    flex-direction: column !important;
+    gap: 40px !important;
+}
+
+.cf-item {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+}
+
+.hero-left {
+    max-width: 100% !important;
+}
+
+/* Corrige títulos gigantes (principal problema) */
+.hero-left h2 {
+    font-size: 30px !important;
+    letter-spacing: 1px;
+    line-height: 1.2 !important;
+    word-break: break-word;
+}
+
+/* Corrige parágrafos */
+.hero-left p {
+    max-width: 100% !important;
+    font-size: 16px !important;
+}
+
+/* TAG dourada não estourar */
+.hero-tag {
+    max-width: 100%;
+    white-space: normal;
+}
+
+/* Remove qualquer scroll lateral */
+body, html {
+    overflow-x: hidden;
+}
+
     }
 }
 
