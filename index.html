@@ -779,7 +779,7 @@
 
         /* ===== NUMEROS CARROSSEL (mobile) ===== */
         .numeros-carousel-wrap {
-            display: none;
+            display: block;
             /* escondido no desktop */
         }
 
@@ -1106,7 +1106,7 @@
 
             .numeros-grid {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 2px;
                 background: rgba(255, 255, 255, 0.08);
                 border-radius: 16px;
@@ -1368,6 +1368,14 @@
             footer {
                 padding: 40px 5% 24px;
             }
+
+            .numeros-grid {
+        display: none;
+    }
+
+    .numeros-carousel-wrap {
+        display: block;
+    }
         }
     </style>
 </head>
