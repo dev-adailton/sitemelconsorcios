@@ -257,6 +257,10 @@
             z-index: 2;
             flex-shrink: 0;
             margin-left: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* centraliza no mobile */
         }
 
         .simulador {
@@ -426,8 +430,8 @@
 
         .numeros-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             overflow: hidden;
@@ -480,7 +484,7 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 24px;
         }
 
@@ -535,7 +539,7 @@
 
         .produtos-grid {
             display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 24px;
         }
 
@@ -944,17 +948,6 @@
                 margin-left: 80px;
             }
 
-            .simulador {
-                background: #fff;
-                border-radius: 20px;
-                padding: 36px 32px;
-                width: 100%;
-                /* Ocupa tudo o que puder... */
-                max-width: 400px;
-                /* ...mas não passa de 400px! */
-                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-            }
-
             .sim-title {
                 font-size: 20px;
                 font-weight: 800;
@@ -1161,11 +1154,6 @@
                 line-height: 1.2;
             }
 
-            .cards-grid {
-                display: grid;
-                gap: 24px;
-            }
-
             .card {
                 background: #fff;
                 border-radius: 16px;
@@ -1367,10 +1355,6 @@
 
             footer {
                 padding: 40px 5% 24px;
-            }
-
-            .numeros-grid {
-                display: block;
             }
 
             .numeros-carousel-wrap {
