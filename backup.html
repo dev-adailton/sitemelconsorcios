@@ -7,6 +7,7 @@
     <title>Mel Consórcios</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ===== RESET GERAL ===== */
         *,
         *::before,
         *::after {
@@ -15,13 +16,16 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             font-family: 'Inter', sans-serif;
             background: #f5f7fb;
             color: #1e293b;
+            overflow-x: hidden;
+            width: 100%;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER DESKTOP ===== */
         header {
             position: fixed;
             top: 0;
@@ -33,18 +37,70 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 6%;
+            padding: 12px 6%;
         }
 
         header img {
-            height: 90px;
+            height: 70px;
             width: auto;
             display: block;
         }
 
-        .header-btn {
-            display: inline-flex;
+        /* Menu Premium Glassmorphism */
+        #menu-desktop {
+            display: flex;
             align-items: center;
+            gap: 6px;
+            background: rgba(10, 28, 54, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 8px;
+            border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #c6a55c;
+        }
+
+        .menu-divisor {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 4px;
+        }
+
+        .menu-link-destaque {
+            color: #c6a55c;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .menu-link-destaque:hover {
+            background: rgba(198, 165, 92, 0.15);
+        }
+
+        /* Botão WhatsApp Header */
+        .header-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
             background: #22c55e;
             color: #fff;
@@ -54,6 +110,7 @@
             border-radius: 8px;
             text-decoration: none;
             transition: background .2s, transform .2s;
+            white-space: nowrap;
         }
 
         .header-btn:hover {
@@ -61,14 +118,59 @@
             transform: translateY(-1px);
         }
 
+        #whats-icon {
+            display: none;
+        }
+
+        /* Ícone Hamburguer Escondido no PC */
+        #hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #0a1c36;
+            z-index: 101;
+        }
+
+        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        #menu-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #0a1c36, #173f66);
+            padding: 30px 20px;
+            transition: right 0.3s ease;
+            z-index: 9999;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-mob-link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .menu-mob-destaque {
+            display: block;
+            color: #c6a55c;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
-            padding-top: 110px;
+            padding-top: 120px;
+            padding-bottom: 80px;
             background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             padding-left: 6%;
             padding-right: 6%;
             justify-content: space-between;
@@ -84,8 +186,7 @@
             position: relative;
             z-index: 2;
             color: #fff;
-            max-width: 580px;
-            flex: 1;
+            width: 100%;
         }
 
         .hero-tag {
@@ -94,11 +195,11 @@
             color: #0a1c36;
             font-size: 11px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
-            margin-bottom: 22px;
+            margin-bottom: 30px;
         }
 
         .hero-left h1 {
@@ -162,7 +263,9 @@
             background: #fff;
             border-radius: 20px;
             padding: 36px 32px;
-            width: 400px;
+            width: 100%;
+            /* Ocupa o espaço que tiver disponível... */
+            max-width: 400px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
         }
 
@@ -309,7 +412,8 @@
         }
 
         .parceria img {
-            height: px;
+            height: auto;
+            max-height: 60px;
             object-fit: contain;
         }
 
@@ -673,52 +777,596 @@
             transform: scale(1.1);
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== NUMEROS CARROSSEL (mobile) ===== */
+        .numeros-carousel-wrap {
+            display: none;
+            /* escondido no desktop */
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 980px) {
+
+            /* --- HEADER --- */
+            header {
+                padding: 10px 5%;
+                position: fixed;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            #menu-desktop {
+                display: none !important;
+            }
+
+            #hamburger {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                font-size: 26px;
+                cursor: pointer;
+                color: #0a1c36;
+                z-index: 101;
+                position: static;
+                transform: none;
+            }
+
+            /* Botão whats vira círculo */
+            #header-whats {
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border-radius: 50%;
+            }
+
+            #whats-text {
+                display: none;
+            }
+
+            #whats-icon {
+                display: block;
+                font-size: 22px;
+            }
+
             .hero {
                 flex-direction: column;
-                align-items: flex-start;
-                padding-top: 140px;
-                padding-bottom: 50px;
+                /* Transforma as colunas em linhas (empilha) */
+                align-items: center;
+                /* Centraliza os elementos */
+                gap: 40px;
+                /* Dá um espaço entre o texto e o simulador */
+                text-align: center;
+                /* Opcional: centraliza o texto do lado esquerdo */
+            }
+
+            .hero-left,
+            .hero-right {
+                width: 100%;
+                /* Faz ambos ocuparem a tela toda antes de descerem */
+            }
+
+            /* ===== HERO ===== */
+            .hero {
+                min-height: 100vh;
+                padding-top: 110px;
+                padding-top: 60px;
+                background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding-left: 6%;
+                padding-right: 6%;
+                justify-content: space-between;
+            }
+
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(105deg, rgba(10, 28, 54, 0.93) 45%, rgba(10, 28, 54, 0.35) 100%);
+            }
+
+            .hero-left {
+                position: relative;
+                z-index: 2;
+                color: #fff;
+                max-width: 580px;
+                flex: 1;
+            }
+
+            .hero-tag {
+                display: inline-block;
+                background: #c6a55c;
+                color: #0a1c36;
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                padding: 5px 14px;
+                border-radius: 20px;
+                margin-bottom: 22px;
             }
 
             .hero-left h1 {
-                font-size: 38px;
+                font-size: 64px;
+                font-weight: 800;
+                line-height: 1.05;
+                margin-bottom: 24px;
+                text-transform: uppercase;
             }
 
+            .hero-left h1 span {
+                color: #c6a55c;
+            }
+
+            .hero-left p {
+                font-size: 18px;
+                line-height: 1.7;
+                opacity: .88;
+                margin-bottom: 34px;
+                max-width: 420px;
+            }
+
+            .hero-checks {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero-checks span {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 15px;
+                font-weight: 600;
+                opacity: .92;
+            }
+
+            .hero-checks span::before {
+                content: '✔';
+                background: #22c55e;
+                color: #fff;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                flex-shrink: 0;
+            }
+
+            /* ===== SIMULADOR ===== */
             .hero-right {
-                margin-left: 0;
-                margin-top: 36px;
-                width: 100%;
+                position: relative;
+                z-index: 2;
+                flex-shrink: 0;
+                margin-left: 80px;
             }
 
             .simulador {
+                background: #fff;
+                border-radius: 20px;
+                padding: 36px 32px;
+                width: 400px;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+            }
+
+            .sim-title {
+                font-size: 20px;
+                font-weight: 800;
+                color: #0a1c36;
+                text-align: center;
+                margin-bottom: 4px;
+            }
+
+            .sim-sub {
+                font-size: 13px;
+                color: #64748b;
+                text-align: center;
+                margin-bottom: 22px;
+            }
+
+            .pill-group {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .pill {
+                flex: 1;
+                padding: 9px 6px;
+                border-radius: 8px;
+                border: 1.5px solid #e2e8f0;
+                background: #f8fafc;
+                font-size: 13px;
+                font-weight: 700;
+                color: #64748b;
+                text-align: center;
+                cursor: pointer;
+                transition: all .18s;
+                user-select: none;
+            }
+
+            .pill.active {
+                background: #0a1c36;
+                color: #fff;
+                border-color: #0a1c36;
+            }
+
+            .sim-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: #94a3b8;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-align: center;
+                margin-top: 18px;
+                margin-bottom: 4px;
+            }
+
+            .sim-valor {
+                font-size: 46px;
+                font-weight: 800;
+                color: #0a1c36;
+                text-align: center;
+                margin-bottom: 14px;
+                line-height: 1;
+            }
+
+            input[type=range] {
+                appearance: none;
                 width: 100%;
+                height: 5px;
+                background: #e2e8f0;
+                border-radius: 3px;
+                outline: none;
+                margin-bottom: 6px;
+            }
+
+            input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background: #c6a55c;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(198, 165, 92, .5);
+            }
+
+            .range-minmax {
+                display: flex;
+                justify-content: space-between;
+                font-size: 11px;
+                color: #94a3b8;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            .sim-cta {
+                width: 100%;
+                background: #22c55e;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 800;
+                padding: 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background .2s, transform .2s;
+                letter-spacing: .3px;
+            }
+
+            .sim-cta:hover {
+                background: #16a34a;
+                transform: translateY(-2px);
+            }
+
+            .sim-disclaimer {
+                font-size: 11px;
+                color: #94a3b8;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            /* ===== PARCERIA ===== */
+            .parceria {
+                background: #fff;
+                padding: 36px 6%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 28px;
+                border-bottom: 1px solid #e8edf2;
+            }
+
+            .parceria p {
+                font-size: 12px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #94a3b8;
+            }
+
+            .parceria-line {
+                width: 1px;
+                height: 44px;
+                background: #e2e8f0;
+            }
+
+            .parceria img {
+                height: 52px;
+                object-fit: contain;
+            }
+
+            /* ===== NÚMEROS ===== */
+            .numeros {
+                background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+                padding: 60px 6%;
             }
 
             .numeros-grid {
-                grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 16px;
+                overflow: hidden;
+            }
+
+            .numero-item {
+                background: rgba(255, 255, 255, 0.04);
+                padding: 32px 20px;
+                text-align: center;
+            }
+
+            .numero-item strong {
+                display: block;
+                font-size: 36px;
+                font-weight: 800;
+                color: #22c55e;
+                margin-bottom: 6px;
+            }
+
+            .numero-item span {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.7);
+                font-weight: 600;
+            }
+
+            /* ===== VANTAGENS ===== */
+            .vantagens {
+                padding: 80px 6%;
+                background: #f5f7fb;
+            }
+
+            .section-eyebrow {
+                text-align: center;
+                font-size: 12px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #c6a55c;
+                margin-bottom: 10px;
+            }
+
+            .section-heading {
+                text-align: center;
+                font-size: 34px;
+                font-weight: 800;
+                color: #0a1c36;
+                margin-bottom: 50px;
+                line-height: 1.2;
             }
 
             .cards-grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+
+            .card {
+                background: #fff;
+                border-radius: 16px;
+                padding: 36px 28px;
+                text-align: center;
+                border: 1px solid #f1f5f9;
+                transition: transform .25s, box-shadow .25s;
+            }
+
+            .card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+            }
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                background: #f0f9ff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 26px;
+            }
+
+            .card h3 {
+                font-size: 18px;
+                font-weight: 700;
+                color: #0a1c36;
+                margin-bottom: 12px;
+            }
+
+            .card p {
+                font-size: 14px;
+                color: #64748b;
+                line-height: 1.7;
+            }
+
+            /* ===== PRODUTOS ===== */
+            .produtos {
+                padding: 80px 6%;
+                background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+            }
+
+            .produtos .section-heading {
+                color: #fff;
             }
 
             .produtos-grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .produto-card {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 14px;
+                padding: 28px 24px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                transition: background .2s;
+                cursor: pointer;
+            }
+
+            .produto-card:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .produto-icon {
+                font-size: 36px;
+                flex-shrink: 0;
+            }
+
+            .produto-card h3 {
+                font-size: 18px;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 6px;
+            }
+
+            .produto-card p {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.65);
+                line-height: 1.5;
+            }
+
+            .produto-card a {
+                display: inline-block;
+                margin-top: 10px;
+                font-size: 13px;
+                font-weight: 700;
+                color: #22c55e;
+                text-decoration: none;
+            }
+
+            /* ===== FAQ ===== */
+            .faq {
+                padding: 80px 6%;
+                background: #f5f7fb;
             }
 
             .faq-grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+                max-width: 960px;
+                margin: 0 auto;
             }
 
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 30px;
+            .faq-item {
+                background: #fff;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                overflow: hidden;
             }
 
-            .parceria {
-                flex-direction: column;
+            .faq-q {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 18px 20px;
+                font-size: 14px;
+                font-weight: 700;
+                color: #0a1c36;
+                cursor: pointer;
+                user-select: none;
+                gap: 12px;
+            }
+
+            .faq-arrow {
+                font-size: 12px;
+                color: #94a3b8;
+                transition: transform .25s;
+                flex-shrink: 0;
+            }
+
+            .faq-item.open .faq-arrow {
+                transform: rotate(180deg);
+            }
+
+            .faq-a {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .3s ease;
+                font-size: 13px;
+                color: #64748b;
+                line-height: 1.7;
+            }
+
+            .faq-a-inner {
+                padding: 0 20px 18px;
+            }
+
+            .faq-item.open .faq-a {
+                max-height: 180px;
+            }
+
+            /* ===== CTA FINAL ===== */
+            .cta-final {
+                background: #fff;
+                padding: 80px 6%;
+                text-align: center;
+            }
+
+            .cta-final h2 {
+                font-size: 36px;
+                font-weight: 800;
+                color: #0a1c36;
+                margin-bottom: 14px;
+            }
+
+            .cta-final p {
+                font-size: 16px;
+                color: #64748b;
+                max-width: 480px;
+                margin: 0 auto 36px;
+                line-height: 1.6;
+            }
+
+            .cta-final a {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: #22c55e;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 800;
+                padding: 17px 44px;
+                border-radius: 10px;
+                text-decoration: none;
+                transition: background .2s, transform .2s;
+            }
+
+            .cta-final a:hover {
+                background: #16a34a;
+                transform: translateY(-2px);
+            }
+
+            footer {
+                padding: 40px 5% 24px;
             }
         }
     </style>
@@ -728,11 +1376,40 @@
 
     <!-- HEADER -->
     <header>
-        <img src="mel.png">
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn">
-            📲 Fale no WhatsApp
+        <a href="index.html">
+            <img src="mel.png" alt="Mel Consórcios">
+        </a>
+
+        <!-- MENU DESKTOP -->
+        <div id="menu-desktop">
+            <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
+            <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+            <a href="como-funciona.html" class="menu-link">Como Funciona</a>
+            <div class="menu-divisor"></div>
+            <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
+        </div>
+
+        <!-- HAMBURGUER MOBILE -->
+        <div id="hamburger" onclick="toggleMenu()">☰</div>
+
+        <!-- BOTÃO WHATSAPP -->
+        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
+            <span id="whats-icon">💬</span>
+            <span id="whats-text">📲 Fale no WhatsApp</span>
         </a>
     </header>
+
+    <!-- MENU MOBILE ESCONDIDO -->
+    <div id="menu-mobile">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
+            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
+        </div>
+        <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
+        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
+    </div>
 
     <!-- HERO -->
     <section class="hero">
@@ -758,9 +1435,7 @@
         <div class="hero-right">
             <div class="simulador">
                 <p class="sim-title">Simule e veja sua parcela agora</p>
-
                 <p class="sim-sub">Leva menos de 30 segundos. Sem compromisso.</p>
-
 
                 <div class="pill-group" id="g-produto">
                     <div class="pill active" onclick="setProduto(this,'AUTOMOVEL')">🚗 Veículos</div>
@@ -773,7 +1448,7 @@
                 </div>
 
                 <p class="sim-label" id="sim-label">Valor do Crédito</p>
-                <div class="sim-valor" id="sim-valor">R$&nbsp;50.000</div>
+                <div class="sim-valor" id="sim-valor">R$ 50.000</div>
 
                 <input type="range" id="sim-range" min="30000" max="300000" step="1000" value="50000">
                 <div class="range-minmax">
@@ -782,9 +1457,7 @@
                 </div>
 
                 <button class="sim-cta" onclick="enviarWhats()">QUERO MINHA SIMULAÇÃO 🚀</button>
-
                 <p class="sim-disclaimer">Resposta rápida no WhatsApp. 100% gratuito.</p>
-
             </div>
         </div>
     </section>
@@ -793,11 +1466,13 @@
     <section class="parceria">
         <p>Empresa autorizada e regulamentada</p>
         <div class="parceria-line"></div>
-        <img src="logo-canopus.png">
+        <img src="logo-canopus.png" alt="Canopus Consórcios">
     </section>
 
     <!-- NÚMEROS -->
     <section class="numeros">
+
+        <!-- Grid desktop (4 colunas) -->
         <div class="numeros-grid">
             <div class="numero-item">
                 <strong>+1.500</strong>
@@ -816,6 +1491,35 @@
                 <span>Taxa de aprovação</span>
             </div>
         </div>
+
+        <!-- Carrossel mobile -->
+        <div class="numeros-carousel-wrap">
+            <div class="numeros-carousel-track" id="numCarousel">
+                <div class="numero-card-mob">
+                    <strong>+1.500</strong>
+                    <span>Contemplações por mês</span>
+                </div>
+                <div class="numero-card-mob">
+                    <strong>+16 Bi</strong>
+                    <span>Em créditos administrados</span>
+                </div>
+                <div class="numero-card-mob">
+                    <strong>+78 Mil</strong>
+                    <span>Clientes ativos</span>
+                </div>
+                <div class="numero-card-mob">
+                    <strong>+85%</strong>
+                    <span>Taxa de aprovação</span>
+                </div>
+            </div>
+            <div class="carousel-dots" id="numDots">
+                <span class="active" onclick="scrollToCard(0)"></span>
+                <span onclick="scrollToCard(1)"></span>
+                <span onclick="scrollToCard(2)"></span>
+                <span onclick="scrollToCard(3)"></span>
+            </div>
+        </div>
+
     </section>
 
     <!-- VANTAGENS -->
@@ -827,8 +1531,7 @@
                 <div class="card-icon">💰</div>
                 <h3>Economia Incomparável</h3>
                 <p>Sem juros e sem fundo reserva - você paga apenas a taxa administrativa. No longo prazo, economiza
-                    muito mais do que
-                    qualquer financiamento tradicional.</p>
+                    muito mais do que qualquer financiamento tradicional.</p>
             </div>
             <div class="card">
                 <div class="card-icon">📊</div>
@@ -859,7 +1562,7 @@
                     <a href="#">Simular agora →</a>
                 </div>
             </div>
-            <div class="produto-card" onclick="abrirSimulador('IMOVEIS')">
+            <div class="produto-card" onclick="abrirSimulador('IMOVEIS      ')">
                 <div class="produto-icon">🏠</div>
                 <div>
                     <h3>Consórcio de Imóveis</h3>
@@ -897,8 +1600,7 @@
                 </div>
                 <div class="faq-a">
                     <div class="faq-a-inner">Imóveis residenciais, comerciais, terrenos e veículos leves e pesados. A
-                        carta de
-                        crédito dá poder de compra à vista.</div>
+                        carta de crédito dá poder de compra à vista.</div>
                 </div>
             </div>
             <div class="faq-item">
@@ -922,7 +1624,7 @@
                         class="faq-arrow">▼</span></div>
                 <div class="faq-a">
                     <div class="faq-a-inner">As parcelas podem ser pagas via boleto bancário ou débito automático,
-                        conforme as opções disponibilizadas pela Canopus.</div>
+                        conforme as opções disponibilizadas pela Administradora.</div>
                 </div>
             </div>
         </div>
@@ -933,32 +1635,30 @@
         <h2>Descubra quanto você pode pagar hoje</h2>
         <p>Fale com um especialista e receba uma simulação personalizada em poucos minutos — sem compromisso.</p>
         <a href="https://w.app/sitemelconsorcios" target="_blank">📲 Quero falar com um especialista</a>
-
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-top">
             <div>
-
                 <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
                     consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
-                <img src="canopus.png" width="250px">
-
+                <img src="canopus.png" width="250" alt="Canopus">
             </div>
             <div>
                 <h4>Consórcios</h4>
                 <ul>
-                    <li><a href="#">Consórcio de Automóveis</a></li>
-                    <li><a href="#">Consórcio de Imóveis</a></li>
-                    <li><a href="#">Como Funciona</a></li>
+                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
+                    <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
+                    <li><a href="como-funciona.html">Como Funciona</a></li>
                     <li><a href="#">Simulador</a></li>
                 </ul>
             </div>
             <div>
                 <h4>Contato</h4>
                 <ul>
-                    <li><img src="logo-instagram.png" width="20px" align="center"> <a href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
+                    <li><img src="logo-instagram.png" width="20" style="vertical-align:middle; margin-right:6px;"
+                            alt="Instagram"><a href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
                     <li><a href="https://w.app/sitemelconsorcios">📲 (11) 94078-6152</a></li>
                     <li><a href="#">📍 São Paulo – SP</a></li>
                 </ul>
@@ -975,6 +1675,13 @@
     <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
 
     <script>
+        /* ===== MENU MOBILE ===== */
+        function toggleMenu() {
+            const menu = document.getElementById('menu-mobile');
+            menu.style.right = (menu.style.right === '0px') ? '-100%' : '0px';
+        }
+
+        /* ===== SIMULADOR ===== */
         const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
         const rangeEl = document.getElementById('sim-range');
 
@@ -1009,14 +1716,7 @@
         }
 
         function updateUI() {
-            // Formatador atualizado sem casas decimais
-            const fmt = v => v.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
-
+            const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
             document.getElementById('sim-valor').innerText = fmt(STATE.valor);
             document.getElementById('r-min').innerText = fmt(parseInt(rangeEl.min));
             document.getElementById('r-max').innerText = fmt(parseInt(rangeEl.max));
@@ -1025,16 +1725,8 @@
         function enviarWhats() {
             const modo = STATE.modo === 'credito' ? 'crédito de' : 'parcelas de';
             const prod = STATE.produto === 'AUTOMOVEL' ? 'Veículos' : 'Imóveis';
-
-            // Formatador para o envio do WhatsApp também sem as casas decimais
-            const val = STATE.valor.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
-
-            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\n\nProduto: ${prod}\nQuero ${modo}: ${val}\n\nPode me ajudar?`;
+            const val = STATE.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\\n\\nProduto: ${prod}\\nQuero ${modo}: ${val}\\n\\nPode me ajudar?`;
             window.open(`https://wa.me/5511940786152?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -1045,6 +1737,35 @@
         }
 
         function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+        /* ===== CARROSSEL NÚMEROS (mobile) ===== */
+        function scrollToCard(index) {
+            const track = document.getElementById('numCarousel');
+            const cards = track.querySelectorAll('.numero-card-mob');
+            if (cards[index]) {
+                track.scrollTo({ left: cards[index].offsetLeft - 16, behavior: 'smooth' });
+            }
+            updateDots(index);
+        }
+
+        function updateDots(activeIndex) {
+            document.querySelectorAll('#numDots span').forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        }
+
+        // Atualiza dot ao scrollar manualmente
+        document.getElementById('numCarousel').addEventListener('scroll', function () {
+            const track = this;
+            const cards = track.querySelectorAll('.numero-card-mob');
+            let closest = 0;
+            let minDist = Infinity;
+            cards.forEach((card, i) => {
+                const dist = Math.abs(card.offsetLeft - track.scrollLeft - 16);
+                if (dist < minDist) { minDist = dist; closest = i; }
+            });
+            updateDots(closest);
+        });
 
         updateUI();
     </script>
