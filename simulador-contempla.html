@@ -1,619 +1,1224 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Simulador de Contemplação</title>
-<!-- Gráficos -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<!-- Exportação PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Contemplação</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --bg: #eef3ff;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --soft: #f8fafc;
+      --shadow: 0 10px 30px rgba(37, 99, 235, .10);
+      --radius: 18px;
+    }
 
-<style>
-:root{
-  --primary:#2563eb; --primary-dark:#1d4ed8;
-  --success:#059669; --warning:#d97706; --danger:#dc2626;
-  --bg:#eef3ff; --card:#ffffff; --text:#0f172a;
-  --muted:#64748b; --line:#e2e8f0; --soft:#f8fafc;
-  --shadow:0 10px 30px rgba(37,99,235,.10);
-  --radius:18px;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#eff4ff 0%, #edf2ff 100%);color:var(--text);}
-.topbar{background:linear-gradient(135deg,#1e3a8a 0%, #2563eb 100%);color:#fff;padding:28px 22px;box-shadow:0 6px 24px rgba(37,99,235,.25);}
-.topbar h1{margin:0;font-size:22px;font-weight:800;}
-.topbar p{margin:8px 0 0;opacity:.9;font-size:14px;}
-.wrap{max-width:1120px;margin:26px auto 60px;padding:0 18px;}
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid #edf2f7;padding:22px;margin-bottom:18px;}
-.card-title{font-size:18px;font-weight:800;color:#1e3a8a;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
-label{font-size:13px;font-weight:700;color:#334155;}
-input[type="file"],input[type="number"],select{width:100%;border:1.5px solid #d7dfec;background:#fff;color:#0f172a;padding:12px 14px;border-radius:12px;outline:none;font-size:14px;}
-input[type="number"]:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.10);}
-.hint{color:#94a3b8;font-size:12px;line-height:1.5;}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;}
-.btn{border:none;border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
-.btn-primary{background:var(--primary);color:#fff;}
-.btn-primary:hover{background:var(--primary-dark)}
-.btn-light{background:#f1f5f9;color:#1e293b;border:1px solid #e2e8f0;}
-.btn-light:hover{background:#e2e8f0}
-.alert{margin-top:14px;border-radius:12px;padding:13px 15px;font-size:13px;line-height:1.55;font-weight:600;}
-.alert.ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
-.alert.err{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
-.alert.info{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe}
-.d-none{display:none!important}
-.chips{display:flex;flex-wrap:wrap;gap:9px;}
-.chip{border:2px solid #dbe4f0;background:#f8fbff;color:#334155;padding:9px 14px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;user-select:none;transition:.15s ease;}
-.chip:hover{border-color:#93c5fd;background:#eff6ff;}
-.chip.active{background:#2563eb;color:#fff;border-color:#2563eb;}
-.placeholder{color:#94a3b8;font-size:13px;}
-.res-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
-.badge{display:inline-block;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:800;}
-.badge-ok{background:#dcfce7;color:#166534}
-.badge-warn{background:#fef3c7;color:#92400e}
-.badge-err{background:#fee2e2;color:#991b1b}
-.badge-neu{background:#e2e8f0;color:#334155}
-.res-title{margin-top:12px;font-size:28px;font-weight:900;color:#0f172a;}
-.res-text{margin-top:8px;color:#475569;font-size:14px;line-height:1.5;}
-.circle{width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;text-align:center;border:4px solid;}
-.circle .v{font-size:28px;font-weight:900;}
-.circle .l{font-size:12px;opacity:.9;font-weight:700;}
-.c-ok{background:#ecfdf5;color:#166534;border-color:#22c55e}
-.c-warn{background:#fffbeb;color:#a16207;border-color:#f59e0b}
-.c-err{background:#fef2f2;color:#991b1b;border-color:#ef4444}
-.c-neu{background:#f8fafc;color:#475569;border-color:#94a3b8}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.metric{background:#f8fbff;border:1px solid #dfe8f5;border-radius:14px;padding:16px;}
-.metric.highlight{background:#eff6ff;border:2px solid #60a5fa;}
-.metric .k{color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;}
-.metric .v{margin-top:8px;font-size:28px;font-weight:900;color:#0f172a;}
-.metric .s{margin-top:5px;font-size:12px;color:#94a3b8;}
-.two{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;}
-.chart-box{height:260px;}
-.rec{border-radius:16px;padding:18px;border:1px solid;}
-.rec h3{margin:0 0 12px;font-size:16px;}
-.rec.ok{background:#ecfdf5;border-color:#a7f3d0}
-.rec.warn{background:#fffbeb;border-color:#fde68a}
-.rec.err{background:#fef2f2;border-color:#fecaca}
-.rec.neu{background:#f8fafc;border-color:#e2e8f0}
-.rec-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.07);font-size:14px;}
-.rec-row:last-child{border-bottom:none}
-.rec-row span:first-child{color:#64748b}
-.rec-row span:last-child{font-weight:800;color:#0f172a}
-.table-wrap{overflow:auto; max-height:450px;}
-table{width:100%;border-collapse:collapse;}
-th{text-align:left;font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:.4px;padding:12px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:2;}
-td{padding:12px 10px;border-bottom:1px solid #f1f5f9;font-size:14px;}
-tr:hover td{background:#fafcff}
-.tag{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800;}
-.tag-up{background:#dcfce7;color:#166534}
-.tag-down{background:#fee2e2;color:#991b1b}
-.tag-eq{background:#fef3c7;color:#92400e}
-.auto-box{display:inline-block;margin-top:12px;background:#fff7ed;color:#9a3412;border:1px dashed #fdba74;border-radius:10px;padding:8px 11px;font-size:13px;font-weight:700;}
-@media (max-width: 920px){.metrics{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
-@media (max-width: 640px){.grid-2,.grid-3{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.res-title{font-size:24px}.circle{width:104px;height:104px}}
-</style>
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: linear-gradient(180deg, #eff4ff 0%, #edf2ff 100%);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #fff;
+      padding: 28px 22px;
+      box-shadow: 0 6px 24px rgba(37, 99, 235, .25);
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .topbar p {
+      margin: 8px 0 0;
+      opacity: .9;
+      font-size: 14px;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 26px auto 60px;
+      padding: 0 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #edf2f7;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    input[type="file"],
+    input[type="number"],
+    select {
+      width: 100%;
+      border: 1.5px solid #d7dfec;
+      background: #fff;
+      color: #0f172a;
+      padding: 12px 14px;
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+    }
+
+    .hint {
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark)
+    }
+
+    .btn-light {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-light:hover {
+      background: #e2e8f0
+    }
+
+    .alert {
+      margin-top: 14px;
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .alert.ok {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0
+    }
+
+    .alert.err {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca
+    }
+
+    .alert.info {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe
+    }
+
+    .d-none {
+      display: none !important
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .chip {
+      border: 2px solid #dbe4f0;
+      background: #f8fbff;
+      color: #334155;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: .15s ease;
+    }
+
+    .chip:hover {
+      border-color: #93c5fd;
+      background: #eff6ff;
+    }
+
+    .chip.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+
+    .placeholder {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .res-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .badge-ok {
+      background: #dcfce7;
+      color: #166534
+    }
+
+    .badge-warn {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .badge-err {
+      background: #fee2e2;
+      color: #991b1b
+    }
+
+    .badge-neu {
+      background: #e2e8f0;
+      color: #334155
+    }
+
+    .res-title {
+      margin-top: 12px;
+      font-size: 28px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .res-text {
+      margin-top: 8px;
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .circle {
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      text-align: center;
+      border: 4px solid;
+    }
+
+    .circle .v {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .circle .l {
+      font-size: 12px;
+      opacity: .9;
+      font-weight: 700;
+    }
+
+    .c-ok {
+      background: #ecfdf5;
+      color: #166534;
+      border-color: #22c55e
+    }
+
+    .c-warn {
+      background: #fffbeb;
+      color: #a16207;
+      border-color: #f59e0b
+    }
+
+    .c-err {
+      background: #fef2f2;
+      color: #991b1b;
+      border-color: #ef4444
+    }
+
+    .c-neu {
+      background: #f8fafc;
+      color: #475569;
+      border-color: #94a3b8
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .metric {
+      background: #f8fbff;
+      border: 1px solid #dfe8f5;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .metric.highlight {
+      background: #eff6ff;
+      border: 2px solid #60a5fa;
+    }
+
+    .metric .k {
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .metric .v {
+      margin-top: 8px;
+      font-size: 28px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .metric .s {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+    }
+
+    .chart-box {
+      height: 260px;
+    }
+
+    .rec {
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid;
+    }
+
+    .rec h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .rec.ok {
+      background: #ecfdf5;
+      border-color: #a7f3d0
+    }
+
+    .rec.warn {
+      background: #fffbeb;
+      border-color: #fde68a
+    }
+
+    .rec.err {
+      background: #fef2f2;
+      border-color: #fecaca
+    }
+
+    .rec.neu {
+      background: #f8fafc;
+      border-color: #e2e8f0
+    }
+
+    .rec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, .07);
+      font-size: 14px;
+    }
+
+    .rec-row:last-child {
+      border-bottom: none
+    }
+
+    .rec-row span:first-child {
+      color: #64748b
+    }
+
+    .rec-row span:last-child {
+      font-weight: 800;
+      color: #0f172a
+    }
+
+    .table-wrap {
+      overflow: auto;
+      max-height: 450px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: .4px;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      z-index: 2;
+    }
+
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
+
+    tr:hover td {
+      background: #fafcff
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag-up {
+      background: #dcfce7;
+      color: #166534
+    }
+
+    .tag-down {
+      background: #fee2e2;
+      color: #991b1b
+    }
+
+    .tag-eq {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .auto-box {
+      display: inline-block;
+      margin-top: 12px;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px dashed #fdba74;
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 920px) {
+      .metrics {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .two {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr
+      }
+
+      .metrics {
+        grid-template-columns: 1fr
+      }
+
+      .res-title {
+        font-size: 24px
+      }
+
+      .circle {
+        width: 104px;
+        height: 104px
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="topbar">
-  <h1>📊 Simulador de Contemplação</h1>
-  <p>Probabilidade histórica estimada com base nas assembleias anteriores do grupo</p>
-</div>
-<div class="wrap">
-  <div class="card">
-    <div class="card-title">📂 Carregar Dados CSV</div>
-    <div class="field">
-      <label for="csvFile">Selecione o arquivo CSV</label>
-      <input type="file" id="csvFile" accept=".csv" />
-      <div class="hint">Os dados ficam salvos no navegador para a próxima visita.</div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" id="btnLoad">📥 Carregar CSV</button>
-      <button class="btn btn-light" id="btnReset">🗑 Limpar cache</button>
-    </div>
-    <div id="fileInfo" class="hint" style="margin-top:10px"></div>
-    <div id="alertLoad" class="alert d-none"></div>
+  <div class="topbar">
+    <h1>📊 Simulador de Contemplação</h1>
+    <p>Probabilidade histórica estimada com base nas assembleias anteriores do grupo</p>
   </div>
-
-  <div class="card">
-    <div class="card-title">🔎 Filtros da Simulação</div>
-    <div class="field">
-      <label>Produto</label>
-      <div id="produtoGrid" class="chips"><span class="placeholder">Carregue o CSV primeiro</span></div>
-      <input type="hidden" id="produtoSel" />
-    </div>
-    <div class="field">
-      <label>Grupo</label>
-      <div id="grupoGrid" class="chips"><span class="placeholder">Selecione um produto primeiro</span></div>
-      <input type="hidden" id="grupoSel" />
-    </div>
-    <div class="grid-3">
-      <div class="field">
-        <label for="selTipo">Tipo de Lance</label>
-        <select id="selTipo"><option value="">— selecione —</option></select>
-      </div>
-      <div class="field">
-        <label for="selPeriodo">Período</label>
-        <select id="selPeriodo">
-          <option value="all">Todo o histórico</option>
-          <option value="1m">Último mês</option>
-          <option value="3m">3 meses anteriores</option>
-          <option value="6m">6 meses anteriores</option>
-          <option value="9m">9 meses anteriores</option>
-          <option value="12m">12 meses anteriores</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="percLance">% Lance (opcional)</label>
-        <input type="number" id="percLance" step="0.0001" placeholder="Em branco = auto" />
-      </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" id="btnCalc">📊 Calcular Probabilidade</button>
-      <button class="btn btn-light" id="btnClear">✖ Limpar</button>
-    </div>
-    <div id="alertCalc" class="alert d-none"></div>
-  </div>
-
-  <div id="resultSection" class="d-none">
-    <div class="card" id="cardRes"></div>
+  <div class="wrap">
     <div class="card">
-      <div class="card-title">📈 Estatísticas Históricas</div>
-      <div class="metrics" id="metrics"></div>
-    </div>
-    <div class="two">
-      <div class="card">
-        <div class="card-title">📉 Distribuição dos Lances</div>
-        <div class="chart-box"><canvas id="chart"></canvas></div>
+      <div class="card-title">📂 Carregar Dados CSV</div>
+      <div class="field">
+        <label for="csvFile">Selecione o arquivo CSV</label>
+        <input type="file" id="csvFile" accept=".csv" />
+        <div class="hint">Os dados ficam salvos no navegador para a próxima visita.</div>
       </div>
-      <div class="card">
-        <div class="card-title">💡 Recomendação</div>
-        <div id="recBox"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btnLoad">📥 Carregar CSV</button>
+        <button class="btn btn-light" id="btnReset">🗑 Limpar cache</button>
       </div>
+      <div id="fileInfo" class="hint" style="margin-top:10px"></div>
+      <div id="alertLoad" class="alert d-none"></div>
     </div>
+
     <div class="card">
-      <div class="card-title">
-         <span>🗓 Histórico Completo do Filtro</span>
-         <div style="display:flex; gap:8px;">
-            <button class="btn btn-light" style="font-size:12px; padding:8px 12px;" onclick="doExportCSV()">⬇ CSV</button>
-            <button class="btn btn-primary" style="font-size:12px; padding:8px 12px;" onclick="doExportPDF()">📄 PDF Relatório</button>
-         </div>
+      <div class="card-title">🔎 Filtros da Simulação</div>
+      <div class="field">
+        <label>Produto</label>
+        <div id="produtoGrid" class="chips"><span class="placeholder">Carregue o CSV primeiro</span></div>
+        <input type="hidden" id="produtoSel" />
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Data contemplação</th>
-              <th>% Lance contemplado</th>
-              <th>Vs. seu lance</th>
-            </tr>
-          </thead>
-          <tbody id="histBody"></tbody>
-        </table>
+      <div class="field">
+        <label>Grupo</label>
+        <div id="grupoGrid" class="chips"><span class="placeholder">Selecione um produto primeiro</span></div>
+        <input type="hidden" id="grupoSel" />
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label for="selTipo">Tipo de Lance</label>
+          <select id="selTipo">
+            <option value="">— selecione —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="selPeriodo">Período</label>
+          <select id="selPeriodo">
+            <option value="all">Todo o histórico</option>
+            <option value="1m">Último mês</option>
+            <option value="3m">3 meses anteriores</option>
+            <option value="6m">6 meses anteriores</option>
+            <option value="9m">9 meses anteriores</option>
+            <option value="12m">12 meses anteriores</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="percLance">% Lance (opcional)</label>
+          <input type="number" id="percLance" step="0.0001" placeholder="Em branco = auto" />
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btnCalc">📊 Calcular Probabilidade</button>
+        <button class="btn btn-light" id="btnClear">✖ Limpar</button>
+      </div>
+      <div id="alertCalc" class="alert d-none"></div>
+    </div>
+
+    <div id="resultSection" class="d-none">
+      <div class="card" id="cardRes"></div>
+      <div class="card">
+        <div class="card-title">📈 Estatísticas Históricas</div>
+        <div class="metrics" id="metrics"></div>
+      </div>
+      <div class="two">
+        <div class="card">
+          <div class="card-title">📉 Distribuição dos Lances</div>
+          <div class="chart-box"><canvas id="chart"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">💡 Recomendação</div>
+          <div id="recBox"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <span>🗓 Histórico Completo do Filtro</span>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-light" style="font-size:12px; padding:8px 12px;" onclick="doExportCSV()">⬇
+              CSV</button>
+            <button class="btn btn-primary" style="font-size:12px; padding:8px 12px;" onclick="doExportPDF()">📄 PDF
+              Relatório</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data contemplação</th>
+                <th>% Lance contemplado</th>
+                <th>Vs. seu lance</th>
+              </tr>
+            </thead>
+            <tbody id="histBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<script>
-let ALL_ROWS = [];
-let chartInst = null;
-let EXPORT_DATA = null; // Guarda o estado para CSV/PDF
 
-function el(id){ return document.getElementById(id); }
-function showAlert(id, type, msg){ var d = el(id); if(!d) return; d.className = 'alert ' + type; d.innerHTML = msg; }
-function hideAlert(id){ var d = el(id); if(!d) return; d.className = 'alert d-none'; d.innerHTML = ''; }
-function fmt4(v){ if(v === null || v === undefined || isNaN(v)) return '-'; return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:4, maximumFractionDigits:4}); }
-function fmtPct(v){ return fmt4(v) + '%'; }
-function parseNum(v){
-  if(v === null || v === undefined) return NaN;
-  var s = String(v).trim();
-  if(!s) return NaN;
-  if(s.indexOf(',') >= 0 && s.indexOf('.') >= 0){
-    s = s.replace(/\./g,'').replace(',','.');
-  } else if(s.indexOf(',') >= 0){
-    s = s.replace(',','.');
-  }
-  return Number(s);
-}
-function normText(v){ return String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,' '); }
-function niceText(v){
-  var s = normText(v);
-  var map = {'lance livre':'Lance Livre','lance limitado':'Lance Limitado','lance fixo':'Lance Fixo','2o lance fixo':'2º Lance Fixo','2º lance fixo':'2º Lance Fixo','sorteio':'Sorteio','cancelada':'Cancelada','veiculos':'Veículos','imoveis':'Imóveis'};
-  return map[s] || String(v || '');
-}
-function normalizeGrupo(v){ if(v === null || v === undefined) return ''; var s = String(v).trim(); if(s.endsWith('.0')) s = s.slice(0,-2); return s; }
-function parseDateAny(str){
-  if(!str) return null;
-  var s = String(str).trim();
-  var iso = s.split(' ')[0];
-  if(/^\d{4}-\d{2}-\d{2}$/.test(iso)){
-    var p = iso.split('-').map(Number);
-    return new Date(p[0], p[1]-1, p[2], 12, 0, 0, 0);
-  }
-  if(/^\d{2}\/\d{2}\/\d{4}$/.test(iso)){
-    var p2 = iso.split('/').map(Number);
-    return new Date(p2[2], p2[1]-1, p2[0], 12, 0, 0, 0);
-  }
-  var dt = new Date(s);
-  if(isNaN(dt.getTime())) return null;
-  return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 12, 0, 0, 0);
-}
-function formatDateBR(str){ var dt = parseDateAny(str); if(!dt) return String(str || ''); return dt.toLocaleDateString('pt-BR'); }
-function parseCSVLine(line){
-  var out = [], cur = '', inQ = false;
-  for(var i=0;i<line.length;i++){
-    var c = line[i];
-    if(c === '"'){
-      if(inQ && line[i+1] === '"'){ cur += '"'; i++; }
-      else { inQ = !inQ; }
-    } else if(c === ',' && !inQ){ out.push(cur); cur = ''; }
-    else { cur += c; }
-  }
-  out.push(cur);
-  return out;
-}
-function parseCSV(text){
-  var lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(function(x){ return x.trim() !== ''; });
-  if(!lines.length) throw new Error('Arquivo vazio.');
-  var headers = parseCSVLine(lines[0]).map(function(h){ return h.trim(); });
-  var required = ['tipoLance','dataContemplacao','grupo','produto','percLance'];
-  var missing = required.filter(function(c){ return !headers.includes(c); });
-  if(missing.length) throw new Error('Colunas ausentes: ' + missing.join(', '));
-  var rows = [];
-  for(var i=1;i<lines.length;i++){
-    var vals = parseCSVLine(lines[i]);
-    var obj = {};
-    headers.forEach(function(h,idx){ obj[h] = (vals[idx] || '').trim(); });
-    var grupo = normalizeGrupo(obj.grupo);
-    var produtoNorm = normText(obj.produto);
-    var tipoNorm = normText(obj.tipoLance);
-    var perc = parseNum(obj.percLance);
-    var data = String(obj.dataContemplacao || '').trim();
-    if(!grupo || !produtoNorm || !tipoNorm || isNaN(perc) || !data) continue;
-    rows.push({ grupo: grupo, produto: produtoNorm, produtoLabel: niceText(obj.produto), tipo: tipoNorm, tipoLabel: niceText(obj.tipoLance), perc: perc, data: data, dateObj: parseDateAny(data) });
-  }
-  if(!rows.length) throw new Error('Nenhum registro válido encontrado.');
-  return rows;
-}
-function getProdutos(){ return [...new Set(ALL_ROWS.map(function(r){ return r.produto; }))].sort(); }
-function getGrupos(produto){ return [...new Set(ALL_ROWS.filter(function(r){ return !produto || r.produto === produto; }).map(function(r){ return r.grupo; }))].sort(function(a,b){ return a.localeCompare(b, undefined, {numeric:true}); }); }
-function getTipos(produto, grupo){ return [...new Set(ALL_ROWS.filter(function(r){ return (!produto || r.produto === produto) && (!grupo || r.grupo === grupo); }).map(function(r){ return r.tipo; }))].filter(function(t){ return t !== 'cancelada' && t !== 'sorteio'; }).sort(); }
-function renderProdutoChips(){
-  var grid = el('produtoGrid'); if(!grid) return; var produtos = getProdutos();
-  if(!produtos.length){ grid.innerHTML = '<span class="placeholder">Carregue o CSV primeiro</span>'; return; }
-  grid.innerHTML = '';
-  produtos.forEach(function(p){ var chip = document.createElement('button'); chip.type='button'; chip.className='chip'; chip.textContent=niceText(p); chip.dataset.value=p; chip.addEventListener('click', function(){ selectProduto(p); }); grid.appendChild(chip); });
-}
-function renderGrupoChips(produto){
-  var grid = el('grupoGrid'); if(!grid) return [];
-  if(!produto){ grid.innerHTML = '<span class="placeholder">Selecione um produto primeiro</span>'; return []; }
-  var grupos = getGrupos(produto);
-  if(!grupos.length){ grid.innerHTML = '<span class="placeholder">Nenhum grupo para este produto</span>'; return []; }
-  grid.innerHTML = '';
-  grupos.forEach(function(g){ var chip = document.createElement('button'); chip.type='button'; chip.className='chip'; chip.textContent=g; chip.dataset.value=g; chip.addEventListener('click', function(){ selectGrupo(g); }); grid.appendChild(chip); });
-  return grupos;
-}
-function renderTipos(produto, grupo){
-  var sel = el('selTipo'); if(!sel) return; var tipos = getTipos(produto, grupo);
-  sel.innerHTML = '<option value="">— selecione —</option>';
-  tipos.forEach(function(t){ var opt = document.createElement('option'); opt.value=t; opt.textContent=niceText(t); sel.appendChild(opt); });
-  if(tipos.includes('lance livre')) sel.value='lance livre';
-}
-function clearPercent(){ var p = el('percLance'); if(p) p.value=''; }
-function selectProduto(produto){
-  var inp = el('produtoSel'); if(inp) inp.value = produto;
-  document.querySelectorAll('#produtoGrid .chip').forEach(function(c){ c.classList.toggle('active', c.dataset.value === produto); });
-  var grupos = renderGrupoChips(produto);
-  if(grupos.length){
-    var primeiroGrupo = grupos[0]; var grupoSel = el('grupoSel'); if(grupoSel) grupoSel.value = primeiroGrupo;
-    document.querySelectorAll('#grupoGrid .chip').forEach(function(c){ c.classList.toggle('active', c.dataset.value === primeiroGrupo); });
-    renderTipos(produto, primeiroGrupo);
-  } else {
-    var grupoSel2 = el('grupoSel'); if(grupoSel2) grupoSel2.value = ''; renderTipos(produto, '');
-  }
-  clearPercent();
-}
-function selectGrupo(grupo){
-  var inp = el('grupoSel'); var produto = el('produtoSel') ? el('produtoSel').value : ''; if(inp) inp.value = grupo;
-  document.querySelectorAll('#grupoGrid .chip').forEach(function(c){ c.classList.toggle('active', c.dataset.value === grupo); });
-  renderTipos(produto, grupo); clearPercent();
-}
-function updateFileInfo(){
-  var box = el('fileInfo'); if(!box) return; var meta = localStorage.getItem('sim_meta');
-  if(!meta){ box.textContent='Nenhum arquivo carregado ainda.'; return; }
-  try{ var m = JSON.parse(meta); box.innerHTML = 'Arquivo: <b>'+(m.name||'?')+'</b> | Carregado em: <b>'+(m.date||'?')+'</b>'; }catch(e){ box.textContent='Arquivo salvo em cache.'; }
-}
-function loadFromText(text, fileName){
-  var rows = parseCSV(text); ALL_ROWS = rows;
-  localStorage.setItem('sim_csv', text);
-  localStorage.setItem('sim_meta', JSON.stringify({name:fileName||'dados.csv', date:new Date().toLocaleString('pt-BR')}));
-  updateFileInfo(); renderProdutoChips(); renderGrupoChips(''); renderTipos('',''); return rows.length;
-}
-function calcStats(arr){
-  var s = arr.slice().sort(function(a,b){ return a-b; });
-  var q = function(p){ var pos = (s.length - 1) * p; var base = Math.floor(pos); var rest = pos - base; return s[base + 1] !== undefined ? s[base] + rest * (s[base + 1] - s[base]) : s[base]; };
-  var sum = s.reduce(function(a,b){ return a+b; }, 0);
-  var mid = Math.floor(s.length / 2);
-  return { min:s[0], max:s[s.length-1], mean:sum/s.length, median:s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2, p25:q(.25), p75:q(.75), p90:q(.90), count:s.length };
-}
-function recRow(a,b){ return '<div class="rec-row"><span>'+a+'</span><span>'+b+'</span></div>'; }
-function drawChart(vals, st, percInput, saturated){
-  if(chartInst){ chartInst.destroy(); chartInst = null; }
-  var cvs = el('chart'); if(!cvs) return; var ctx = cvs.getContext('2d');
-  if(saturated){
-    chartInst = new Chart(ctx,{type:'bar',data:{labels:[fmtPct(st.min)],datasets:[{label:'Contemplações',data:[vals.length],backgroundColor:'rgba(100,116,139,.75)',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,ticks:{stepSize:1}}}}});
-    return;
-  }
-  var bins = 10, start = st.min - 1, end = st.max + 1, step = (end - start) / bins, labels = [], counts = [], colors = [];
-  for(var i=0;i<bins;i++){
-    var lo = start + i * step, hi = lo + step;
-    labels.push(fmt4(lo) + '–' + fmt4(hi));
-    counts.push(vals.filter(function(v){ return i === bins-1 ? (v >= lo && v <= hi) : (v >= lo && v < hi); }).length);
-    colors.push((percInput >= lo && percInput < hi) ? 'rgba(37,99,235,.85)' : 'rgba(148,163,184,.60)');
-  }
-  chartInst = new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{label:'Contemplações',data:counts,backgroundColor:colors,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{beginAtZero:true,ticks:{stepSize:1}}}}});
-}
-function clearResults(){ var rs = el('resultSection'); if(rs) rs.classList.add('d-none'); hideAlert('alertCalc'); if(chartInst){ chartInst.destroy(); chartInst = null; } EXPORT_DATA = null; }
-function startOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1, 0, 0, 0, 0); }
-function endOfMonth(d){ return new Date(d.getFullYear(), d.getMonth()+1, 0, 23, 59, 59, 999); }
-function addMonths(baseDate, delta){ return new Date(baseDate.getFullYear(), baseDate.getMonth()+delta, 1, 0, 0, 0, 0); }
-function getPeriodoInfo(value, maxDate){
-  if(!maxDate || value === 'all') return {label:'Todo o histórico', min:null, max:null};
-  var ref = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1, 0, 0, 0, 0);
-  if(value === '1m'){ return {label:'Último mês', min:startOfMonth(maxDate), max:endOfMonth(maxDate)}; }
-  if(value === '3m'){ return {label:'3 meses anteriores', min:addMonths(ref, -2), max:endOfMonth(maxDate)}; }
-  if(value === '6m'){ return {label:'6 meses anteriores', min:addMonths(ref, -5), max:endOfMonth(maxDate)}; }
-  if(value === '9m'){ return {label:'9 meses anteriores', min:addMonths(ref, -8), max:endOfMonth(maxDate)}; }
-  if(value === '12m'){ return {label:'12 meses anteriores', min:addMonths(ref, -11), max:endOfMonth(maxDate)}; }
-  return {label:'Todo o histórico', min:null, max:null};
-}
-function filterByPeriodo(rows, periodo){
-  if(periodo === 'all') return rows.slice();
-  var dated = rows.filter(function(r){ return !!r.dateObj; });
-  if(!dated.length) return [];
-  var maxTime = Math.max.apply(null, dated.map(function(r){ return r.dateObj.getTime(); }));
-  var maxDate = new Date(maxTime);
-  var info = getPeriodoInfo(periodo, maxDate);
-  return rows.filter(function(r){
-    if(!r.dateObj) return false;
-    var t = r.dateObj.getTime();
-    return t >= info.min.getTime() && t <= info.max.getTime();
-  });
-}
-function sortByDateAsc(rows){ return rows.slice().sort(function(a,b){ var da = a.dateObj ? a.dateObj.getTime() : 0; var db = b.dateObj ? b.dateObj.getTime() : 0; return da - db || a.perc - b.perc; }); }
-function sortByDateDesc(rows){ return rows.slice().sort(function(a,b){ var da = a.dateObj ? a.dateObj.getTime() : 0; var db = b.dateObj ? b.dateObj.getTime() : 0; return db - da || b.perc - a.perc; }); }
+  <script>
+    // ─────────────────────────────────────────────
+    // ESTADO GLOBAL
+    // ─────────────────────────────────────────────
+    let ALL_ROWS = [];
+    let chartInst = null;
+    let EXPORT_DATA = null;
+    let _calcLoading = false; // guarda de segurança contra double-click
 
-// EXPORtações
-window.doExportCSV = function(){
-  if(!EXPORT_DATA) return;
-  var c = EXPORT_DATA;
-  var csv = '\ufeff'; // BOM para o Excel abrir UTF-8 perfeitamente
-  csv += 'Data,Produto,Grupo,Tipo Lance,Percentual (%)\n';
-  c.hist.forEach(function(r){
-    csv += r.data + ',"' + r.produtoLabel + '","' + r.grupo + '","' + r.tipoLabel + '","' + fmt4(r.perc) + '"\n';
-  });
-  var blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a'); a.href = url; a.download = 'Historico_Contato_G' + c.grupo + '.csv'; a.click();
-  URL.revokeObjectURL(url);
-};
+    // ─────────────────────────────────────────────
+    // UTILITÁRIOS GERAIS
+    // ─────────────────────────────────────────────
+    function el(id) { return document.getElementById(id); }
+    function showAlert(id, type, msg) { var d = el(id); if (!d) return; d.className = 'alert ' + type; d.innerHTML = msg; }
+    function hideAlert(id) { var d = el(id); if (!d) return; d.className = 'alert d-none'; d.innerHTML = ''; }
+    function fmt4(v) { if (v === null || v === undefined || isNaN(v)) return '-'; return Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }); }
+    function fmtPct(v) { return fmt4(v) + '%'; }
+    function parseNum(v) {
+      if (v === null || v === undefined) return NaN;
+      var s = String(v).trim(); if (!s) return NaN;
+      if (s.indexOf(',') >= 0 && s.indexOf('.') >= 0) { s = s.replace(/\./g, '').replace(',', '.'); }
+      else if (s.indexOf(',') >= 0) { s = s.replace(',', '.'); }
+      return Number(s);
+    }
+    function normText(v) { return String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/\s+/g, ' '); }
+    function niceText(v) {
+      var s = normText(v);
+      var map = { 'lance livre': 'Lance Livre', 'lance limitado': 'Lance Limitado', 'lance fixo': 'Lance Fixo', '2o lance fixo': '2º Lance Fixo', '2º lance fixo': '2º Lance Fixo', 'sorteio': 'Sorteio', 'cancelada': 'Cancelada', 'veiculos': 'Veículos', 'imoveis': 'Imóveis' };
+      return map[s] || String(v || '');
+    }
+    function normalizeGrupo(v) { if (v === null || v === undefined) return ''; var s = String(v).trim(); if (s.endsWith('.0')) s = s.slice(0, -2); return s; }
+    function parseDateAny(str) {
+      if (!str) return null;
+      var s = String(str).trim(), iso = s.split(' ')[0];
+      if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) { var p = iso.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2], 12, 0, 0, 0); }
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(iso)) { var p2 = iso.split('/').map(Number); return new Date(p2[2], p2[1] - 1, p2[0], 12, 0, 0, 0); }
+      var dt = new Date(s); if (isNaN(dt.getTime())) return null;
+      return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 12, 0, 0, 0);
+    }
+    function formatDateBR(str) { var dt = parseDateAny(str); if (!dt) return String(str || ''); return dt.toLocaleDateString('pt-BR'); }
 
-window.doExportPDF = function(){
-  if(!EXPORT_DATA) return;
-  var c = EXPORT_DATA;
-  if (!window.jspdf || !window.jspdf.jsPDF) { alert("Aguarde a biblioteca PDF carregar..."); return; }
-  
-  var doc = new window.jspdf.jsPDF();
+    // ─────────────────────────────────────────────
+    // MELHORIA 3 — LOADING NO BOTÃO CALCULAR
+    // ─────────────────────────────────────────────
+    function setCalcLoading(on) {
+      var btn = el('btnCalc');
+      if (!btn) return;
+      _calcLoading = on;
+      btn.disabled = on;
+      btn.innerHTML = on
+        ? '⏳ Calculando...'
+        : '📊 Calcular Probabilidade';
+    }
 
-  // Cabeçalho
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(18);
-  doc.setTextColor(30,58,138); // primary dark
-  doc.text('Relatório de Simulação de Contemplação', 14, 20);
+    // ─────────────────────────────────────────────
+    // AUTO-CALCULAR (reutilizado em múltiplos gatilhos)
+    // ─────────────────────────────────────────────
+    function tryAutoCalc() {
+      var p = el('produtoSel') ? el('produtoSel').value : '';
+      var g = el('grupoSel') ? el('grupoSel').value : '';
+      var t = el('selTipo') ? el('selTipo').value : '';
+      if (p && g && t) el('btnCalc').click();
+    }
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
-  doc.setTextColor(71,85,105);
-  doc.text('Produto: ' + c.produtoLabel + '   |   Grupo: ' + c.grupo + '   |   Tipo: ' + c.tipoLabel, 14, 28);
-  doc.text('Período Analisado: ' + c.periodoInfo.label + ' (' + c.primeiraDataStr + ' a ' + c.ultimaDataStr + ')', 14, 34);
-  doc.text('Total de ocorrências no filtro: ' + c.filtered.length, 14, 40);
+    // ─────────────────────────────────────────────
+    // CSV PARSER
+    // ─────────────────────────────────────────────
+    function parseCSVLine(line) {
+      var out = [], cur = '', inQ = false;
+      for (var i = 0; i < line.length; i++) {
+        var c = line[i];
+        if (c === '"') { if (inQ && line[i + 1] === '"') { cur += '"'; i++; } else { inQ = !inQ; } }
+        else if (c === ',' && !inQ) { out.push(cur); cur = ''; }
+        else { cur += c; }
+      }
+      out.push(cur); return out;
+    }
+    function parseCSV(text) {
+      var lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(function (x) { return x.trim() !== ''; });
+      if (!lines.length) throw new Error('Arquivo vazio.');
+      var headers = parseCSVLine(lines[0]).map(function (h) { return h.trim(); });
+      var required = ['tipoLance', 'dataContemplacao', 'grupo', 'produto', 'percLance'];
+      var missing = required.filter(function (c) { return !headers.includes(c); });
+      if (missing.length) throw new Error('Colunas ausentes: ' + missing.join(', '));
+      var rows = [];
+      for (var i = 1; i < lines.length; i++) {
+        var vals = parseCSVLine(lines[i]), obj = {};
+        headers.forEach(function (h, idx) { obj[h] = (vals[idx] || '').trim(); });
+        var grupo = normalizeGrupo(obj.grupo);
+        var produtoNorm = normText(obj.produto);
+        var tipoNorm = normText(obj.tipoLance);
+        var perc = parseNum(obj.percLance);
+        var data = String(obj.dataContemplacao || '').trim();
+        if (!grupo || !produtoNorm || !tipoNorm || isNaN(perc) || !data) continue;
+        rows.push({
+          grupo: grupo, produto: produtoNorm, produtoLabel: niceText(obj.produto),
+          tipo: tipoNorm, tipoLabel: niceText(obj.tipoLance),
+          perc: perc, data: data, dateObj: parseDateAny(data),
+          assembleiaAtual: String(obj.assembleiaAtual || '').trim(),
+          assembleiaRealizar: String(obj.assembleiaRealizar || '').trim(),
+          faixaCredito: String(obj.faixaCredito || '').trim()
+        });
+      }
+      if (!rows.length) throw new Error('Nenhum registro válido encontrado.');
+      return rows;
+    }
 
-  // Box Highlight de Probabilidade
-  doc.setDrawColor(226,232,240);
-  doc.setFillColor(248,250,252);
-  doc.roundedRect(14, 46, 182, 34, 3, 3, 'FD');
+    // ─────────────────────────────────────────────
+    // DADOS — listas derivadas
+    // ─────────────────────────────────────────────
+    function getProdutos() { return [...new Set(ALL_ROWS.map(function (r) { return r.produto; }))].sort(); }
+    function getGrupos(produto) {
+      var filtrados = ALL_ROWS.filter(function (r) { return !produto || r.produto === produto; });
+      var mapa = {};
+      filtrados.forEach(function (r) {
+        if (!mapa[r.grupo]) mapa[r.grupo] = {
+          grupo: r.grupo, assembleiaAtual: r.assembleiaAtual,
+          assembleiaRealizar: r.assembleiaRealizar, faixaCredito: r.faixaCredito
+        };
+      });
+      return Object.values(mapa).sort(function (a, b) { return a.grupo.localeCompare(b.grupo, undefined, { numeric: true }); });
+    }
+    function getTipos(produto, grupo) {
+      return [...new Set(ALL_ROWS.filter(function (r) {
+        return (!produto || r.produto === produto) && (!grupo || r.grupo === grupo);
+      }).map(function (r) { return r.tipo; }))]
+        .filter(function (t) { return t !== 'cancelada' && t !== 'sorteio'; }).sort();
+    }
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(13);
-  doc.setTextColor(15,23,42);
-  doc.text('Lance Simulado: ' + fmtPct(c.percInput), 20, 56);
+    // ─────────────────────────────────────────────
+    // RENDER — chips produto
+    // ─────────────────────────────────────────────
+    function renderProdutoChips() {
+      var grid = el('produtoGrid'); if (!grid) return;
+      var produtos = getProdutos();
+      if (!produtos.length) { grid.innerHTML = '<span class="placeholder">Carregue o CSV primeiro</span>'; return; }
+      grid.innerHTML = '';
+      produtos.forEach(function (p) {
+        var chip = document.createElement('button');
+        chip.type = 'button'; chip.className = 'chip';
+        chip.textContent = niceText(p); chip.dataset.value = p;
+        chip.addEventListener('click', function () { selectProduto(p); });
+        grid.appendChild(chip);
+      });
+    }
 
-  var chanceText = c.saturated ? 'Análise: Grupo Saturado (Lance Teto Histórico)' : 'Probabilidade Histórica Acumulada: ' + Math.round(c.prob) + '%';
-  doc.setFontSize(16);
-  if(c.prob >= 80 && !c.saturated) doc.setTextColor(22,101,52); // green ok
-  else if(c.prob >= 50 && !c.saturated) doc.setTextColor(161,98,7); // warn
-  else if(!c.saturated) doc.setTextColor(153,27,27); // err
+    // ─────────────────────────────────────────────
+    // RENDER — chips grupo  (com Atual / Faltam / Crédito)
+    // ─────────────────────────────────────────────
+    function renderGrupoChips(produto) {
+      var grid = el('grupoGrid'); if (!grid) return [];
+      if (!produto) { grid.innerHTML = '<span class="placeholder">Selecione um produto primeiro</span>'; return []; }
+      var gruposObj = getGrupos(produto);
+      if (!gruposObj.length) { grid.innerHTML = '<span class="placeholder">Nenhum grupo para este produto</span>'; return []; }
+      grid.innerHTML = '';
+      gruposObj.forEach(function (g) {
+        var chip = document.createElement('button');
+        chip.type = 'button'; chip.className = 'chip';
+        chip.textContent = g.grupo + ' | Atual: ' + (g.assembleiaAtual || '-') + ' | Faltam: ' + (g.assembleiaRealizar || '-') + ' | Crédito: ' + (g.faixaCredito || '-');
+        chip.dataset.value = g.grupo;
+        chip.addEventListener('click', function () { selectGrupo(g.grupo); });
+        grid.appendChild(chip);
+      });
+      return gruposObj.map(function (g) { return g.grupo; });
+    }
 
-  doc.text(chanceText, 20, 68);
+    // ─────────────────────────────────────────────
+    // RENDER — select tipos
+    // ─────────────────────────────────────────────
+    function renderTipos(produto, grupo) {
+      var sel = el('selTipo'); if (!sel) return;
+      var tipos = getTipos(produto, grupo);
+      sel.innerHTML = '<option value="">— selecione —</option>';
+      tipos.forEach(function (t) { var opt = document.createElement('option'); opt.value = t; opt.textContent = niceText(t); sel.appendChild(opt); });
+      if (tipos.includes('lance livre')) sel.value = 'lance livre';
+    }
 
-  // Estatísticas
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
-  doc.setTextColor(15,23,42);
-  doc.text('Indicadores do Grupo', 14, 94);
+    // ─────────────────────────────────────────────
+    // SELEÇÃO de produto / grupo
+    // MELHORIA 5 — resumo fixo do grupo é construído aqui e exibido no resultado
+    // MELHORIA 4 — NÃO limpa o % ao trocar grupo nem período; só limpa ao trocar produto
+    // ─────────────────────────────────────────────
+    function selectProduto(produto) {
+      var inp = el('produtoSel'); if (inp) inp.value = produto;
+      document.querySelectorAll('#produtoGrid .chip').forEach(function (c) { c.classList.toggle('active', c.dataset.value === produto); });
+      var grupos = renderGrupoChips(produto);
+      if (grupos.length) {
+        var primeiro = grupos[0];
+        var grupoSel = el('grupoSel'); if (grupoSel) grupoSel.value = primeiro;
+        document.querySelectorAll('#grupoGrid .chip').forEach(function (c) { c.classList.toggle('active', c.dataset.value === primeiro); });
+        renderTipos(produto, primeiro);
+      } else {
+        var grupoSel2 = el('grupoSel'); if (grupoSel2) grupoSel2.value = '';
+        renderTipos(produto, '');
+      }
+      // MELHORIA 4: limpa % apenas ao trocar produto (mudança de contexto relevante)
+      var p = el('percLance'); if (p) p.value = '';
+      tryAutoCalc();
+    }
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(71,85,105);
-  doc.text('Lances contemplados -> Mín: ' + fmtPct(c.st.min) + '  |  Mediana: ' + fmtPct(c.st.median) + '  |  Máx: ' + fmtPct(c.st.max), 14, 102);
-  doc.text('Outros indicadores  -> Média: ' + fmtPct(c.st.mean) + '  |  Q1: ' + fmtPct(c.st.p25) + '  |  Q3 (Pico forte): ' + fmtPct(c.st.p75), 14, 108);
+    function selectGrupo(grupo) {
+      var produto = el('produtoSel') ? el('produtoSel').value : '';
+      var inp = el('grupoSel'); if (inp) inp.value = grupo;
+      document.querySelectorAll('#grupoGrid .chip').forEach(function (c) { c.classList.toggle('active', c.dataset.value === grupo); });
+      renderTipos(produto, grupo);
+      // MELHORIA 4: NÃO limpa % ao trocar grupo — usuário pode querer comparar mesmo lance
+      tryAutoCalc();
+    }
 
-  // Tabela Histórica
-  var tableData = c.hist.map(function(r){
-    var d = r.perc - c.percInput;
-    var tag = '';
-    if(Math.abs(d) < 0.00005) tag = 'Empatado';
-    else if(d > 0) tag = '+' + fmt4(d) + '% maior que o seu';
-    else tag = '-' + fmt4(Math.abs(d)) + '% menor que o seu';
-    return [formatDateBR(r.data), fmtPct(r.perc), tag];
-  });
+    // ─────────────────────────────────────────────
+    // CACHE / FILE INFO
+    // ─────────────────────────────────────────────
+    function updateFileInfo() {
+      var box = el('fileInfo'); if (!box) return;
+      var meta = localStorage.getItem('sim_meta');
+      if (!meta) { box.textContent = 'Nenhum arquivo carregado ainda.'; return; }
+      try { var m = JSON.parse(meta); box.innerHTML = 'Arquivo: <b>' + (m.name || '?') + '</b> | Carregado em: <b>' + (m.date || '?') + '</b>'; }
+      catch (e) { box.textContent = 'Arquivo salvo em cache.'; }
+    }
+    function loadFromText(text, fileName) {
+      var rows = parseCSV(text); ALL_ROWS = rows;
+      localStorage.setItem('sim_csv', text);
+      localStorage.setItem('sim_meta', JSON.stringify({ name: fileName || 'dados.csv', date: new Date().toLocaleString('pt-BR') }));
+      updateFileInfo(); renderProdutoChips(); renderGrupoChips(''); renderTipos('', '');
+      return rows.length;
+    }
 
-  doc.autoTable({
-    startY: 118,
-    head: [['Data Contemplada', '% Lance', 'Status (Vs Seu Lance)']],
-    body: tableData,
-    theme: 'grid',
-    headStyles: { fillColor: [37,99,235], fontSize: 10, textColor:[255,255,255] },
-    bodyStyles: { fontSize: 10 },
-    alternateRowStyles: { fillColor: [248, 250, 252] }
-  });
+    // ─────────────────────────────────────────────
+    // ESTATÍSTICAS
+    // ─────────────────────────────────────────────
+    function calcStats(arr) {
+      var s = arr.slice().sort(function (a, b) { return a - b; });
+      var q = function (p) { var pos = (s.length - 1) * p, base = Math.floor(pos), rest = pos - base; return s[base + 1] !== undefined ? s[base] + rest * (s[base + 1] - s[base]) : s[base]; };
+      var sum = s.reduce(function (a, b) { return a + b; }, 0);
+      var mid = Math.floor(s.length / 2);
+      return { min: s[0], max: s[s.length - 1], mean: sum / s.length, median: s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2, p25: q(.25), p75: q(.75), p90: q(.90), count: s.length };
+    }
+    function recRow(a, b) { return '<div class="rec-row"><span>' + a + '</span><span>' + b + '</span></div>'; }
 
-  doc.save('Relatorio_Simulacao_G' + c.grupo + '.pdf');
-};
+    // ─────────────────────────────────────────────
+    // GRÁFICO
+    // ─────────────────────────────────────────────
+    function drawChart(vals, st, percInput, saturated) {
+      if (chartInst) { chartInst.destroy(); chartInst = null; }
+      var cvs = el('chart'); if (!cvs) return; var ctx = cvs.getContext('2d');
+      if (saturated) {
+        chartInst = new Chart(ctx, { type: 'bar', data: { labels: [fmtPct(st.min)], datasets: [{ label: 'Contemplações', data: [vals.length], backgroundColor: 'rgba(100,116,139,.75)', borderRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
+        return;
+      }
+      var bins = 10, start = st.min - 1, end = st.max + 1, step = (end - start) / bins, labels = [], counts = [], colors = [];
+      for (var i = 0; i < bins; i++) {
+        var lo = start + i * step, hi = lo + step;
+        labels.push(fmt4(lo) + '–' + fmt4(hi));
+        counts.push(vals.filter(function (v) { return i === bins - 1 ? (v >= lo && v <= hi) : (v >= lo && v < hi); }).length);
+        colors.push((percInput >= lo && percInput < hi) ? 'rgba(37,99,235,.85)' : 'rgba(148,163,184,.60)');
+      }
+      chartInst = new Chart(ctx, { type: 'bar', data: { labels: labels, datasets: [{ label: 'Contemplações', data: counts, backgroundColor: colors, borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
+    }
 
-el('btnLoad').addEventListener('click', function(){
-  hideAlert('alertLoad');
-  var fi = el('csvFile');
-  if(!fi || !fi.files || !fi.files.length){ showAlert('alertLoad','err','Selecione um arquivo CSV antes de carregar.'); return; }
-  var file = fi.files[0], reader = new FileReader();
-  showAlert('alertLoad','info','Lendo arquivo <b>'+file.name+'</b>...');
-  reader.onload = function(e){
-    try{
-      var total = loadFromText(e.target.result, file.name);
-      var produtos = getProdutos().map(niceText).join(', ');
-      showAlert('alertLoad','ok','<b>'+total+'</b> registros carregados com sucesso.<br>Produtos: <b>'+produtos+'</b>');
-      clearResults();
-      var sPeriodo = el('selPeriodo'); if(sPeriodo) sPeriodo.value = 'all';
-    }catch(err){ showAlert('alertLoad','err','<b>Erro:</b> '+err.message); }
-  };
-  reader.onerror = function(){ showAlert('alertLoad','err','Erro ao ler o arquivo.'); };
-  reader.readAsText(file, 'utf-8');
-});
-el('btnReset').addEventListener('click', function(){
-  localStorage.removeItem('sim_csv'); localStorage.removeItem('sim_meta'); ALL_ROWS = []; updateFileInfo();
-  var prodGrid = el('produtoGrid'), grpGrid = el('grupoGrid');
-  if(prodGrid) prodGrid.innerHTML = '<span class="placeholder">Carregue o CSV primeiro</span>';
-  if(grpGrid) grpGrid.innerHTML = '<span class="placeholder">Selecione um produto primeiro</span>';
-  var pSel = el('produtoSel'), gSel = el('grupoSel'), sTipo = el('selTipo'), pLance = el('percLance'), fi = el('csvFile'), sPeriodo = el('selPeriodo');
-  if(pSel) pSel.value=''; if(gSel) gSel.value=''; if(sTipo) sTipo.innerHTML = '<option value="">— selecione —</option>'; if(sPeriodo) sPeriodo.value='all'; if(pLance) pLance.value=''; if(fi) fi.value='';
-  clearResults(); showAlert('alertLoad','info','Cache limpo com sucesso.');
-});
-el('selTipo').addEventListener('change', clearPercent);
-el('btnClear').addEventListener('click', clearResults);
-el('btnCalc').addEventListener('click', function(){
-  hideAlert('alertCalc');
-  if(!ALL_ROWS.length){ showAlert('alertCalc','err','Carregue o CSV primeiro.'); return; }
-  var produto = el('produtoSel') ? el('produtoSel').value.trim() : '';
-  var grupo = el('grupoSel') ? el('grupoSel').value.trim() : '';
-  var tipo = el('selTipo') ? el('selTipo').value.trim() : '';
-  var periodo = el('selPeriodo') ? el('selPeriodo').value : 'all';
-  var percInput = parseNum(el('percLance') ? el('percLance').value : '');
-  if(!produto){ showAlert('alertCalc','err','Selecione um <b>produto</b>.'); return; }
-  if(!grupo){ showAlert('alertCalc','err','Selecione um <b>grupo</b>.'); return; }
-  if(!tipo){ showAlert('alertCalc','err','Selecione um <b>tipo de lance</b>.'); return; }
-  
-  var baseFiltered = ALL_ROWS.filter(function(r){ return r.produto === produto && r.grupo === grupo && r.tipo === tipo && r.tipo !== 'cancelada' && r.tipo !== 'sorteio'; });
-  if(!baseFiltered.length){ showAlert('alertCalc','err','Nenhum histórico encontrado para este produto/grupo/tipo.'); clearResults(); return; }
-  var filtered = filterByPeriodo(baseFiltered, periodo);
-  if(!filtered.length){ showAlert('alertCalc','err','Nenhum histórico encontrado para este <b>período</b>.'); clearResults(); return; }
-  
-  var orderedAsc = sortByDateAsc(filtered);
-  var primeiraDataStr = orderedAsc.length ? formatDateBR(orderedAsc[0].data) : '-';
-  var ultimaDataStr = orderedAsc.length ? formatDateBR(orderedAsc[orderedAsc.length - 1].data) : '-';
-  var vals = filtered.map(function(r){ return r.perc; });
-  var st = calcStats(vals);
-  var autoSug = null;
-  if(isNaN(percInput)){ autoSug = (st.max - st.min < 0.5) ? st.min : st.p75; percInput = autoSug; }
-  
-  var spread = st.max - st.min;
-  var saturated = spread < 0.5;
-  var semi = !saturated && spread <= 5;
-  var matches = vals.filter(function(v){ return v <= percInput; }).length;
-  var prob = (matches / vals.length) * 100;
-  var badgeClass = 'badge-ok', badgeText = 'Grupo Competitivo';
-  if(saturated){ badgeClass = 'badge-neu'; badgeText = 'Grupo Saturado (Lance Teto)'; }
-  else if(semi){ badgeClass = 'badge-warn'; badgeText = 'Grupo Semi-competitivo'; }
-  var circleClass = 'c-err', mainTitle = 'Chance baixa', mainText = 'Seu lance está abaixo de boa parte do histórico.';
-  if(saturated){ circleClass = 'c-neu'; mainTitle = 'Grupo no lance teto'; mainText = 'Todos disputam no mesmo percentual — a contemplação depende de critérios de desempate.'; }
-  else if(prob >= 80){ circleClass = 'c-ok'; mainTitle = 'Ótimas chances'; mainText = 'Seu lance supera a maior parte do histórico analisado.'; }
-  else if(prob >= 50){ circleClass = 'c-warn'; mainTitle = 'Chance intermediária'; mainText = 'Seu lance está na faixa competitiva, mas sem ampla vantagem.'; }
-  var periodoInfo = getPeriodoInfo(periodo, orderedAsc[orderedAsc.length - 1].dateObj);
-  
-  // Guardando estado global para habilitar exportação
-  EXPORT_DATA = {
-      filtered: filtered, st: st, prob: prob, saturated: saturated, percInput: percInput, autoSug: autoSug,
-      produtoLabel: niceText(produto), grupo: grupo, tipoLabel: niceText(tipo),
-      periodoInfo: periodoInfo, primeiraDataStr: primeiraDataStr, ultimaDataStr: ultimaDataStr,
-      hist: sortByDateDesc(filtered)
-  };
+    // ─────────────────────────────────────────────
+    // PERÍODO
+    // ─────────────────────────────────────────────
+    function clearResults() {
+      var rs = el('resultSection'); if (rs) rs.classList.add('d-none');
+      hideAlert('alertCalc');
+      if (chartInst) { chartInst.destroy(); chartInst = null; }
+      EXPORT_DATA = null;
+    }
+    function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1, 0, 0, 0, 0); }
+    function endOfMonth(d) { return new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59, 999); }
+    function addMonths(baseDate, delta) { return new Date(baseDate.getFullYear(), baseDate.getMonth() + delta, 1, 0, 0, 0, 0); }
+    function getPeriodoInfo(value, maxDate) {
+      if (!maxDate || value === 'all') return { label: 'Todo o histórico', min: null, max: null };
+      var ref = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1, 0, 0, 0, 0);
+      if (value === '1m') return { label: 'Último mês', min: startOfMonth(maxDate), max: endOfMonth(maxDate) };
+      if (value === '3m') return { label: '3 meses anteriores', min: addMonths(ref, -2), max: endOfMonth(maxDate) };
+      if (value === '6m') return { label: '6 meses anteriores', min: addMonths(ref, -5), max: endOfMonth(maxDate) };
+      if (value === '9m') return { label: '9 meses anteriores', min: addMonths(ref, -8), max: endOfMonth(maxDate) };
+      if (value === '12m') return { label: '12 meses anteriores', min: addMonths(ref, -11), max: endOfMonth(maxDate) };
+      return { label: 'Todo o histórico', min: null, max: null };
+    }
+    function filterByPeriodo(rows, periodo) {
+      if (periodo === 'all') return rows.slice();
+      var dated = rows.filter(function (r) { return !!r.dateObj; });
+      if (!dated.length) return [];
+      var maxTime = Math.max.apply(null, dated.map(function (r) { return r.dateObj.getTime(); }));
+      var maxDate = new Date(maxTime);
+      var info = getPeriodoInfo(periodo, maxDate);
+      return rows.filter(function (r) {
+        if (!r.dateObj) return false;
+        var t = r.dateObj.getTime();
+        return t >= info.min.getTime() && t <= info.max.getTime();
+      });
+    }
+    function sortByDateAsc(rows) { return rows.slice().sort(function (a, b) { var da = a.dateObj ? a.dateObj.getTime() : 0, db = b.dateObj ? b.dateObj.getTime() : 0; return da - db || a.perc - b.perc; }); }
+    function sortByDateDesc(rows) { return rows.slice().sort(function (a, b) { var da = a.dateObj ? a.dateObj.getTime() : 0, db = b.dateObj ? b.dateObj.getTime() : 0; return db - da || b.perc - a.perc; }); }
 
-  var res = el('cardRes');
-  if(res){
-    res.innerHTML =
-      '<div class="res-header"><div>' +
-        '<span class="badge ' + badgeClass + '">' + badgeText + '</span>' +
-        '<div class="res-title">' + mainTitle + '</div>' +
-        '<div class="res-text">' + mainText + '</div>' +
-        (autoSug !== null ? '<div class="auto-box">Sugestão automática usada: <b>' + fmtPct(autoSug) + '</b></div>' : '') +
-        '<div class="res-text" style="margin-top:14px;padding-top:14px;border-top:1px solid #e2e8f0;font-size:13px;line-height:1.8;">' +
+    // ─────────────────────────────────────────────
+    // EXPORTAÇÕES
+    // ─────────────────────────────────────────────
+    window.doExportCSV = function () {
+      if (!EXPORT_DATA) return;
+      var c = EXPORT_DATA, csv = '\ufeff' + 'Data,Produto,Grupo,Tipo Lance,Percentual (%)\n';
+      c.hist.forEach(function (r) { csv += r.data + ',"' + r.produtoLabel + '","' + r.grupo + '","' + r.tipoLabel + '","' + fmt4(r.perc) + '"\n'; });
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href = url; a.download = 'Historico_Contato_G' + c.grupo + '.csv'; a.click();
+      URL.revokeObjectURL(url);
+    };
+    window.doExportPDF = function () {
+      if (!EXPORT_DATA) return;
+      var c = EXPORT_DATA;
+      if (!window.jspdf || !window.jspdf.jsPDF) { alert('Aguarde a biblioteca PDF carregar...'); return; }
+      var doc = new window.jspdf.jsPDF();
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.setTextColor(30, 58, 138);
+      doc.text('Relatório de Simulação de Contemplação', 14, 20);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(71, 85, 105);
+      doc.text('Produto: ' + c.produtoLabel + '   |   Grupo: ' + c.grupo + '   |   Tipo: ' + c.tipoLabel, 14, 28);
+      doc.text('Período Analisado: ' + c.periodoInfo.label + ' (' + c.primeiraDataStr + ' a ' + c.ultimaDataStr + ')', 14, 34);
+      doc.text('Total de ocorrências no filtro: ' + c.filtered.length, 14, 40);
+      doc.setDrawColor(226, 232, 240); doc.setFillColor(248, 250, 252);
+      doc.roundedRect(14, 46, 182, 34, 3, 3, 'FD');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(15, 23, 42);
+      doc.text('Lance Simulado: ' + fmtPct(c.percInput), 20, 56);
+      var chanceText = c.saturated ? 'Análise: Grupo Saturado (Lance Teto Histórico)' : 'Probabilidade Histórica Acumulada: ' + Math.round(c.prob) + '%';
+      doc.setFontSize(16);
+      if (c.prob >= 80 && !c.saturated) doc.setTextColor(22, 101, 52);
+      else if (c.prob >= 50 && !c.saturated) doc.setTextColor(161, 98, 7);
+      else if (!c.saturated) doc.setTextColor(153, 27, 27);
+      doc.text(chanceText, 20, 68);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(15, 23, 42);
+      doc.text('Indicadores do Grupo', 14, 94);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(71, 85, 105);
+      doc.text('Lances contemplados -> Mín: ' + fmtPct(c.st.min) + '  |  Mediana: ' + fmtPct(c.st.median) + '  |  Máx: ' + fmtPct(c.st.max), 14, 102);
+      doc.text('Outros indicadores  -> Média: ' + fmtPct(c.st.mean) + '  |  Q1: ' + fmtPct(c.st.p25) + '  |  Q3 (Pico forte): ' + fmtPct(c.st.p75), 14, 108);
+      var tableData = c.hist.map(function (r) {
+        var d = r.perc - c.percInput, tag = '';
+        if (Math.abs(d) < 0.00005) tag = 'Empatado';
+        else if (d > 0) tag = '+' + fmt4(d) + '% maior que o seu';
+        else tag = '-' + fmt4(Math.abs(d)) + '% menor que o seu';
+        return [formatDateBR(r.data), fmtPct(r.perc), tag];
+      });
+      doc.autoTable({ startY: 118, head: [['Data Contemplada', '% Lance', 'Status (Vs Seu Lance)']], body: tableData, theme: 'grid', headStyles: { fillColor: [37, 99, 235], fontSize: 10, textColor: [255, 255, 255] }, bodyStyles: { fontSize: 10 }, alternateRowStyles: { fillColor: [248, 250, 252] } });
+      doc.save('Relatorio_Simulacao_G' + c.grupo + '.pdf');
+    };
+
+    // ─────────────────────────────────────────────
+    // CARREGAR CSV
+    // ─────────────────────────────────────────────
+    function doLoadFile(file) {
+      if (!file) return;
+      hideAlert('alertLoad');
+      showAlert('alertLoad', 'info', 'Lendo arquivo <b>' + file.name + '</b>...');
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          var total = loadFromText(e.target.result, file.name);
+          var produtos = getProdutos().map(niceText).join(', ');
+          showAlert('alertLoad', 'ok', '<b>' + total + '</b> registros carregados com sucesso.<br>Produtos: <b>' + produtos + '</b>');
+          clearResults();
+          var sPeriodo = el('selPeriodo'); if (sPeriodo) sPeriodo.value = 'all';
+          // MELHORIA 2 — seleciona automaticamente o 1º produto ao carregar
+          var prods = getProdutos();
+          if (prods.length) selectProduto(prods[0]);
+        } catch (err) { showAlert('alertLoad', 'err', '<b>Erro:</b> ' + err.message); }
+      };
+      reader.onerror = function () { showAlert('alertLoad', 'err', 'Erro ao ler o arquivo.'); };
+      reader.readAsText(file, 'utf-8');
+    }
+
+    el('btnLoad').addEventListener('click', function () {
+      var fi = el('csvFile');
+      if (!fi || !fi.files || !fi.files.length) { showAlert('alertLoad', 'err', 'Selecione um arquivo CSV antes de carregar.'); return; }
+      doLoadFile(fi.files[0]);
+    });
+
+    // MELHORIA 1 — auto carrega ao escolher arquivo
+    el('csvFile').addEventListener('change', function () {
+      if (this.files && this.files.length) doLoadFile(this.files[0]);
+    });
+
+    el('btnReset').addEventListener('click', function () {
+      localStorage.removeItem('sim_csv'); localStorage.removeItem('sim_meta'); ALL_ROWS = []; updateFileInfo();
+      var prodGrid = el('produtoGrid'), grpGrid = el('grupoGrid');
+      if (prodGrid) prodGrid.innerHTML = '<span class="placeholder">Carregue o CSV primeiro</span>';
+      if (grpGrid) grpGrid.innerHTML = '<span class="placeholder">Selecione um produto primeiro</span>';
+      var pSel = el('produtoSel'), gSel = el('grupoSel'), sTipo = el('selTipo'), pLance = el('percLance'), fi = el('csvFile'), sPeriodo = el('selPeriodo');
+      if (pSel) pSel.value = ''; if (gSel) gSel.value = '';
+      if (sTipo) sTipo.innerHTML = '<option value="">— selecione —</option>';
+      if (sPeriodo) sPeriodo.value = 'all'; if (pLance) pLance.value = ''; if (fi) fi.value = '';
+      clearResults(); showAlert('alertLoad', 'info', 'Cache limpo com sucesso.');
+    });
+
+    // ─────────────────────────────────────────────
+    // LISTENERS DE AUTO-CÁLCULO
+    // MELHORIA 4 — período NÃO limpa o %
+    // ─────────────────────────────────────────────
+    el('selPeriodo').addEventListener('change', tryAutoCalc);
+
+    el('selTipo').addEventListener('change', function () {
+      // tipo muda o contexto de lances — limpa % faz sentido aqui
+      var p = el('percLance'); if (p) p.value = '';
+      tryAutoCalc();
+    });
+
+    var inputLance = el('percLance');
+    if (inputLance) {
+      inputLance.addEventListener('blur', function () { if (this.value) tryAutoCalc(); });
+      inputLance.addEventListener('keypress', function (e) { if (e.key === 'Enter') tryAutoCalc(); });
+    }
+
+    el('btnClear').addEventListener('click', clearResults);
+
+    // ─────────────────────────────────────────────
+    // CALCULAR — botão principal
+    // ─────────────────────────────────────────────
+    el('btnCalc').addEventListener('click', function () {
+      if (_calcLoading) return; // evita double-click
+      hideAlert('alertCalc');
+      if (!ALL_ROWS.length) { showAlert('alertCalc', 'err', 'Carregue o CSV primeiro.'); return; }
+      var produto = el('produtoSel') ? el('produtoSel').value.trim() : '';
+      var grupo = el('grupoSel') ? el('grupoSel').value.trim() : '';
+      var tipo = el('selTipo') ? el('selTipo').value.trim() : '';
+      var periodo = el('selPeriodo') ? el('selPeriodo').value : 'all';
+      var percInput = parseNum(el('percLance') ? el('percLance').value : '');
+      if (!produto) { showAlert('alertCalc', 'err', 'Selecione um <b>produto</b>.'); return; }
+      if (!grupo) { showAlert('alertCalc', 'err', 'Selecione um <b>grupo</b>.'); return; }
+      if (!tipo) { showAlert('alertCalc', 'err', 'Selecione um <b>tipo de lance</b>.'); return; }
+
+      // MELHORIA 3 — loading visual
+      setCalcLoading(true);
+      setTimeout(function () {
+        try { _doCalc(produto, grupo, tipo, periodo, percInput); }
+        finally { setCalcLoading(false); }
+      }, 60);
+    });
+
+    // ─────────────────────────────────────────────
+    // _doCalc — núcleo do cálculo (separado para limpeza)
+    // ─────────────────────────────────────────────
+    function _doCalc(produto, grupo, tipo, periodo, percInput) {
+      var baseFiltered = ALL_ROWS.filter(function (r) {
+        return r.produto === produto && r.grupo === grupo && r.tipo === tipo && r.tipo !== 'cancelada' && r.tipo !== 'sorteio';
+      });
+      if (!baseFiltered.length) { showAlert('alertCalc', 'err', 'Nenhum histórico encontrado para este produto/grupo/tipo.'); clearResults(); return; }
+      var filtered = filterByPeriodo(baseFiltered, periodo);
+      if (!filtered.length) { showAlert('alertCalc', 'err', 'Nenhum histórico encontrado para este <b>período</b>.'); clearResults(); return; }
+
+      var orderedAsc = sortByDateAsc(filtered);
+      var primeiraDataStr = orderedAsc.length ? formatDateBR(orderedAsc[0].data) : '-';
+      var ultimaDataStr = orderedAsc.length ? formatDateBR(orderedAsc[orderedAsc.length - 1].data) : '-';
+      var vals = filtered.map(function (r) { return r.perc; });
+      var st = calcStats(vals);
+      var autoSug = null;
+      if (isNaN(percInput)) { autoSug = (st.max - st.min < 0.5) ? st.min : st.p75; percInput = autoSug; }
+
+      var spread = st.max - st.min;
+      var saturated = spread < 0.5;
+      var semi = !saturated && spread <= 5;
+      var matches = vals.filter(function (v) { return v <= percInput; }).length;
+      var prob = (matches / vals.length) * 100;
+
+      var badgeClass = 'badge-ok', badgeText = 'Grupo Competitivo';
+      if (saturated) { badgeClass = 'badge-neu'; badgeText = 'Grupo Saturado (Lance Teto)'; }
+      else if (semi) { badgeClass = 'badge-warn'; badgeText = 'Grupo Semi-competitivo'; }
+
+      var circleClass = 'c-err', mainTitle = 'Chance baixa', mainText = 'Seu lance está abaixo de boa parte do histórico.';
+      if (saturated) { circleClass = 'c-neu'; mainTitle = 'Grupo no lance teto'; mainText = 'Todos disputam no mesmo percentual — a contemplação depende de critérios de desempate.'; }
+      else if (prob >= 80) { circleClass = 'c-ok'; mainTitle = 'Ótimas chances'; mainText = 'Seu lance supera a maior parte do histórico analisado.'; }
+      else if (prob >= 50) { circleClass = 'c-warn'; mainTitle = 'Chance intermediária'; mainText = 'Seu lance está na faixa competitiva, mas sem ampla vantagem.'; }
+
+      var periodoInfo = getPeriodoInfo(periodo, orderedAsc[orderedAsc.length - 1].dateObj);
+
+      // ── MELHORIA 5 — busca dados do grupo selecionado para exibir no cabeçalho do resultado
+      var grupoMeta = (function () {
+        var g = getGrupos(produto).filter(function (g) { return g.grupo === grupo; });
+        return g.length ? g[0] : null;
+      })();
+      var grupoInfoHtml = '';
+      if (grupoMeta) {
+        grupoInfoHtml =
+          '<div style="margin-top:14px;padding:12px 16px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;font-size:13px;line-height:1.9;color:#1e3a8a;">' +
+          '<b>📋 Resumo do Grupo ' + grupo + '</b><br>' +
+          'Assembleia atual: <b>' + (grupoMeta.assembleiaAtual || '—') + '</b> &nbsp;|&nbsp; ' +
+          'Assembleias restantes: <b>' + (grupoMeta.assembleiaRealizar || '—') + '</b> &nbsp;|&nbsp; ' +
+          'Faixa de crédito: <b>' + (grupoMeta.faixaCredito || '—') + '</b>' +
+          '</div>';
+      }
+
+      EXPORT_DATA = {
+        filtered: filtered, st: st, prob: prob, saturated: saturated, percInput: percInput, autoSug: autoSug,
+        produtoLabel: niceText(produto), grupo: grupo, tipoLabel: niceText(tipo),
+        periodoInfo: periodoInfo, primeiraDataStr: primeiraDataStr, ultimaDataStr: ultimaDataStr,
+        hist: sortByDateDesc(filtered)
+      };
+
+      var res = el('cardRes');
+      if (res) {
+        res.innerHTML =
+          '<div class="res-header"><div>' +
+          '<span class="badge ' + badgeClass + '">' + badgeText + '</span>' +
+          '<div class="res-title">' + mainTitle + '</div>' +
+          '<div class="res-text">' + mainText + '</div>' +
+          (autoSug !== null ? '<div class="auto-box">Sugestão automática usada: <b>' + fmtPct(autoSug) + '</b></div>' : '') +
+          grupoInfoHtml +  // ← MELHORIA 5
+          '<div class="res-text" style="margin-top:14px;padding-top:14px;border-top:1px solid #e2e8f0;font-size:13px;line-height:1.8;">' +
           'Produto: <b>' + EXPORT_DATA.produtoLabel + '</b> | Grupo: <b>' + grupo + '</b> | Tipo: <b>' + EXPORT_DATA.tipoLabel + '</b> | Período: <b>' + periodoInfo.label + '</b><br>' +
           'Primeira Data: <b>' + primeiraDataStr + '</b> | Última Data: <b>' + ultimaDataStr + '</b> | Registros: <b>' + filtered.length + '</b>' +
-        '</div>' +
-      '</div>' +
-      '<div class="circle ' + circleClass + '">' +
-        '<div class="v">' + (saturated ? '—' : Math.round(prob) + '%') + '</div>' +
-        '<div class="l">' + (saturated ? 'saturado' : 'chance') + '</div>' +
-      '</div></div>';
-  }
-  var diffMin = percInput - st.min;
-  var metrics = [
-    ['Mín. histórico', st.min, 'Piso contemplado', ''],
-    ['Mediana', st.median, '50% das contemplações', ''],
-    ['Máx. histórico', st.max, 'Teto contemplado', ''],
-    ['Seu lance', percInput, (diffMin >= 0 ? '+' + fmt4(diffMin) : '-' + fmt4(Math.abs(diffMin))) + '% vs. mínimo', 'highlight'],
-    ['Média histórica', st.mean, 'Média simples', ''],
-    ['1º quartil', st.p25, '25% mais baixos', ''],
-    ['3º quartil', st.p75, '75% mais baixos', ''],
-    ['Percentil 90', st.p90, 'Lance muito forte', '']
-  ];
-  var mBox = el('metrics');
-  if(mBox){ mBox.innerHTML = metrics.map(function(m){ return '<div class="metric '+m[3]+'"><div class="k">'+m[0]+'</div><div class="v">'+fmtPct(m[1])+'</div><div class="s">'+m[2]+'</div></div>'; }).join(''); }
-  var rec = el('recBox');
-  if(rec){
-    var cls = 'err', title = 'Oferta Baixa';
-    var body = recRow('Seu lance', fmtPct(percInput)) + recRow('Mediana histórica', fmtPct(st.median)) + recRow('Faixa forte', '≥ ' + fmtPct(st.p75)) + recRow('Leitura', 'Abaixo da zona mais competitiva');
-    if(saturated){ cls='neu'; title='Análise do Grupo Saturado'; body = recRow('Lance teto', fmtPct(st.min)) + recRow('O que ocorre', 'Todos ofertam no máximo') + recRow('Diferencial no %', 'Nenhum') + recRow('Estratégia', 'Garantir o teto e aguardar desempate') + recRow('Risco', 'A contemplação não depende do percentual'); }
-    else if(prob >= 80){ cls='ok'; title='Lance Muito Forte'; body = recRow('Seu lance', fmtPct(percInput)) + recRow('Chance histórica', fmt4(prob) + '%') + recRow('Faixa segura', '≥ ' + fmtPct(st.p25)) + recRow('Leitura', 'Muito competitivo'); }
-    else if(prob >= 50){ cls='warn'; title='Lance Intermediário'; body = recRow('Seu lance', fmtPct(percInput)) + recRow('Chance histórica', fmt4(prob) + '%') + recRow('Sugestão forte', '≥ ' + fmtPct(st.p75)) + recRow('Leitura', 'Boa chance, mas disputada'); }
-    rec.innerHTML = '<div class="rec '+cls+'"><h3>'+title+'</h3>'+body+'</div>';
-  }
-  drawChart(vals, st, percInput, saturated);
-  
-  var histBody = el('histBody');
-  if(histBody){
-    histBody.innerHTML = EXPORT_DATA.hist.map(function(r){
-      var d = r.perc - percInput, tag = '', cls = '';
-      if(Math.abs(d) < 0.00005){ tag = 'Empatado'; cls = 'tag-eq'; }
-      else if(d > 0){ tag = '+' + fmt4(d) + '% maior'; cls = 'tag-up'; }
-      else { tag = '-' + fmt4(Math.abs(d)) + '% menor'; cls = 'tag-down'; }
-      return '<tr><td>' + formatDateBR(r.data) + '</td><td><b>' + fmtPct(r.perc) + '</b></td><td><span class="tag ' + cls + '">' + tag + '</span></td></tr>';
-    }).join('');
-  }
-  var rs = el('resultSection'); if(rs){ rs.classList.remove('d-none'); rs.scrollIntoView({behavior:'smooth', block:'start'}); }
-});
-(function init(){
-  updateFileInfo();
-  var saved = localStorage.getItem('sim_csv');
-  if(!saved) return;
-  try{
-    ALL_ROWS = parseCSV(saved); renderProdutoChips(); renderGrupoChips(''); renderTipos('','');
-    var meta = JSON.parse(localStorage.getItem('sim_meta') || '{}');
-    showAlert('alertLoad','ok','<b>'+ALL_ROWS.length+'</b> registros restaurados do cache (<b>'+(meta.name || 'arquivo')+'</b>).');
-  }catch(e){ localStorage.removeItem('sim_csv'); localStorage.removeItem('sim_meta'); updateFileInfo(); }
-})();
-</script>
+          '</div>' +
+          '</div>' +
+          '<div class="circle ' + circleClass + '">' +
+          '<div class="v">' + (saturated ? '—' : Math.round(prob) + '%') + '</div>' +
+          '<div class="l">' + (saturated ? 'saturado' : 'chance') + '</div>' +
+          '</div></div>';
+      }
+
+      var diffMin = percInput - st.min;
+      var metrics = [
+        ['Mín. histórico', st.min, 'Piso contemplado', ''],
+        ['Mediana', st.median, '50% das contemplações', ''],
+        ['Máx. histórico', st.max, 'Teto contemplado', ''],
+        ['Seu lance', percInput, (diffMin >= 0 ? '+' : '') + fmt4(diffMin) + '% vs. mínimo', 'highlight'],
+        ['Média histórica', st.mean, 'Média simples', ''],
+        ['1º quartil', st.p25, '25% mais baixos', ''],
+        ['3º quartil', st.p75, '75% mais baixos', ''],
+        ['Percentil 90', st.p90, 'Lance muito forte', '']
+      ];
+      var mBox = el('metrics');
+      if (mBox) { mBox.innerHTML = metrics.map(function (m) { return '<div class="metric ' + m[3] + '"><div class="k">' + m[0] + '</div><div class="v">' + fmtPct(m[1]) + '</div><div class="s">' + m[2] + '</div></div>'; }).join(''); }
+
+      var rec = el('recBox');
+      if (rec) {
+        var cls = 'err', title = 'Oferta Baixa';
+        var body = recRow('Seu lance', fmtPct(percInput)) + recRow('Mediana histórica', fmtPct(st.median)) + recRow('Faixa forte', '≥ ' + fmtPct(st.p75)) + recRow('Leitura', 'Abaixo da zona mais competitiva');
+        if (saturated) { cls = 'neu'; title = 'Análise do Grupo Saturado'; body = recRow('Lance teto', fmtPct(st.min)) + recRow('O que ocorre', 'Todos ofertam no máximo') + recRow('Diferencial no %', 'Nenhum') + recRow('Estratégia', 'Garantir o teto e aguardar desempate') + recRow('Risco', 'A contemplação não depende do percentual'); }
+        else if (prob >= 80) { cls = 'ok'; title = 'Lance Muito Forte'; body = recRow('Seu lance', fmtPct(percInput)) + recRow('Chance histórica', fmt4(prob) + '%') + recRow('Faixa segura', '≥ ' + fmtPct(st.p25)) + recRow('Leitura', 'Muito competitivo'); }
+        else if (prob >= 50) { cls = 'warn'; title = 'Lance Intermediário'; body = recRow('Seu lance', fmtPct(percInput)) + recRow('Chance histórica', fmt4(prob) + '%') + recRow('Sugestão forte', '≥ ' + fmtPct(st.p75)) + recRow('Leitura', 'Boa chance, mas disputada'); }
+        rec.innerHTML = '<div class="rec ' + cls + '"><h3>' + title + '</h3>' + body + '</div>';
+      }
+
+      drawChart(vals, st, percInput, saturated);
+
+      var histBody = el('histBody');
+      if (histBody) {
+        histBody.innerHTML = EXPORT_DATA.hist.map(function (r) {
+          var d = r.perc - percInput, tag = '', cls = '';
+          if (Math.abs(d) < 0.00005) { tag = 'Empatado'; cls = 'tag-eq'; }
+          else if (d > 0) { tag = '+' + fmt4(d) + '% maior'; cls = 'tag-up'; }
+          else { tag = '-' + fmt4(Math.abs(d)) + '% menor'; cls = 'tag-down'; }
+          return '<tr><td>' + formatDateBR(r.data) + '</td><td><b>' + fmtPct(r.perc) + '</b></td><td><span class="tag ' + cls + '">' + tag + '</span></td></tr>';
+        }).join('');
+      }
+
+      var rs = el('resultSection');
+      if (rs) { rs.classList.remove('d-none'); rs.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }
+
+    // ─────────────────────────────────────────────
+    // INIT — restaura cache se existir
+    // ─────────────────────────────────────────────
+    (function init() {
+      updateFileInfo();
+      var saved = localStorage.getItem('sim_csv');
+      if (!saved) return;
+      try {
+        ALL_ROWS = parseCSV(saved);
+        renderProdutoChips(); renderGrupoChips(''); renderTipos('', '');
+        var meta = JSON.parse(localStorage.getItem('sim_meta') || '{}');
+        showAlert('alertLoad', 'ok', '<b>' + ALL_ROWS.length + '</b> registros restaurados do cache (<b>' + (meta.name || 'arquivo') + '</b>).');
+        // MELHORIA 2 — ao restaurar cache, já seleciona 1º produto e calcula
+        var prods = getProdutos();
+        if (prods.length) selectProduto(prods[0]);
+      } catch (e) {
+        localStorage.removeItem('sim_csv'); localStorage.removeItem('sim_meta'); updateFileInfo();
+      }
+    })();
+  </script>
 </body>
+
 </html>
