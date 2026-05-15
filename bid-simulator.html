@@ -4,30 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulador de Contemplação</title>
-  
-  <!-- Dependências Externas (Chart.js e jsPDF) -->
+  <link rel="stylesheet" href="style-bid-simulator.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-  
-  <!-- Link para o arquivo CSS de estilos -->
-  <link rel="stylesheet" href="style-bid-simulator.css">
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- ═══════════════════════════════════════════
+     TOP BAR
+═══════════════════════════════════════════ -->
 <div class="topbar">
-  <h1>📊 Simulador de Contemplação</h1>
-  <p>Probabilidade histórica estimada com base nas assembleias anteriores do grupo</p>
-  <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:10px;">
-    <div class="refresh-status" id="refreshStatus">
-      <div class="dot off" id="refreshDot"></div>
-      <span id="refreshStatusText">Auto-refresh desativado</span>
+  <div class="topbar-inner">
+    <div>
+      <h1>📊 Simulador de Contemplação</h1>
+      <p>Probabilidade histórica estimada com base nas assembleias anteriores do grupo</p>
     </div>
-    <div class="countdown-wrap d-none" id="countdownWrap">
-      <span id="countdownText">–</span>
-      <div class="countdown-bar-bg">
-        <div class="countdown-bar-fill" id="countdownFill" style="width:100%"></div>
+    <div class="topbar-status">
+      <div class="refresh-status" id="refreshStatus">
+        <div class="dot off" id="refreshDot"></div>
+        <span id="refreshStatusText">Carregando dados...</span>
+      </div>
+      <div class="countdown-wrap d-none" id="countdownWrap">
+        <span id="countdownText">–</span>
+        <div class="countdown-bar-bg">
+          <div class="countdown-bar-fill" id="countdownFill" style="width:100%"></div>
+        </div>
+      </div>
+      <div class="source-chip" id="sourceChip">
+        <span>🔗</span>
+        <span id="sourceLastUpdate">–</span>
       </div>
     </div>
   </div>
@@ -35,24 +41,34 @@
 
 <div class="wrap">
 
-  <!-- CARD — FONTE DE DADOS -->
-  <div class="card">
-    <div class="card-title">🌐 Fonte de Dados</div>
+  <!-- ═══════════════════════════════════════
+       ALERTA GLOBAL (load / erros)
+  ═══════════════════════════════════════ -->
+  <div id="alertLoad" class="alert d-none"></div>
 
-    <div style="display:flex; gap:8px; margin-bottom:20px;">
-      <button class="btn btn-primary" id="tabSheet" onclick="setTab('sheet')">🔗 Google Sheets</button>
-      <button class="btn btn-light"   id="tabCsv"   onclick="setTab('csv')">📂 Upload CSV</button>
+  <!-- ═══════════════════════════════════════
+       BANNER DE STATUS DA FONTE
+  ═══════════════════════════════════════ -->
+  <div id="sourceBanner" class="source-banner d-none">
+    <div class="source-banner-icon">🔗</div>
+    <div class="source-banner-text">
+      <strong>Conectado ao Google Sheets</strong>
+      <span id="bannerUrl"></span>
+      <span id="bannerLastUpdate"></span>
     </div>
+    <button class="btn btn-light btn-sm" id="btnRefreshNow">🔄 Atualizar agora</button>
+  </div>
 
-    <!-- painel Google Sheets -->
-    <div id="panelSheet">
-      <div class="field">
-        <label for="sheetUrl">URL do Google Sheets (publicado como CSV)</label>
-        <input type="text" id="sheetUrl" placeholder="https://docs.google.com/spreadsheets/d/e/XXXXX/pub?output=csv" />
-        <div class="hint">Planilha → Arquivo → Publicar na web → selecione a aba → formato <b>CSV</b> → Publicar → copie a URL.</div>
-      </div>
-
-      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:16px;">
+  <!-- ═══════════════════════════════════════
+       CARD — AUTO-REFRESH CONFIG
+  ═══════════════════════════════════════ -->
+  <div class="card" id="cardRefreshConfig">
+    <div class="card-title">
+      ⚙️ Configuração de Atualização Automática
+      <button class="btn btn-light btn-sm" id="btnToggleConfig">▲ Recolher</button>
+    </div>
+    <div id="configBody">
+      <div class="config-row">
         <label class="toggle-row" for="toggleRefresh">
           <div class="toggle-wrap">
             <input type="checkbox" id="toggleRefresh" />
@@ -60,9 +76,8 @@
           </div>
           Auto-refresh ativado
         </label>
-
         <div>
-          <div style="font-size:12px; font-weight:700; color:#334155; margin-bottom:8px;">Intervalo de atualização</div>
+          <div class="config-label">Intervalo de atualização</div>
           <div class="interval-chips" id="intervalChips">
             <span class="interval-chip"        data-val="60">1 min</span>
             <span class="interval-chip active" data-val="300">5 min</span>
@@ -72,53 +87,26 @@
           </div>
         </div>
       </div>
-
-      <div class="btn-row">
-        <button class="btn btn-success" id="btnLoadSheet">🌐 Carregar do Google Sheets</button>
-        <button class="btn btn-light"   id="btnRefreshNow" disabled>🔄 Atualizar agora</button>
-        <button class="btn btn-light"   id="btnClearSource">🗑 Limpar fonte</button>
-      </div>
-
-      <div id="sourceInfoBox" class="d-none">
-        <div class="source-info-box">
-          <div class="icon">🔗</div>
-          <div>
-            <div>Conectado ao Google Sheets</div>
-            <div class="detail" id="sourceUrlDisplay"></div>
-            <div class="detail" id="sourceLastUpdate"></div>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <!-- painel CSV -->
-    <div id="panelCsv" class="d-none">
-      <div class="field">
-        <label for="csvFile">Selecione o arquivo CSV</label>
-        <input type="file" id="csvFile" accept=".csv" />
-        <div class="hint">Os dados ficam salvos no navegador para a próxima visita.</div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" id="btnLoad">📥 Carregar CSV</button>
-        <button class="btn btn-light"   id="btnReset">🗑 Limpar cache</button>
-      </div>
-      <div id="fileInfo" class="hint" style="margin-top:10px"></div>
-    </div>
-
-    <div id="alertLoad" class="alert d-none"></div>
   </div>
 
-  <!-- CARD — FILTROS -->
+  <!-- ═══════════════════════════════════════
+       CARD — FILTROS
+  ═══════════════════════════════════════ -->
   <div class="card">
     <div class="card-title">🔎 Filtros da Simulação</div>
     <div class="field">
       <label>Produto</label>
-      <div id="produtoGrid" class="chips"><span class="placeholder">Carregue os dados primeiro</span></div>
+      <div id="produtoGrid" class="chips">
+        <span class="placeholder">Aguardando carregamento dos dados...</span>
+      </div>
       <input type="hidden" id="produtoSel" />
     </div>
     <div class="field">
       <label>Grupo</label>
-      <div id="grupoGrid" class="chips"><span class="placeholder">Selecione um produto primeiro</span></div>
+      <div id="grupoGrid" class="chips">
+        <span class="placeholder">Selecione um produto primeiro</span>
+      </div>
       <input type="hidden" id="grupoSel" />
     </div>
     <div class="grid-3">
@@ -141,7 +129,7 @@
       </div>
       <div class="field">
         <label for="percLance">% Lance (opcional)</label>
-        <input type="number" id="percLance" step="0.0001" placeholder="Em branco = auto" />
+        <input type="number" id="percLance" step="0.0001" placeholder="Em branco = sugestão automática" />
       </div>
     </div>
     <div class="btn-row">
@@ -151,13 +139,18 @@
     <div id="alertCalc" class="alert d-none"></div>
   </div>
 
-  <!-- RESULTADOS -->
+  <!-- ═══════════════════════════════════════
+       RESULTADOS
+  ═══════════════════════════════════════ -->
   <div id="resultSection" class="d-none">
+
     <div class="card" id="cardRes"></div>
+
     <div class="card">
       <div class="card-title">📈 Estatísticas Históricas</div>
       <div class="metrics" id="metrics"></div>
     </div>
+
     <div class="two">
       <div class="card">
         <div class="card-title">📉 Distribuição dos Lances</div>
@@ -168,12 +161,13 @@
         <div id="recBox"></div>
       </div>
     </div>
+
     <div class="card">
       <div class="card-title">
         <span>🗓 Histórico Completo do Filtro</span>
-        <div style="display:flex; gap:8px;">
-          <button class="btn btn-light"   style="font-size:12px;padding:8px 12px;" onclick="doExportCSV()">⬇ CSV</button>
-          <button class="btn btn-primary" style="font-size:12px;padding:8px 12px;" onclick="doExportPDF()">📄 PDF Relatório</button>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-light btn-sm"  onclick="doExportCSV()">⬇ CSV</button>
+          <button class="btn btn-primary btn-sm" onclick="doExportPDF()">📄 PDF</button>
         </div>
       </div>
       <div class="table-wrap">
@@ -189,11 +183,11 @@
         </table>
       </div>
     </div>
-  </div>
+
+  </div><!-- /resultSection -->
 
 </div><!-- /wrap -->
 
-<!-- Link para o arquivo JavaScript (repare que ele fica no fim da página) -->
 <script src="script-bid-simulator.js"></script>
 </body>
 </html>
