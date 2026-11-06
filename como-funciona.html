@@ -4,369 +4,630 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mel Consórcios - Como Funciona</title>
+    <title>Como Funciona o Consórcio | Mel Consórcios · Canopus</title>
+    <meta name="description" content="Entenda como funciona o consórcio: grupo, assembleia, tipos de lance, contemplação, taxa de administração e reajuste. Guia da Mel Consórcios, parceira Canopus.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Mel Consórcios">
+    <meta property="og:title" content="Como funciona o consórcio | Mel Consórcios">
+    <meta property="og:description" content="Grupo, assembleia, lances e contemplação explicados em poucos minutos.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <link rel="icon" type="image/png" href="mel.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        
-        /* ===== RESET GERAL ===== */
-        *,
-        *::before, 
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --navy: #0a1c36;
+            --navy-2: #173f66;
+            --navy-footer: #0e3766;
+            --gold: #c6a55c;
+            --gold-soft: #fbf8f1;
+            --green: #22c55e;
+            --green-dark: #16a34a;
+            --ink: #1e293b;
+            --muted: #64748b;
+            --soft: #94a3b8;
+            --line: #e2e8f0;
+            --bg: #f5f7fb;
         }
 
-        html, body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
-            overflow-x: hidden; /* Previne qualquer estouro horizontal de tela */
-            width: 100%;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+        html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; width: 100%; }
+        button { font: inherit; }
+        img { max-width: 100%; }
+        :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
         }
 
-        /* ===== HEADER DESKTOP ===== */
+        /* ===== HEADER (igual ao index) ===== */
         header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             background: #fff;
             box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: space-between;
             padding: 12px 6%;
         }
 
-        header img {
-            height: 70px;
-            width: auto;
-            display: block;
-        }
+        header > a:first-child { justify-self: start; }
+        header img { height: 60px; max-width: 140px; object-fit: contain; display: block; }
+        .header-center { display: flex; justify-self: center; align-items: center; }
 
-        /* Menu Premium Glassmorphism */
         #menu-desktop {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            display: flex; align-items: center; gap: 6px;
             background: rgba(10, 28, 54, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 6px 8px;
-            border-radius: 100px;
+            padding: 6px 8px; border-radius: 100px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .menu-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 10px 18px;
-            border-radius: 100px;
-            transition: all 0.3s;
-        }
+        .menu-link, .menu-link-destaque { text-decoration: none; font-size: 13px; padding: 10px 18px; border-radius: 100px; transition: all 0.3s; white-space: nowrap; }
+        .menu-link { color: #fff; font-weight: 600; }
+        .menu-link:hover, .menu-link[aria-current="page"] { background: rgba(255, 255, 255, 0.15); color: var(--gold); }
+        .menu-link-destaque { color: var(--gold); font-weight: 700; }
+        .menu-link-destaque:hover { background: rgba(198, 165, 92, 0.15); }
+        .menu-divisor { width: 1px; height: 16px; background: rgba(255, 255, 255, 0.2); margin: 0 4px; }
 
-        .menu-link:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #c6a55c;
-        }
-
-        .menu-divisor {
-            width: 1px;
-            height: 16px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 0 4px;
-        }
-
-        .menu-link-destaque {
-            color: #c6a55c;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 18px;
-            border-radius: 100px;
-            transition: all 0.3s;
-        }
-
-        .menu-link-destaque:hover {
-            background: rgba(198, 165, 92, 0.15);
-        }
-
-        /* Botão WhatsApp Header */
         .header-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: #22c55e;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background .2s, transform .2s;
+            display: flex; align-items: center; justify-content: center; justify-self: end; gap: 8px;
+            background: var(--green); color: #fff; font-weight: 700; font-size: 15px;
+            padding: 12px 24px; border-radius: 8px; text-decoration: none;
+            transition: background .2s, transform .2s; white-space: nowrap;
         }
+        .header-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+        #whats-icon { display: none; }
 
-        .header-btn:hover {
-            background: #16a34a;
-            transform: translateY(-1px);
-        }
+        #hamburger { display: none; background: none; border: 0; cursor: pointer; font-size: 28px; line-height: 1; color: var(--navy); padding: 6px 10px; }
 
-        #whats-icon { display: none; } /* Escondido no PC */
-
-        /* Ícone Hamburguer Escondido no PC */
-        #hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 28px;
-            color: #0a1c36;
-        }
-
-        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        #menu-overlay { position: fixed; inset: 0; background: rgba(10, 28, 54, 0.45); z-index: 9998; opacity: 0; pointer-events: none; transition: opacity .3s; }
         #menu-mobile {
-            position: fixed;
-            top: 0; right: -100%;
-            width: 280px; height: 100vh;
-            background: linear-gradient(135deg, #0a1c36, #173f66);
-            padding: 30px 20px;
-            transition: right 0.3s ease;
-            z-index: 9999;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+            position: fixed; top: 0; right: 0; width: 280px; max-width: 85%; height: 100vh;
+            background: linear-gradient(135deg, var(--navy), var(--navy-2));
+            padding: 30px 24px; transform: translateX(100%); transition: transform 0.3s ease;
+            z-index: 9999; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3); visibility: hidden;
         }
+        body.menu-aberto #menu-mobile { transform: translateX(0); visibility: visible; }
+        body.menu-aberto #menu-overlay { opacity: 1; pointer-events: auto; }
+        .menu-mob-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .menu-mob-topo strong { color: var(--gold); font-size: 14px; letter-spacing: 1px; }
+        .menu-mob-fechar { background: none; border: 0; font-size: 28px; cursor: pointer; color: #fff; line-height: 1; }
+        .menu-mob-link { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 16px; }
+        .menu-mob-destaque { display: block; color: var(--gold); text-decoration: none; font-weight: 700; font-size: 16px; margin-top: 10px; }
 
-        .menu-mob-link {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .menu-mob-destaque {
-            display: block;
-            color: #c6a55c;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        /* ===== HERO & SEÇÃO COMO FUNCIONA ===== */
+        /* ===== HERO COM SIMULADOR ===== */
         .hero {
-            min-height: 100vh;
-            padding-top: 120px;
-            padding-bottom: 80px;
+            min-height: 92vh;
+            padding: 140px 6% 80px;
             background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            position: relative;
-            display: flex;
-            align-items: flex-start;
-            padding-left: 6%;
-            padding-right: 6%;
+            position: relative; display: flex; align-items: center; justify-content: space-between; gap: 48px;
         }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(105deg, rgba(10, 28, 54, 0.95) 30%, rgba(10, 28, 54, 0.70) 100%);
-        }
-
-        .hero-left {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            width: 100%;
-        }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(105deg, rgba(10, 28, 54, 0.94) 45%, rgba(10, 28, 54, 0.4) 100%); }
+        .hero-left { position: relative; z-index: 2; color: #fff; max-width: 600px; flex: 1; }
 
         .hero-tag {
-            display: inline-block;
-            background: #c6a55c;
-            color: #0a1c36;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 20px;
-            margin-bottom: 30px;
+            display: inline-block; background: var(--gold); color: var(--navy);
+            font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 6px 16px; border-radius: 20px; margin-bottom: 26px;
+        }
+        .hero-left h1 { font-size: 46px; font-weight: 800; line-height: 1.05; margin-bottom: 22px; text-transform: uppercase; }
+        .hero-left h1 span { color: var(--gold); }
+        .hero-left p { font-size: 16px; line-height: 1.7; opacity: .88; margin-bottom: 30px; max-width: 480px; }
+
+        .hero-checks { display: flex; flex-direction: column; gap: 10px; }
+        .hero-checks span { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; opacity: .94; }
+        .hero-checks span::before {
+            content: '✔'; background: var(--green); color: #fff; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
         }
 
-        /* GRID: O SEGREDO DO LAYOUT PERFEITO */
-        .como-funciona-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 Colunas no PC */
-            gap: 50px;
-            max-width: 1100px;
+        .hero-right { position: relative; z-index: 2; flex-shrink: 0; display: flex; justify-content: center; }
+        .simulador { background: #fff; border-radius: 20px; padding: 34px 30px; width: 100%; max-width: 400px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); }
+        .sim-title { font-size: 20px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 4px; }
+        .sim-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        .pill-group { display: flex; gap: 8px; margin-bottom: 12px; }
+        .pill {
+            flex: 1; padding: 9px 6px; border-radius: 8px; border: 1.5px solid var(--line); background: #f8fafc;
+            font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; cursor: pointer; transition: all .18s;
+        }
+        .pill[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .sim-label { display: block; font-size: 11px; font-weight: 700; color: var(--soft); text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-top: 16px; margin-bottom: 4px; }
+        .sim-valor { font-size: 40px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 14px; line-height: 1; font-variant-numeric: tabular-nums; }
+        input[type=range] { appearance: none; -webkit-appearance: none; width: 100%; height: 5px; background: var(--line); border-radius: 3px; outline: none; margin-bottom: 6px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); cursor: pointer; box-shadow: 0 2px 8px rgba(198, 165, 92, .5); }
+        input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: var(--gold); cursor: pointer; }
+        .range-minmax { display: flex; justify-content: space-between; font-size: 11px; color: var(--soft); font-weight: 600; margin-bottom: 16px; }
+        .sim-check { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink); font-weight: 600; margin-bottom: 18px; cursor: pointer; }
+        .sim-check input { width: 18px; height: 18px; accent-color: var(--navy); }
+        .sim-cta {
+            width: 100%; background: var(--green); color: #fff; font-size: 16px; font-weight: 800; padding: 16px;
+            border: none; border-radius: 10px; cursor: pointer; transition: background .2s, transform .2s; letter-spacing: .3px;
+        }
+        .sim-cta:hover { background: var(--green-dark); transform: translateY(-2px); }
+        .sim-disclaimer { font-size: 11px; color: var(--soft); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+        /* ===== FAIXA DE NÚMEROS ===== */
+        .numeros { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); padding: 54px 6%; }
+        .numeros-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255, 255, 255, 0.08); border-radius: 16px; overflow: hidden; }
+        .numero-item { background: rgba(255, 255, 255, 0.04); padding: 30px 20px; text-align: center; }
+        .numero-item strong { display: block; font-size: 36px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+        .numero-item span { font-size: 13px; color: rgba(255, 255, 255, 0.72); font-weight: 600; }
+
+        /* ===== SEÇÕES ===== */
+        .secao { padding: 84px 6%; }
+        .secao.branca { background: #fff; }
+        .section-eyebrow { text-align: center; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px; }
+        .section-heading { text-align: center; font-size: 34px; font-weight: 800; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+        .section-sub { text-align: center; font-size: 16px; color: var(--muted); max-width: 640px; margin: 0 auto 46px; line-height: 1.6; }
+        .esq { text-align: left; margin-left: 0; }
+
+        /* ===== USOS DA CARTA (com imagem) ===== */
+        .usos { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; max-width: 1180px; margin: 0 auto; }
+        .usos-foto { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--navy-2); box-shadow: 0 30px 60px rgba(10, 28, 54, 0.18); }
+        .usos-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .usos-selo {
+            position: absolute; left: 20px; bottom: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.95); border-radius: 14px; padding: 16px 18px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .usos-selo strong { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1; }
+        .usos-selo span { font-size: 13px; color: var(--muted); line-height: 1.4; font-weight: 600; }
+        .usos-lista { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 28px; }
+        .uso { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+        .uso-icone { font-size: 24px; line-height: 1; flex-shrink: 0; }
+        .uso b { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+        .uso p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+        .nota { font-size: 12px; color: var(--soft); margin-top: 16px; line-height: 1.6; }
+
+        /* ===== VANTAGENS ===== */
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1180px; margin: 0 auto; }
+        .card { background: #fff; border-radius: 16px; padding: 30px 24px; border: 1px solid #eef2f6; transition: transform .25s, box-shadow .25s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07); }
+        .card-icon { width: 52px; height: 52px; background: var(--gold-soft); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 24px; }
+        .card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+        .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+        /* ===== PATRIMÔNIO ===== */
+        .patrimonio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1180px; margin: 0 auto; }
+        .estrategia { border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; display: flex; flex-direction: column; gap: 12px; background: var(--bg); }
+        .estrategia-num { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); color: var(--gold); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+        .estrategia h3 { font-size: 17px; font-weight: 700; color: var(--navy); }
+        .estrategia p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .aviso { margin: 26px auto 0; max-width: 760px; text-align: center; font-size: 12.5px; color: var(--soft); line-height: 1.6; }
+
+        /* ===== PASSOS ===== */
+        .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-width: 1180px; margin: 0 auto; counter-reset: passo; }
+        .passo { position: relative; padding: 0 22px; text-align: center; }
+        .passo::before {
+            counter-increment: passo; content: counter(passo);
+            display: flex; align-items: center; justify-content: center;
+            width: 54px; height: 54px; margin: 0 auto 18px; border-radius: 50%;
+            background: var(--navy); color: var(--gold); font-size: 20px; font-weight: 800;
+            position: relative; z-index: 1; box-shadow: 0 0 0 8px var(--bg);
+        }
+        .passo:not(:last-child)::after { content: ''; position: absolute; top: 27px; left: 50%; width: 100%; height: 2px; background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 14px); }
+        .passo h3 { font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+        .passo p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+        /* ===== COMPARATIVO ===== */
+        .tabela-wrap { max-width: 920px; margin: 0 auto; overflow-x: auto; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+        table { width: 100%; border-collapse: collapse; min-width: 560px; }
+        th, td { padding: 16px 20px; text-align: left; font-size: 14px; line-height: 1.5; border-bottom: 1px solid var(--line); vertical-align: top; }
+        tr:last-child td { border-bottom: 0; }
+        thead th { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        thead th:nth-child(2) { background: var(--navy); color: #fff; }
+        thead th:nth-child(3) { background: var(--bg); color: var(--muted); }
+        thead th:first-child { background: #fff; }
+        td:first-child { font-weight: 700; color: var(--navy); width: 22%; }
+        td:nth-child(2) { background: var(--gold-soft); color: var(--ink); font-weight: 600; }
+        td:nth-child(3) { color: var(--muted); }
+
+        /* ===== FAIXA COM FOTO ===== */
+        .faixa-foto { position: relative; padding: 96px 6%; color: #fff; text-align: center; overflow: hidden; background: var(--navy); }
+        .faixa-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
+        .faixa-foto .conteudo { position: relative; max-width: 720px; margin: 0 auto; }
+        .faixa-foto h2 { font-size: 34px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        .faixa-foto h2 span { color: var(--gold); }
+        .faixa-foto p { font-size: 16px; opacity: .88; line-height: 1.6; margin-bottom: 30px; }
+
+        .btn-verde, .btn-navy {
+            display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 800;
+            padding: 16px 36px; border-radius: 10px; border: 0; cursor: pointer; text-decoration: none; transition: background .2s, transform .2s;
+        }
+        .btn-verde { background: var(--green); color: #fff; }
+        .btn-verde:hover { background: var(--green-dark); transform: translateY(-2px); }
+        .btn-navy { background: var(--navy); color: #fff; }
+        .btn-navy:hover { background: var(--navy-2); transform: translateY(-2px); }
+        .centro { text-align: center; margin-top: 30px; }
+
+        /* ===== FAQ ===== */
+        .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; max-width: 960px; margin: 0 auto; align-items: start; }
+        .faq-item { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+        .faq-q { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 18px 20px; font-size: 14px; font-weight: 700; color: var(--navy); cursor: pointer; gap: 12px; background: none; border: 0; text-align: left; }
+        .faq-arrow { font-size: 12px; color: var(--soft); transition: transform .25s; flex-shrink: 0; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; font-size: 13px; color: var(--muted); line-height: 1.7; }
+        .faq-item.open .faq-a { grid-template-rows: 1fr; }
+        .faq-a-inner { overflow: hidden; }
+        .faq-a-inner p { padding: 0 20px 18px; }
+
+        /* ===== CTA FINAL ===== */
+        .cta-final { background: #fff; padding: 80px 6%; text-align: center; }
+        .cta-final h2 { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+        .cta-final p { font-size: 16px; color: var(--muted); max-width: 500px; margin: 0 auto 32px; line-height: 1.6; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--navy-footer); color: #fff; padding: 60px 6% 30px; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 48px; }
+        .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-canopus-img { max-width: 250px; width: 100%; height: auto; }
+        footer h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 18px; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        footer ul li a { font-size: 13px; color: rgba(255, 255, 255, 0.65); text-decoration: none; transition: color .2s; }
+        footer ul li a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; font-size: 12px; color: rgba(255, 255, 255, 0.45); line-height: 1.8; }
+        .footer-bottom a { color: inherit; }
+
+        .whats-float {
+            position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; background: #25d366; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55); z-index: 999; transition: transform .2s;
+        }
+        .whats-float:hover { transform: scale(1.1); }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 1100px) {
+            .cards-grid, .patrimonio-grid { grid-template-columns: repeat(2, 1fr); }
+            .usos { grid-template-columns: 1fr; gap: 36px; }
+            .usos-foto { aspect-ratio: 16 / 10; max-height: 460px; }
         }
 
-        .cf-item h2 {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            color: #fff;
-            letter-spacing: 0.5px;
-        }
-
-        .cf-item p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        /* ===== RESPONSIVIDADE (Celulares e Tablets) ===== */
         @media (max-width: 980px) {
-            /* Ajustes HEADER Mobile */
-            header {
-                padding: 12px 5%;
-            }
-            
-            #menu-desktop {
-                display: none !important; /* SOME COM O MENU PREMIUM DA TELA */
-            }
-
-            #hamburger {
-                display: flex !important;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            /* Transforma botão do Whats num círculo */
-            #header-whats {
-                width: 44px;
-                height: 44px;
-                padding: 0;
-                border-radius: 50%;
-                justify-content: center;
-            }
-            
+            header { padding: 10px 5%; }
+            #menu-desktop { display: none; }
+            #hamburger { display: block; }
+            .header-btn { width: 44px; height: 44px; padding: 0; border-radius: 50%; }
             #whats-text { display: none; }
-            #whats-icon { display: block; font-size: 22px; margin-left: 5px; }
+            #whats-icon { display: block; font-size: 22px; }
 
-            /* Ajustes HERO e GRID Mobile */
-            .como-funciona-grid {
-                grid-template-columns: 1fr; /* 1 COLUNA NO CELULAR */
-                gap: 40px;
-            }
+            .hero { flex-direction: column; align-items: center; text-align: center; padding: 110px 6% 60px; min-height: auto; gap: 40px; }
+            .hero-left p { margin-left: auto; margin-right: auto; }
+            .hero-checks { align-items: center; }
+            .hero-right { width: 100%; }
 
-            .hero {
-                padding-top: 100px;
-            }
+            .numeros-grid { grid-template-columns: repeat(2, 1fr); }
+            .passos { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+            .passo:nth-child(2)::after { display: none; }
 
-            .cf-item h2 {
-                font-size: 26px; /* Menor pra não estourar a tela */
-                word-break: break-word; /* Quebra palavras longas como ADMINISTRADORA */
-            }
+            .footer-top { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            footer ul li { justify-content: center; }
+            footer { padding: 40px 5% 24px; }
+        }
 
-            .hero-tag {
-                white-space: normal;
-            }
+        @media (max-width: 640px) {
+            header img { height: 48px; }
+            .secao { padding: 64px 5%; }
+            .hero-left h1 { font-size: 32px; }
+            .simulador { padding: 28px 22px; }
+            .sim-valor { font-size: 34px; }
+            .section-heading, .faixa-foto h2 { font-size: 26px; }
+            .cta-final h2 { font-size: 26px; }
+            .numero-item { padding: 24px 12px; }
+            .numero-item strong { font-size: 28px; }
+            .cards-grid, .patrimonio-grid, .usos-lista, .faq-grid, .passos { grid-template-columns: 1fr; }
+            .passo::after { display: none; }
+            .whats-float { bottom: 18px; right: 18px; }
+        }
+        /* ===== COMO FUNCIONA ===== */
+        .hero-curto { min-height: auto; padding: 140px 6% 72px; }
+        .hero-curto .hero-left { max-width: 720px; }
+        .atalhos { display: flex; flex-wrap: wrap; gap: 10px; }
+        .atalhos a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); transition: background .2s; }
+        .atalhos a:hover { background: rgba(255,255,255,.18); color: var(--gold); }
+        .resumo { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; max-width: 1180px; margin: 0 auto; }
+        .resumo-cards { display: flex; flex-direction: column; gap: 12px; }
+        .resumo-card { display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: center; padding: 18px 20px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line); }
+        .resumo-card strong { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.15; }
+        .resumo-card span { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        .termos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1180px; margin: 0 auto; }
+        .termo { border: 1px solid var(--line); border-radius: 16px; padding: 22px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+        .termo-ic { width: 44px; height: 44px; border-radius: 12px; background: var(--gold-soft); display: flex; align-items: center; justify-content: center; font-size: 21px; }
+        .termo h3 { font-size: 16px; color: var(--navy); }
+        .termo p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .tabela-wrap td:first-child { white-space: nowrap; }
+        .escolha { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 34px auto 0; }
+        .escolha-card { position: relative; display: block; min-height: 260px; border-radius: 20px; overflow: hidden; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--navy), var(--navy-2)); }
+        .escolha-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+        .escolha-card:hover img { transform: scale(1.04); }
+        .escolha-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,28,54,.1) 20%, rgba(10,28,54,.92) 100%); }
+        .escolha-txt { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 1; display: flex; flex-direction: column; gap: 6px; }
+        .escolha-tag { align-self: flex-start; background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+        .escolha-txt b { font-size: 21px; line-height: 1.25; }
+        .escolha-txt span:last-child { font-size: 14px; opacity: .9; font-weight: 600; }
+        @media (max-width: 1100px) { .termos { grid-template-columns: repeat(2, 1fr); } .resumo { grid-template-columns: 1fr; gap: 28px; } }
+        @media (max-width: 980px) { .hero-curto { padding: 110px 6% 56px; } .atalhos { justify-content: center; } }
+        @media (max-width: 640px) {
+            .termos, .escolha { grid-template-columns: 1fr; }
+            .resumo-card { grid-template-columns: 1fr; gap: 4px; }
+            .tabela-wrap td:first-child { white-space: normal; }
         }
     </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '809733666063952');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'Como funciona', content_category: 'Conteúdo' });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body>
 
-    <!-- HEADER LIMPO E CORRIGIDO -->
     <header>
-        <a href="index.html">
-            <img src="mel.png" alt="Mel Consórcios">
-        </a>
+        <a href="index.html"><img src="mel.png" alt="Mel Consórcios"></a>
 
-        <!-- MENU DESKTOP -->
-        <div id="menu-desktop">
-            <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
-            <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
-            <a href="como-funciona.html" class="menu-link">Como Funciona</a>
-            <div class="menu-divisor"></div>
-            <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
+        <div class="header-center">
+            <nav id="menu-desktop" aria-label="Menu principal">
+                <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
+                <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+                <a href="index.html#patrimonio" class="menu-link">Patrimônio</a>
+                <a href="como-funciona.html" class="menu-link" aria-current="page">Como Funciona</a>
+                <div class="menu-divisor" aria-hidden="true"></div>
+                <a href="index.html#simulador" class="menu-link-destaque">Simulador 🧮</a>
+            </nav>
+            <button id="hamburger" type="button" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false" onclick="toggleMenu(true)">☰</button>
         </div>
 
-        <!-- HAMBURGUER MOBILE -->
-        <div id="hamburger" onclick="toggleMenu()">☰</div>
-
-        <!-- BOTÃO WHATSAPP -->
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
-            <span id="whats-icon">💬</span>
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="header-btn" id="header-whats" data-whats="header" aria-label="Fale no WhatsApp">
+            <span id="whats-icon" aria-hidden="true">💬</span>
             <span id="whats-text">📲 Fale no WhatsApp</span>
         </a>
     </header>
 
-    <!-- MENU MOBILE ESCONDIDO -->
-    <div id="menu-mobile">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
-            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
+    <div id="menu-overlay" onclick="toggleMenu(false)"></div>
+    <nav id="menu-mobile" aria-label="Menu" aria-hidden="true">
+        <div class="menu-mob-topo">
+            <strong>MENU</strong>
+            <button type="button" class="menu-mob-fechar" aria-label="Fechar menu" onclick="toggleMenu(false)">✖</button>
         </div>
         <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
         <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="index.html#patrimonio" class="menu-mob-link">Construir patrimônio</a>
         <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
-        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
-    </div>
+        <a href="index.html#simulador" class="menu-mob-destaque">Acessar Simulador →</a>
+    </nav>
 
-    <!-- HERO -->
-    <section class="hero">
+    <main>
+
+    <!-- TOPO -->
+    <section class="hero hero-curto">
         <div class="hero-overlay"></div>
-
         <div class="hero-left">
-            <span class="hero-tag">✦ O que é o Consórcio e como funciona?</span>
-            
-            <!-- GRID 100% CORRIGIDO (2 col PC / 1 col Mobile) -->
-            <div class="como-funciona-grid">
-                
-                <div class="cf-item">
-                    <h2>CONSÓRCIO</h2>
-                    <p>É uma forma simples de poupar, através do autofinanciamento. Grupos de pessoas com um objetivo em comum se formam para conseguirem bens, tais como: automóveis, caminhões, casas, viagens, tratamentos cirúrgicos, entre muitos outros. Além da ausência de juros o consórcio tem condições favoráveis de pagamento.</p>
-                </div>
+            <span class="hero-tag">✦ Guia do consórcio</span>
+            <h1>Como funciona<br><span>o consórcio</span></h1>
+            <p>Entenda em poucos minutos como o consórcio funciona, o que é lance, como acontece a contemplação e por que ele custa menos que um financiamento.</p>
+            <nav class="atalhos" aria-label="Nesta página">
+                <a href="#passos">Passo a passo</a>
+                <a href="#termos">Termos do consórcio</a>
+                <a href="#lances">Tipos de lance</a>
+                <a href="#duvidas">Dúvidas</a>
+            </nav>
+        </div>
+    </section>
 
-                <div class="cf-item">
-                    <h2>ADMINISTRADORA</h2>
-                    <p>A prospecção de interessados na participação no sistema de consórcio, a formação dos grupos e todos os cuidados e responsabilidades que envolvem a sua administração são tarefas que cabem à Administradora do Consórcio. Do momento em que cada cliente subscreve sua cota e durante todo o período em que o Grupo está ativo, a Administradora responde...</p>
-                </div>
-
-                <div class="cf-item">
-                    <h2>GRUPO</h2>
-                    <p>Ao adquirir o consórcio, o consorciado se torna parte de um grupo de pessoas que tem como objetivo conquistar um bem em comum. A partir do momento em que a pessoa/empresa adquire um consórcio, ele passa a ser chamado de Consorciado e recebe benefícios exclusivos na aquisição parcelada e programada de bens do seu interesse.</p>
-                </div>
-
-                <div class="cf-item">
-                    <h2>ASSEMBLEIA</h2>
-                    <p>Mensalmente, o Consórcio Canopus realiza uma assembleia do consórcio. A contemplação dá ao participante selecionado o direito de receber o valor do crédito subscrito na cota para adquirir o bem desejado. A seleção dos contemplados se dá por dois métodos: o sorteio ou a oferta de lance, proposta pelo participante.</p>
-                </div>
-
-                <div class="cf-item">
-                    <h2>LANCES</h2>
-                    <p>O lance é feito pelo participante da assembleia, dando um adiantamento de parcelas propostas. A cada assembleia TODOS os consorciados possuem o direito de dar um lance de adiantamento de parcelas. No caso dos lances, o maior lance será o contemplado.</p>
-                </div>
-
-                <div class="cf-item">
-                    <h2>CONTEMPLAÇÃO</h2>
-                    <p>A contemplação possibilita ao consorciado o direito de utilizar o crédito proposto, após uma análise e uma aprovação feita pela equipe da Administradora de Consórcios.</p>
-                </div>
-
-                <div class="cf-item">
-                    <h2>O BANCO CENTRAL</h2>
-                    <p>O Banco Central do Brasil é a autoridade responsável pela normatização e fiscalização do Sistema de Consórcios no Brasil.</p>
-                </div>
+    <!-- RESUMO -->
+    <section class="secao branca">
+        <div class="resumo">
+            <div>
+                <p class="section-eyebrow esq">Em uma frase</p>
+                <h2 class="section-heading esq">Um grupo de pessoas se junta para comprar, sem juros, com planejamento</h2>
+                <p class="section-sub esq" style="margin-bottom:0">Todo mês, cada participante paga uma parcela. Com esse dinheiro, a administradora libera cartas de crédito para quem é contemplado por sorteio ou por lance, até que todos do grupo recebam a sua.</p>
+            </div>
+            <div class="resumo-cards">
+                <div class="resumo-card"><strong>0%</strong><span>de juros: o custo é a taxa de administração</span></div>
+                <div class="resumo-card"><strong>Sorteio + lance</strong><span>duas formas de ser contemplado todo mês</span></div>
+                <div class="resumo-card"><strong>Banco Central</strong><span>autoriza e fiscaliza as administradoras</span></div>
             </div>
         </div>
     </section>
 
-    <!-- SCRIPT PARA MENU -->
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('menu-mobile');
-            if (menu.style.right === '0px') {
-                menu.style.right = '-100%';
-            } else {
-                menu.style.right = '0px';
-            }
-        }
-    </script>
+    <!-- PASSOS -->
+    <section class="secao" id="passos">
+        <p class="section-eyebrow">Passo a passo</p>
+        <h2 class="section-heading">Do primeiro mês à compra do bem</h2>
+        <p class="section-sub">O caminho é o mesmo para imóveis e veículos. A Mel Consórcios acompanha você em cada etapa.</p>
+        <div class="passos">
+            <div class="passo"><h3>Simulação e adesão</h3><p>Você escolhe o valor da carta e a parcela que cabe no orçamento, e entra em um grupo. Não há entrada obrigatória.</p></div>
+            <div class="passo"><h3>Parcelas e assembleias</h3><p>Todo mês você paga a parcela e participa da assembleia, onde acontecem os sorteios e os lances.</p></div>
+            <div class="passo"><h3>Contemplação</h3><p>Contemplado por sorteio ou lance, você envia os documentos e a administradora faz a análise de crédito.</p></div>
+            <div class="passo"><h3>Compra do bem</h3><p>Com tudo aprovado, a administradora paga o vendedor à vista e você continua pagando as parcelas até o fim do grupo.</p></div>
+        </div>
+    </section>
 
+    <!-- TERMOS -->
+    <section class="secao branca" id="termos">
+        <p class="section-eyebrow">Termos do consórcio</p>
+        <h2 class="section-heading">As palavras que você vai ouvir</h2>
+        <p class="section-sub">Um glossário rápido para entender o seu contrato e conversar com a gente sem dúvidas.</p>
+        <div class="termos">
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🤝</span><h3>Consórcio</h3><p>Forma de compra planejada em grupo, sem juros. Os participantes pagam parcelas mensais que formam um fundo comum, usado para comprar os bens de quem é contemplado.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🏛️</span><h3>Administradora</h3><p>Empresa autorizada pelo Banco Central que forma e administra os grupos, realiza as assembleias, analisa o crédito e paga os bens. No caso da Mel Consórcios, é a Canopus.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">👥</span><h3>Grupo e cota</h3><p>O grupo é o conjunto de participantes com o mesmo prazo e tipo de bem. Cada participação no grupo é uma cota, e quem tem uma cota é o consorciado.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">📅</span><h3>Assembleia</h3><p>Reunião mensal do grupo em que acontecem os sorteios e a apuração dos lances. É nela que se define quem é contemplado naquele mês.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🎯</span><h3>Lance</h3><p>Oferta para antecipar parcelas e ser contemplado antes. No lance livre, vence quem oferece o maior percentual. Veja os tipos de lance logo abaixo.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🎉</span><h3>Contemplação</h3><p>Momento em que o consorciado ganha o direito de usar a carta de crédito. O crédito é liberado depois da análise e aprovação da administradora.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">💳</span><h3>Carta de crédito</h3><p>O valor contratado para a compra. Funciona como pagamento à vista ao vendedor, o que ajuda a negociar o preço do bem.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">📑</span><h3>Taxa de administração</h3><p>É a remuneração da administradora, com percentual definido em contrato e diluído nas parcelas. No consórcio não há juros.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🛡️</span><h3>Fundo de reserva</h3><p>Valor que algumas administradoras cobram para proteger o grupo contra inadimplência. A Canopus não cobra fundo de reserva.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">📈</span><h3>Reajuste</h3><p>Uma vez por ano, o crédito e as parcelas são atualizados pelo índice do contrato (em imóveis, o INCC). Assim, a carta acompanha o preço do bem.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">⚖️</span><h3>Banco Central</h3><p>Autoridade que normatiza e fiscaliza o sistema de consórcios no Brasil, regido pela Lei 11.795/2008.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🔄</span><h3>Transferência de cota</h3><p>A cota pode ser transferida para outra pessoa, contemplada ou não, desde que a administradora aprove a transferência.</p></div>
+        </div>
+    </section>
+
+    <!-- TIPOS DE LANCE -->
+    <section class="secao" id="lances">
+        <p class="section-eyebrow">Lances</p>
+        <h2 class="section-heading">Os tipos de lance da Canopus</h2>
+        <p class="section-sub">Cada grupo tem as suas regras. Na simulação, mostramos quais tipos valem para o seu grupo e o histórico das últimas assembleias.</p>
+        <div class="tabela-wrap">
+            <table>
+                <thead>
+                    <tr><th scope="col">Tipo</th><th scope="col">Como funciona</th><th scope="col">Para quem faz sentido</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Lance livre</td><td>Você escolhe o percentual. Vencem os maiores lances da assembleia.</td><td>Quem tem recursos e quer antecipar a contemplação.</td></tr>
+                    <tr><td>Lance limitado</td><td>O percentual tem um teto definido pelo grupo. Em caso de empate, vale o desempate do contrato.</td><td>Quem quer disputar com um valor máximo conhecido.</td></tr>
+                    <tr><td>Lance fixo</td><td>Percentual único, igual para todos. A contemplação é decidida por desempate entre quem ofertou.</td><td>Quem prefere não disputar percentual.</td></tr>
+                    <tr><td>Lance embutido</td><td>Parte do lance sai da própria carta, até 30% do crédito (em algumas modalidades, até 50%). O crédito recebido diminui no mesmo valor.</td><td>Quem quer dar lance sem tirar todo o valor do bolso.</td></tr>
+                    <tr><td>FGTS</td><td>No consórcio de imóveis, o saldo do FGTS pode compor o lance, dentro das regras do fundo.</td><td>Quem tem saldo de FGTS e vai comprar imóvel.</td></tr>
+                    <tr><td>Lance parcelado</td><td>Em veículos, o valor do lance pode ser pago em até 4 vezes, conforme as regras do grupo.</td><td>Quem quer antecipar sem pagar tudo de uma vez.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ESCOLHA -->
+    <section class="secao branca">
+        <p class="section-eyebrow">Próximo passo</p>
+        <h2 class="section-heading">Qual consórcio é para você?</h2>
+        <div class="escolha">
+            <a href="consorcio-imoveis.html" class="escolha-card">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" onerror="this.remove()">
+                <div class="escolha-txt"><span class="escolha-tag">Imóveis</span><b>Casa, apartamento, terreno, construção ou reforma</b><span>Parcela reduzida até a contemplação e uso do FGTS →</span></div>
+            </a>
+            <a href="consorcio-veiculos.html" class="escolha-card">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" onerror="this.remove()">
+                <div class="escolha-txt"><span class="escolha-tag">Veículos</span><b>Carro novo ou seminovo, SUV e utilitário</b><span>Sem entrada e lance parcelado em até 4x →</span></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- DÚVIDAS -->
+    <section class="secao" id="duvidas">
+        <p class="section-eyebrow">Dúvidas</p>
+        <h2 class="section-heading" style="margin-bottom:46px">Perguntas frequentes</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">01. Consórcio é seguro? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>O sistema de consórcios é regido pela Lei 11.795/2008 e fiscalizado pelo Banco Central. A Canopus é uma administradora autorizada, e as regras do seu grupo ficam descritas no contrato.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">02. Quando vou receber o meu crédito? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Pode ser em qualquer assembleia, por sorteio, ou antes, se você der um lance vencedor. Até o fim do grupo, todos os participantes em dia são contemplados. O mês exato não pode ser garantido.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">03. Qual a diferença para o financiamento? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>No financiamento você recebe o bem na hora, mas paga juros durante todo o contrato. No consórcio não há juros, só a taxa de administração, e você recebe a carta quando é contemplado.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">04. Preciso comprovar renda para entrar? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Para entrar no grupo, não. A análise de crédito acontece na contemplação, quando você vai usar a carta. É nesse momento que a administradora pede os documentos.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">05. E se eu precisar desistir? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Você pode sair do grupo. Os valores pagos ao fundo comum são devolvidos conforme a lei e o contrato: quando a sua cota for sorteada entre as excluídas ou no encerramento do grupo, descontadas as taxas previstas. Fale com a gente antes de decidir; transferir a cota pode ser uma alternativa.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">06. Posso receber o crédito em dinheiro? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Pelo contrato da Canopus, após 180 dias da contemplação você pode pedir a conversão do crédito em dinheiro, desde que quite integralmente o saldo devedor.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">07. Posso ter mais de uma cota? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Sim. Muita gente usa cotas em grupos diferentes para ir comprando imóveis ou veículos ao longo do tempo. Veja como na seção <a href="index.html#patrimonio">Construir patrimônio</a>.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">08. Qual é o papel da Mel Consórcios? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Somos parceiros credenciados da Canopus. Fazemos a simulação, ajudamos a escolher o grupo e a estratégia de lance e acompanhamos você até a compra do bem.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <h2>Ficou alguma dúvida?</h2>
+        <p>Fale com um especialista da Mel Consórcios e receba uma simulação personalizada em poucos minutos, sem compromisso.</p>
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="btn-verde" data-whats="cta-final">📲 Falar com um especialista</a>
+    </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div>
+                <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
+                    consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
+                <img src="canopus.png" class="footer-canopus-img" alt="Consórcio Canopus">
+            </div>
+            <div>
+                <h4>Consórcios</h4>
+                <ul>
+                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
+                    <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
+                    <li><a href="como-funciona.html">Como Funciona</a></li>
+                    <li><a href="index.html#simulador">Simulador</a></li>
+                    <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><img src="logo-instagram.png" width="20" height="20" alt=""><a href="https://www.instagram.com/melconsorcios.sp" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" data-whats="rodape">📲 (11) 94078-6152</a></li>
+                    <li><span style="font-size:13px;color:rgba(255,255,255,.65)">📍 São Paulo – SP</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Imagens meramente ilustrativas. Contemplação por sorteio ou lance, conforme o contrato do grupo.</p>
+            <p>Melebruque Serviços de Apoio Administrativo Ltda · CNPJ 39.749.199/0001-90</p>
+            <p>© 2026 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do Brasil · <a href="politica-de-privacidade.html">Política de Privacidade</a></p>
+        </div>
+    </footer>
+
+    <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="whats-float" data-whats="flutuante" aria-label="Fale conosco no WhatsApp">💬</a>
+
+    <script>
+        function pixel(evento, dados) { if (typeof fbq === 'function') fbq('track', evento, dados || {}); }
+        document.querySelectorAll('[data-whats]').forEach(link => {
+            link.addEventListener('click', () => pixel('Contact', { content_name: 'WhatsApp como funciona - ' + link.dataset.whats }));
+        });
+
+        function toggleMenu(abrir) {
+            document.body.classList.toggle('menu-aberto', abrir);
+            document.getElementById('hamburger').setAttribute('aria-expanded', abrir ? 'true' : 'false');
+            document.getElementById('menu-mobile').setAttribute('aria-hidden', abrir ? 'false' : 'true');
+        }
+        document.querySelectorAll('#menu-mobile a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+
+        document.querySelectorAll('.faq-q').forEach(btn => btn.addEventListener('click', () => {
+            const aberto = btn.parentElement.classList.toggle('open');
+            btn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        }));
+    </script>
 </body>
+
 </html>
