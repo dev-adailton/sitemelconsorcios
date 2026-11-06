@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consórcio de Imóveis como Aposentadoria | Mel Consórcios</title>
+    <meta name="description" content="Use o consórcio de imóveis Canopus para construir patrimônio e renda de aluguel na aposentadoria. Exemplos com cartas de R$ 400 mil e R$ 1 milhão e análise patrimonial.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Mel Consórcios">
+    <meta property="og:title" content="Sua aposentadoria pode ser um imóvel | Mel Consórcios">
+    <meta property="og:description" content="Parcela planejada hoje, imóvel quitado gerando aluguel na aposentadoria.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <link rel="icon" type="image/png" href="mel.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0a1c36;
+            --navy-2: #173f66;
+            --navy-footer: #0e3766;
+            --gold: #c6a55c;
+            --gold-soft: #fbf8f1;
+            --green: #22c55e;
+            --green-dark: #16a34a;
+            --ink: #1e293b;
+            --muted: #64748b;
+            --soft: #94a3b8;
+            --line: #e2e8f0;
+            --bg: #f5f7fb;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+        html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; width: 100%; }
+        button { font: inherit; }
+        img { max-width: 100%; }
+        :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+
+        /* ===== HEADER (igual ao index) ===== */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 6px 6%;
+        }
+
+        header > a:first-child { justify-self: start; }
+        header img { height: 84px; width: auto; max-width: 240px; object-fit: contain; display: block; }
+        .header-center { display: flex; justify-self: center; align-items: center; }
+
+        #menu-desktop {
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(10, 28, 54, 0.7);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 8px; border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-link, .menu-link-destaque { text-decoration: none; font-size: 13px; padding: 10px 18px; border-radius: 100px; transition: all 0.3s; white-space: nowrap; }
+        .menu-link { color: #fff; font-weight: 600; }
+        .menu-link:hover, .menu-link[aria-current="page"] { background: rgba(255, 255, 255, 0.15); color: var(--gold); }
+        .menu-link-destaque { color: var(--gold); font-weight: 700; }
+        .menu-link-destaque:hover { background: rgba(198, 165, 92, 0.15); }
+        .menu-divisor { width: 1px; height: 16px; background: rgba(255, 255, 255, 0.2); margin: 0 4px; }
+
+        .header-btn {
+            display: flex; align-items: center; justify-content: center; justify-self: end; gap: 8px;
+            background: var(--green); color: #fff; font-weight: 700; font-size: 15px;
+            padding: 12px 24px; border-radius: 8px; text-decoration: none;
+            transition: background .2s, transform .2s; white-space: nowrap;
+        }
+        .header-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+        #whats-icon { display: none; }
+
+        #hamburger { display: none; background: none; border: 0; cursor: pointer; font-size: 28px; line-height: 1; color: var(--navy); padding: 6px 10px; }
+
+        #menu-overlay { position: fixed; inset: 0; background: rgba(10, 28, 54, 0.45); z-index: 9998; opacity: 0; pointer-events: none; transition: opacity .3s; }
+        #menu-mobile {
+            position: fixed; top: 0; right: 0; width: 280px; max-width: 85%; height: 100vh;
+            background: linear-gradient(135deg, var(--navy), var(--navy-2));
+            padding: 30px 24px; transform: translateX(100%); transition: transform 0.3s ease;
+            z-index: 9999; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3); visibility: hidden;
+        }
+        body.menu-aberto #menu-mobile { transform: translateX(0); visibility: visible; }
+        body.menu-aberto #menu-overlay { opacity: 1; pointer-events: auto; }
+        .menu-mob-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .menu-mob-topo strong { color: var(--gold); font-size: 14px; letter-spacing: 1px; }
+        .menu-mob-fechar { background: none; border: 0; font-size: 28px; cursor: pointer; color: #fff; line-height: 1; }
+        .menu-mob-link { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 16px; }
+        .menu-mob-destaque { display: block; color: var(--gold); text-decoration: none; font-weight: 700; font-size: 16px; margin-top: 10px; }
+
+        /* ===== HERO COM SIMULADOR ===== */
+        .hero {
+            min-height: 92vh;
+            padding: 140px 6% 80px;
+            background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative; display: flex; align-items: center; justify-content: space-between; gap: 48px;
+        }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(105deg, rgba(10, 28, 54, 0.94) 45%, rgba(10, 28, 54, 0.4) 100%); }
+        .hero-left { position: relative; z-index: 2; color: #fff; max-width: 600px; flex: 1; }
+
+        .hero-tag {
+            display: inline-block; background: var(--gold); color: var(--navy);
+            font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 6px 16px; border-radius: 20px; margin-bottom: 26px;
+        }
+        .hero-left h1 { font-size: 46px; font-weight: 800; line-height: 1.05; margin-bottom: 22px; text-transform: uppercase; }
+        .hero-left h1 span { color: var(--gold); }
+        .hero-left p { font-size: 16px; line-height: 1.7; opacity: .88; margin-bottom: 30px; max-width: 480px; }
+
+        .hero-checks { display: flex; flex-direction: column; gap: 10px; }
+        .hero-checks span { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; opacity: .94; }
+        .hero-checks span::before {
+            content: '✔'; background: var(--green); color: #fff; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;
+        }
+
+        .hero-right { position: relative; z-index: 2; flex-shrink: 0; display: flex; justify-content: center; }
+        .simulador { background: #fff; border-radius: 20px; padding: 34px 30px; width: 100%; max-width: 400px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); }
+        .sim-title { font-size: 20px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 4px; }
+        .sim-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        .pill-group { display: flex; gap: 8px; margin-bottom: 12px; }
+        .pill {
+            flex: 1; padding: 9px 6px; border-radius: 8px; border: 1.5px solid var(--line); background: #f8fafc;
+            font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; cursor: pointer; transition: all .18s;
+        }
+        .pill[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .sim-label { display: block; font-size: 11px; font-weight: 700; color: var(--soft); text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-top: 16px; margin-bottom: 4px; }
+        .sim-valor { font-size: 40px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 14px; line-height: 1; font-variant-numeric: tabular-nums; }
+        input[type=range] { appearance: none; -webkit-appearance: none; width: 100%; height: 5px; background: var(--line); border-radius: 3px; outline: none; margin-bottom: 6px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); cursor: pointer; box-shadow: 0 2px 8px rgba(198, 165, 92, .5); }
+        input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: var(--gold); cursor: pointer; }
+        .range-minmax { display: flex; justify-content: space-between; font-size: 11px; color: var(--soft); font-weight: 600; margin-bottom: 16px; }
+        .sim-check { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink); font-weight: 600; margin-bottom: 18px; cursor: pointer; }
+        .sim-check input { width: 18px; height: 18px; accent-color: var(--navy); }
+        .sim-cta {
+            width: 100%; background: var(--green); color: #fff; font-size: 16px; font-weight: 800; padding: 16px;
+            border: none; border-radius: 10px; cursor: pointer; transition: background .2s, transform .2s; letter-spacing: .3px;
+        }
+        .sim-cta:hover { background: var(--green-dark); transform: translateY(-2px); }
+        .sim-disclaimer { font-size: 11px; color: var(--soft); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+        /* ===== FAIXA DE NÚMEROS ===== */
+        .numeros { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); padding: 54px 6%; }
+        .numeros-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255, 255, 255, 0.08); border-radius: 16px; overflow: hidden; }
+        .numero-item { background: rgba(255, 255, 255, 0.04); padding: 30px 20px; text-align: center; }
+        .numero-item strong { display: block; font-size: 36px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+        .numero-item span { font-size: 13px; color: rgba(255, 255, 255, 0.72); font-weight: 600; }
+
+        /* ===== SEÇÕES ===== */
+        .secao { padding: 84px 6%; }
+        .secao.branca { background: #fff; }
+        .section-eyebrow { text-align: center; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px; }
+        .section-heading { text-align: center; font-size: 34px; font-weight: 800; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+        .section-sub { text-align: center; font-size: 16px; color: var(--muted); max-width: 640px; margin: 0 auto 46px; line-height: 1.6; }
+        .esq { text-align: left; margin-left: 0; }
+
+        /* ===== USOS DA CARTA (com imagem) ===== */
+        .usos { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; max-width: 1180px; margin: 0 auto; }
+        .usos-foto { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--navy-2); box-shadow: 0 30px 60px rgba(10, 28, 54, 0.18); }
+        .usos-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .usos-selo {
+            position: absolute; left: 20px; bottom: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.95); border-radius: 14px; padding: 16px 18px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .usos-selo strong { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1; }
+        .usos-selo span { font-size: 13px; color: var(--muted); line-height: 1.4; font-weight: 600; }
+        .usos-lista { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 28px; }
+        .uso { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+        .uso-icone { font-size: 24px; line-height: 1; flex-shrink: 0; }
+        .uso b { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+        .uso p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+        .nota { font-size: 12px; color: var(--soft); margin-top: 16px; line-height: 1.6; }
+
+        /* ===== VANTAGENS ===== */
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1180px; margin: 0 auto; }
+        .card { background: #fff; border-radius: 16px; padding: 30px 24px; border: 1px solid #eef2f6; transition: transform .25s, box-shadow .25s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07); }
+        .card-icon { width: 52px; height: 52px; background: var(--gold-soft); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 24px; }
+        .card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+        .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+        /* ===== PATRIMÔNIO ===== */
+        .patrimonio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1180px; margin: 0 auto; }
+        .estrategia { border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; display: flex; flex-direction: column; gap: 12px; background: var(--bg); }
+        .estrategia-num { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); color: var(--gold); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+        .estrategia h3 { font-size: 17px; font-weight: 700; color: var(--navy); }
+        .estrategia p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .aviso { margin: 26px auto 0; max-width: 760px; text-align: center; font-size: 12.5px; color: var(--soft); line-height: 1.6; }
+
+        /* ===== PASSOS ===== */
+        .passos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-width: 1180px; margin: 0 auto; counter-reset: passo; }
+        .passo { position: relative; padding: 0 22px; text-align: center; }
+        .passo::before {
+            counter-increment: passo; content: counter(passo);
+            display: flex; align-items: center; justify-content: center;
+            width: 54px; height: 54px; margin: 0 auto 18px; border-radius: 50%;
+            background: var(--navy); color: var(--gold); font-size: 20px; font-weight: 800;
+            position: relative; z-index: 1; box-shadow: 0 0 0 8px var(--bg);
+        }
+        .passo:not(:last-child)::after { content: ''; position: absolute; top: 27px; left: 50%; width: 100%; height: 2px; background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 14px); }
+        .passo h3 { font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+        .passo p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+        /* ===== COMPARATIVO ===== */
+        .tabela-wrap { max-width: 920px; margin: 0 auto; overflow-x: auto; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+        table { width: 100%; border-collapse: collapse; min-width: 560px; }
+        th, td { padding: 16px 20px; text-align: left; font-size: 14px; line-height: 1.5; border-bottom: 1px solid var(--line); vertical-align: top; }
+        tr:last-child td { border-bottom: 0; }
+        thead th { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        thead th:nth-child(2) { background: var(--navy); color: #fff; }
+        thead th:nth-child(3) { background: var(--bg); color: var(--muted); }
+        thead th:first-child { background: #fff; }
+        td:first-child { font-weight: 700; color: var(--navy); width: 22%; }
+        td:nth-child(2) { background: var(--gold-soft); color: var(--ink); font-weight: 600; }
+        td:nth-child(3) { color: var(--muted); }
+
+        /* ===== FAIXA COM FOTO ===== */
+        .faixa-foto { position: relative; padding: 96px 6%; color: #fff; text-align: center; overflow: hidden; background: var(--navy); }
+        .faixa-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
+        .faixa-foto .conteudo { position: relative; max-width: 720px; margin: 0 auto; }
+        .faixa-foto h2 { font-size: 34px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        .faixa-foto h2 span { color: var(--gold); }
+        .faixa-foto p { font-size: 16px; opacity: .88; line-height: 1.6; margin-bottom: 30px; }
+
+        .btn-verde, .btn-navy {
+            display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 800;
+            padding: 16px 36px; border-radius: 10px; border: 0; cursor: pointer; text-decoration: none; transition: background .2s, transform .2s;
+        }
+        .btn-verde { background: var(--green); color: #fff; }
+        .btn-verde:hover { background: var(--green-dark); transform: translateY(-2px); }
+        .btn-navy { background: var(--navy); color: #fff; }
+        .btn-navy:hover { background: var(--navy-2); transform: translateY(-2px); }
+        .centro { text-align: center; margin-top: 30px; }
+
+        /* ===== FAQ ===== */
+        .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; max-width: 960px; margin: 0 auto; align-items: start; }
+        .faq-item { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+        .faq-q { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 18px 20px; font-size: 14px; font-weight: 700; color: var(--navy); cursor: pointer; gap: 12px; background: none; border: 0; text-align: left; }
+        .faq-arrow { font-size: 12px; color: var(--soft); transition: transform .25s; flex-shrink: 0; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; font-size: 13px; color: var(--muted); line-height: 1.7; }
+        .faq-item.open .faq-a { grid-template-rows: 1fr; }
+        .faq-a-inner { overflow: hidden; }
+        .faq-a-inner p { padding: 0 20px 18px; }
+
+        /* ===== CTA FINAL ===== */
+        .cta-final { background: #fff; padding: 80px 6%; text-align: center; }
+        .cta-final h2 { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+        .cta-final p { font-size: 16px; color: var(--muted); max-width: 500px; margin: 0 auto 32px; line-height: 1.6; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--navy-footer); color: #fff; padding: 60px 6% 30px; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 48px; }
+        .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-canopus-img { max-width: 250px; width: 100%; height: auto; }
+        footer h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); margin-bottom: 18px; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        footer ul li a { font-size: 13px; color: rgba(255, 255, 255, 0.65); text-decoration: none; transition: color .2s; }
+        footer ul li a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; font-size: 12px; color: rgba(255, 255, 255, 0.45); line-height: 1.8; }
+        .footer-bottom a { color: inherit; }
+
+        .whats-float {
+            position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; background: #25d366; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.55); z-index: 999; transition: transform .2s;
+        }
+        .whats-float:hover { transform: scale(1.1); }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 1100px) {
+            .cards-grid, .patrimonio-grid { grid-template-columns: repeat(2, 1fr); }
+            .usos { grid-template-columns: 1fr; gap: 36px; }
+            .usos-foto { aspect-ratio: 16 / 10; max-height: 460px; }
+        }
+
+        @media (max-width: 980px) {
+            header { padding: 6px 5%; }
+            #menu-desktop { display: none; }
+            #hamburger { display: block; }
+            .header-btn { width: 44px; height: 44px; padding: 0; border-radius: 50%; }
+            #whats-text { display: none; }
+            #whats-icon { display: block; font-size: 22px; }
+
+            .hero { flex-direction: column; align-items: center; text-align: center; padding: 110px 6% 60px; min-height: auto; gap: 40px; }
+            .hero-left p { margin-left: auto; margin-right: auto; }
+            .hero-checks { align-items: center; }
+            .hero-right { width: 100%; }
+
+            .numeros-grid { grid-template-columns: repeat(2, 1fr); }
+            .passos { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+            .passo:nth-child(2)::after { display: none; }
+
+            .footer-top { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            footer ul li { justify-content: center; }
+            footer { padding: 40px 5% 24px; }
+        }
+
+        @media (max-width: 640px) {
+            header img { height: 60px; }
+            .secao { padding: 64px 5%; }
+            .hero-left h1 { font-size: 32px; }
+            .simulador { padding: 28px 22px; }
+            .sim-valor { font-size: 34px; }
+            .section-heading, .faixa-foto h2 { font-size: 26px; }
+            .cta-final h2 { font-size: 26px; }
+            .numero-item { padding: 24px 12px; }
+            .numero-item strong { font-size: 28px; }
+            .cards-grid, .patrimonio-grid, .usos-lista, .faq-grid, .passos { grid-template-columns: 1fr; }
+            .passo::after { display: none; }
+            .whats-float { bottom: 18px; right: 18px; }
+        }
+        /* ===== COMO FUNCIONA ===== */
+        .hero-curto { min-height: auto; padding: 140px 6% 72px; }
+        .hero-curto .hero-left { max-width: 720px; }
+        .atalhos { display: flex; flex-wrap: wrap; gap: 10px; }
+        .atalhos a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); transition: background .2s; }
+        .atalhos a:hover { background: rgba(255,255,255,.18); color: var(--gold); }
+        .resumo { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; max-width: 1180px; margin: 0 auto; }
+        .resumo-cards { display: flex; flex-direction: column; gap: 12px; }
+        .resumo-card { display: grid; grid-template-columns: 170px 1fr; gap: 16px; align-items: center; padding: 18px 20px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line); }
+        .resumo-card strong { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1.15; }
+        .resumo-card span { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        .termos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1180px; margin: 0 auto; }
+        .termo { border: 1px solid var(--line); border-radius: 16px; padding: 22px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+        .termo-ic { width: 44px; height: 44px; border-radius: 12px; background: var(--gold-soft); display: flex; align-items: center; justify-content: center; font-size: 21px; }
+        .termo h3 { font-size: 16px; color: var(--navy); }
+        .termo p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .tabela-wrap td:first-child { white-space: nowrap; }
+        .escolha { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 34px auto 0; }
+        .escolha-card { position: relative; display: block; min-height: 260px; border-radius: 20px; overflow: hidden; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--navy), var(--navy-2)); }
+        .escolha-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+        .escolha-card:hover img { transform: scale(1.04); }
+        .escolha-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,28,54,.1) 20%, rgba(10,28,54,.92) 100%); }
+        .escolha-txt { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 1; display: flex; flex-direction: column; gap: 6px; }
+        .escolha-tag { align-self: flex-start; background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+        .escolha-txt b { font-size: 21px; line-height: 1.25; }
+        .escolha-txt span:last-child { font-size: 14px; opacity: .9; font-weight: 600; }
+        @media (max-width: 1100px) { .termos { grid-template-columns: repeat(2, 1fr); } .resumo { grid-template-columns: 1fr; gap: 28px; } }
+        @media (max-width: 980px) { .hero-curto { padding: 110px 6% 56px; } .atalhos { justify-content: center; } }
+        @media (max-width: 640px) {
+            .termos, .escolha { grid-template-columns: 1fr; }
+            .resumo-card { grid-template-columns: 1fr; gap: 4px; }
+            .tabela-wrap td:first-child { white-space: normal; }
+        }
+        /* ===== PATRIMÔNIO ===== */
+        .centro-txt { text-align: center; max-width: 760px; margin: 22px auto 0; }
+        .linha-tempo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1180px; margin: 0 auto; position: relative; }
+        .linha-tempo::before { content: ''; position: absolute; left: 8%; right: 8%; top: 31px; height: 2px; background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 14px); }
+        .marco { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 54px 24px 24px; display: flex; flex-direction: column; gap: 12px; }
+        .marco.destaque { border-color: var(--navy); box-shadow: 0 20px 50px rgba(10, 28, 54, .12); }
+        .marco-mes { position: absolute; top: 14px; left: 24px; background: var(--navy); color: var(--gold); font-weight: 800; font-size: 13px; padding: 7px 14px; border-radius: 999px; letter-spacing: .5px; }
+        .marco h3 { font-size: 19px; color: var(--navy); }
+        .marco dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; font-size: 14px; }
+        .marco dt { color: var(--muted); }
+        .marco dd { margin: 0; font-weight: 800; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+        .marco-nota { font-size: 13px; color: var(--muted); line-height: 1.55; border-top: 1px solid var(--line); padding-top: 12px; }
+        .calc { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 1080px; margin: 0 auto; align-items: start; }
+        .calc-campos { display: flex; flex-direction: column; gap: 22px; background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 26px; }
+        .calc-campo label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+        .calc-valor { font-size: 26px; font-weight: 800; color: var(--navy); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+        .calc-ajuda { font-size: 12.5px; color: var(--soft); line-height: 1.55; margin-top: 4px; }
+        .calc-res { display: flex; flex-direction: column; gap: 14px; }
+        .calc-card { border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; gap: 4px; background: #fff; }
+        .calc-card .k { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+        .calc-card strong { font-size: 30px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .calc-card .s { font-size: 13.5px; color: var(--muted); }
+        .calc-card.principal { background: linear-gradient(135deg, var(--navy), var(--navy-2)); border-color: var(--navy); }
+        .calc-card.principal .k { color: var(--gold); }
+        .calc-card.principal strong { color: #fff; font-size: 36px; }
+        .calc-card.principal .s { color: rgba(255,255,255,.75); }
+        @media (max-width: 980px) {
+            .linha-tempo { grid-template-columns: 1fr; }
+            .linha-tempo::before { display: none; }
+            .calc { grid-template-columns: 1fr; }
+        }
+        .cartas { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: -16px auto 30px; }
+        .carta-btn { border: 1.5px solid var(--line); background: #fff; color: var(--navy); font-weight: 800; font-size: 14px; padding: 11px 20px; border-radius: 999px; cursor: pointer; transition: .15s; }
+        .carta-btn:hover { border-color: var(--navy); }
+        .carta-btn[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .calc-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .calc-dupla .calc-card strong { font-size: 24px; }
+        @media (max-width: 640px) { .calc-dupla { grid-template-columns: 1fr; } }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '809733666063952');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'Patrimônio e aposentadoria', content_category: 'Imóveis' });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="mel.png" alt="Mel Consórcios"></a>
+
+        <div class="header-center">
+            <nav id="menu-desktop" aria-label="Menu principal">
+                <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
+                <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+                <a href="patrimonio.html" class="menu-link" aria-current="page">Patrimônio</a>
+                <a href="como-funciona.html" class="menu-link">Como Funciona</a>
+                <div class="menu-divisor" aria-hidden="true"></div>
+                <a href="consorcio-imoveis.html#simulador" class="menu-link-destaque">Simulador 🧮</a>
+            </nav>
+            <button id="hamburger" type="button" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false" onclick="toggleMenu(true)">☰</button>
+        </div>
+
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="header-btn" id="header-whats" data-whats="header" aria-label="Fale no WhatsApp">
+            <span id="whats-icon" aria-hidden="true">💬</span>
+            <span id="whats-text">📲 Fale no WhatsApp</span>
+        </a>
+    </header>
+
+    <div id="menu-overlay" onclick="toggleMenu(false)"></div>
+    <nav id="menu-mobile" aria-label="Menu" aria-hidden="true">
+        <div class="menu-mob-topo">
+            <strong>MENU</strong>
+            <button type="button" class="menu-mob-fechar" aria-label="Fechar menu" onclick="toggleMenu(false)">✖</button>
+        </div>
+        <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
+        <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="patrimonio.html" class="menu-mob-link">Patrimônio e aposentadoria</a>
+        <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
+        <a href="consorcio-imoveis.html#simulador" class="menu-mob-destaque">Acessar Simulador →</a>
+    </nav>
+
+    <main>
+
+    <!-- TOPO -->
+    <section class="hero hero-curto">
+        <div class="hero-overlay"></div>
+        <div class="hero-left">
+            <span class="hero-tag">✦ Patrimônio e aposentadoria</span>
+            <h1>Sua aposentadoria<br><span>pode ser um imóvel</span></h1>
+            <p>Com o consórcio de imóveis, você paga parcelas planejadas, sem juros, compra um imóvel para alugar e chega à aposentadoria com um bem quitado gerando renda todo mês.</p>
+            <nav class="atalhos" aria-label="Nesta página">
+                <a href="#exemplo">Exemplo real</a>
+                <a href="#calculadora">Calcule a renda</a>
+                <a href="#estrategias">Estratégias</a>
+                <a href="#cuidados">Cuidados</a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- A IDEIA -->
+    <section class="secao branca">
+        <div class="resumo">
+            <div>
+                <p class="section-eyebrow esq">A ideia</p>
+                <h2 class="section-heading esq">Trocar juros por planejamento e transformar parcela em renda</h2>
+                <p class="section-sub esq" style="margin-bottom:0">Quem constrói patrimônio raramente paga juros de financiamento. Com o consórcio, a parcela de hoje vira um imóvel amanhã. O aluguel ajuda a pagar o restante e, quando o grupo termina, o imóvel está quitado e o aluguel passa a ser renda.</p>
+            </div>
+            <div class="resumo-cards">
+                <div class="resumo-card"><strong>Hoje</strong><span>Parcela planejada, sem juros e sem entrada obrigatória</span></div>
+                <div class="resumo-card"><strong>Na contemplação</strong><span>Compra do imóvel e o aluguel começa a ajudar nas parcelas</span></div>
+                <div class="resumo-card"><strong>Na aposentadoria</strong><span>Imóvel quitado e aluguel como renda mensal</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXEMPLO -->
+    <section class="secao" id="exemplo">
+        <p class="section-eyebrow">Exemplo</p>
+        <h2 class="section-heading">Do primeiro mês à aposentadoria</h2>
+        <p class="section-sub">Simulações de consórcio de imóvel Canopus feitas no SimulaProX. Escolha o tamanho da carta. A contemplação do exemplo acontece perto do mês 95, mas pode vir antes, com lance, ou depois, por sorteio.</p>
+
+        <div class="cartas" role="group" aria-label="Tamanho da carta">
+            <button type="button" class="carta-btn" data-carta="400" aria-pressed="true">Carta de R$ 400 mil</button>
+            <button type="button" class="carta-btn" data-carta="1000" aria-pressed="false">Carta de R$ 1 milhão</button>
+        </div>
+
+        <div class="linha-tempo">
+            <div class="marco">
+                <span class="marco-mes">Mês 1</span>
+                <h3>Início do plano</h3>
+                <dl>
+                    <dt>Carta de crédito</dt><dd data-v="carta"></dd>
+                    <dt>Parcela inicial</dt><dd data-v="parcela"></dd>
+                    <dt>Prazo</dt><dd>182 meses</dd>
+                </dl>
+            </div>
+            <div class="marco destaque">
+                <span class="marco-mes" data-v="mesContemp"></span>
+                <h3>Contemplação e compra</h3>
+                <dl>
+                    <dt>Crédito atualizado</dt><dd data-v="credito"></dd>
+                    <dt>Pago até aqui</dt><dd data-v="pago"></dd>
+                    <dt>Parcela logo depois</dt><dd data-v="parcelaPos"></dd>
+                </dl>
+                <p class="marco-nota">Você compra o imóvel com a carta e o aluguel passa a ajudar a pagar as parcelas.</p>
+            </div>
+            <div class="marco">
+                <span class="marco-mes">Mês 182</span>
+                <h3>Imóvel quitado</h3>
+                <dl>
+                    <dt>Custo total do plano</dt><dd data-v="custo"></dd>
+                    <dt>Custo efetivo (CET)</dt><dd data-v="cet"></dd>
+                    <dt>Resultado</dt><dd>Imóvel seu, gerando aluguel</dd>
+                </dl>
+            </div>
+        </div>
+        <p class="nota centro-txt">Valores nominais das simulações, com projeção de reajuste anual do crédito e das parcelas pelo INCC. Os valores reais mudam conforme o índice de cada ano.</p>
+    </section>
+
+    <!-- ANÁLISE PATRIMONIAL -->
+    <section class="secao branca" id="calculadora">
+        <p class="section-eyebrow">Análise patrimonial</p>
+        <h2 class="section-heading">Quanto você investe e o que constrói</h2>
+        <p class="section-sub">Ajuste as hipóteses. A conta usa a carta escolhida acima: compra do imóvel na contemplação, aluguel ajudando nas parcelas e imóvel quitado no mês 182.</p>
+
+        <div class="calc">
+            <div class="calc-campos">
+                <div class="calc-campo">
+                    <label for="c-aluguel">Aluguel mensal, em % do valor do imóvel</label>
+                    <div class="calc-valor" id="c-aluguel-v">0,50% ao mês</div>
+                    <input type="range" id="c-aluguel" min="0.3" max="0.8" step="0.05" value="0.5">
+                    <div class="range-minmax"><span>0,30%</span><span>0,80%</span></div>
+                    <p class="calc-ajuda">Referência: no Brasil, o aluguel residencial rendeu em média 6,14% ao ano (cerca de 0,51% ao mês) em julho de 2026, segundo o índice FipeZAP.</p>
+                </div>
+                <div class="calc-campo">
+                    <label for="c-valoriza">Valorização do imóvel por ano</label>
+                    <div class="calc-valor" id="c-valoriza-v">4,0% ao ano</div>
+                    <input type="range" id="c-valoriza" min="0" max="8" step="0.5" value="4">
+                    <div class="range-minmax"><span>0%</span><span>8%</span></div>
+                    <p class="calc-ajuda">Hipótese. O aluguel acompanha a valorização do imóvel. Use 0% para ver o cenário sem valorização.</p>
+                </div>
+                <div class="calc-campo">
+                    <label for="c-imoveis">Quantos imóveis, com cartas escalonadas</label>
+                    <div class="calc-valor" id="c-imoveis-v">1 imóvel</div>
+                    <input type="range" id="c-imoveis" min="1" max="3" step="1" value="1">
+                    <div class="range-minmax"><span>1</span><span>3</span></div>
+                </div>
+            </div>
+
+            <div class="calc-res">
+                <div class="calc-dupla">
+                    <div class="calc-card">
+                        <span class="k">Aluguel líquido no início</span>
+                        <strong id="r-aluguel"></strong>
+                        <span class="s" id="r-cobre"></span>
+                    </div>
+                    <div class="calc-card">
+                        <span class="k">Do seu bolso depois</span>
+                        <strong id="r-bolso"></strong>
+                        <span class="s">média por mês, até quitar</span>
+                    </div>
+                </div>
+                <div class="calc-dupla">
+                    <div class="calc-card">
+                        <span class="k">Total investido</span>
+                        <strong id="r-investido"></strong>
+                        <span class="s">tudo que sai do seu bolso em 182 meses</span>
+                    </div>
+                    <div class="calc-card">
+                        <span class="k">Imóvel no fim</span>
+                        <strong id="r-imovel"></strong>
+                        <span class="s" id="r-imovel-s"></span>
+                    </div>
+                </div>
+                <div class="calc-card principal">
+                    <span class="k">Renda na aposentadoria</span>
+                    <strong id="r-renda"></strong>
+                    <span class="s" id="r-renda-s"></span>
+                </div>
+            </div>
+        </div>
+        <p class="nota centro-txt">Simulação ilustrativa. Desconta 10% do aluguel para vacância e manutenção. Considera a média das parcelas depois da contemplação, já com reajustes. Não inclui condomínio, IPTU nem imposto de renda sobre o aluguel. Aluguel e valorização não são garantidos.</p>
+    </section>
+
+    <!-- ESTRATÉGIAS -->
+    <section class="secao" id="estrategias">
+        <p class="section-eyebrow">Estratégias</p>
+        <h2 class="section-heading">Como acelerar o seu plano</h2>
+        <p class="section-sub">Combinações que a Mel Consórcios monta com você na simulação.</p>
+        <div class="patrimonio-grid">
+            <div class="estrategia"><span class="estrategia-num">1</span><h3>Parcela reduzida</h3><p>Comece pagando 50% ou 70% da parcela até a contemplação e libere orçamento enquanto o plano não começa a render.</p></div>
+            <div class="estrategia"><span class="estrategia-num">2</span><h3>Cartas escalonadas</h3><p>Contrate cartas em momentos diferentes para ter mais de um imóvel na aposentadoria, sem pesar tudo de uma vez.</p></div>
+            <div class="estrategia"><span class="estrategia-num">3</span><h3>Lance embutido</h3><p>Use até 30% da própria carta como lance para antecipar a compra do imóvel e o início do aluguel.</p></div>
+            <div class="estrategia"><span class="estrategia-num">4</span><h3>FGTS no lance</h3><p>O FGTS pode compor o lance ou complementar a compra, dentro das regras do fundo.</p></div>
+        </div>
+    </section>
+
+    <!-- PARA QUEM -->
+    <section class="secao branca">
+        <div class="resumo">
+            <div>
+                <p class="section-eyebrow esq">Para quem é</p>
+                <h2 class="section-heading esq">Faz mais sentido para quem planeja com 10 a 15 anos de antecedência</h2>
+                <p class="section-sub esq" style="margin-bottom:0">O consórcio de imóveis tem prazo de até 182 meses. Quanto antes começa, mais tempo o plano tem para chegar à aposentadoria com o imóvel quitado.</p>
+            </div>
+            <div class="resumo-cards">
+                <div class="resumo-card"><strong>35 a 55 anos</strong><span>que querem uma renda além do INSS ou da previdência privada</span></div>
+                <div class="resumo-card"><strong>Autônomos e empresários</strong><span>que não têm aposentadoria garantida pela empresa</span></div>
+                <div class="resumo-card"><strong>Quem já tem imóvel</strong><span>e quer o segundo ou o terceiro para aluguel</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUIDADOS -->
+    <section class="secao" id="cuidados">
+        <p class="section-eyebrow">Transparência</p>
+        <h2 class="section-heading">O que você precisa saber antes</h2>
+        <p class="section-sub">Planejamento bom é o que considera os riscos. Estes são os pontos que conversamos com todo cliente.</p>
+        <div class="termos">
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🎲</span><h3>A data da contemplação varia</h3><p>No exemplo, a contemplação foi no mês 94. Ela pode acontecer antes, com lance, ou depois, por sorteio. O plano precisa caber no seu orçamento nos dois casos.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🏠</span><h3>Aluguel não é garantido</h3><p>Pode haver meses sem inquilino, além de condomínio, IPTU e manutenção. Escolher bem o imóvel e a região faz diferença.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">📈</span><h3>Parcelas são reajustadas</h3><p>Uma vez por ano, crédito e parcelas são atualizados pelo INCC. O crédito acompanha o preço dos imóveis, e a parcela sobe junto.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">💵</span><h3>A carta é para comprar o imóvel</h3><p>O crédito só pode ser recebido em dinheiro 180 dias após a contemplação e com o saldo devedor quitado. Por isso a estratégia é comprar o imóvel e alugar.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🧾</span><h3>Aluguel paga imposto</h3><p>A renda de aluguel entra no imposto de renda. Vale planejar com o seu contador desde o início.</p></div>
+            <div class="termo"><span class="termo-ic" aria-hidden="true">🤝</span><h3>Acompanhamento do início ao fim</h3><p>A Mel Consórcios ajuda a escolher o grupo, a estratégia de lance e acompanha a compra do imóvel até a escritura.</p></div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="secao branca">
+        <p class="section-eyebrow">Dúvidas</p>
+        <h2 class="section-heading" style="margin-bottom:46px">Perguntas sobre o consórcio como aposentadoria</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">01. Por que não deixar o dinheiro aplicado? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>As duas coisas podem andar juntas. O consórcio traz disciplina de poupança e um bem real que gera renda e acompanha o preço dos imóveis. Muita gente usa o consórcio para a parte imobiliária e mantém aplicações para a reserva de emergência.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">02. E se eu for contemplado logo no começo? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Melhor ainda: você compra o imóvel antes e o aluguel começa a ajudar nas parcelas por mais tempo. Só lembre que o crédito recebido será menor do que no exemplo, porque terá tido menos reajustes.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">03. Posso pegar o crédito em dinheiro e investir? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Pelo contrato da Canopus, só depois de 180 dias da contemplação e quitando todo o saldo devedor. Por isso, para quem ainda está pagando o plano, a estratégia é comprar o imóvel.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">04. Que tipo de imóvel aluga melhor? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Em geral, imóveis menores, perto de transporte, faculdades e centros comerciais alugam mais rápido. Na contemplação, vale avaliar a região com um corretor de confiança.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">05. Quanto preciso ganhar para começar? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>A parcela precisa caber no orçamento com folga, inclusive depois dos reajustes. Na simulação, ajustamos o valor da carta e o plano (cheio ou com parcela reduzida) à sua renda.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">06. Posso usar a carta para comprar na planta? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>O uso da carta segue as regras e a análise da Canopus, com avaliação do imóvel e análise jurídica. Consulte a Mel Consórcios sobre o seu caso antes de fechar negócio.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-final">
+        <h2>Monte o seu plano de aposentadoria com imóveis</h2>
+        <p>Fale com um especialista da Mel Consórcios e receba uma simulação com a sua idade, a sua renda e o seu objetivo.</p>
+        <a href="https://wa.me/5511940786152?text=Ol%C3%A1!%20Quero%20simular%20o%20cons%C3%B3rcio%20de%20im%C3%B3vel%20como%20aposentadoria." target="_blank" rel="noopener" class="btn-verde" data-whats="cta-aposentadoria">📲 Quero simular minha aposentadoria</a>
+    </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div>
+                <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
+                    consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
+                <img src="canopus.png" class="footer-canopus-img" alt="Consórcio Canopus">
+            </div>
+            <div>
+                <h4>Consórcios</h4>
+                <ul>
+                    <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
+                    <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
+                    <li><a href="patrimonio.html">Patrimônio e aposentadoria</a></li>
+                    <li><a href="como-funciona.html">Como Funciona</a></li>
+                    <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><img src="logo-instagram.png" width="20" height="20" alt=""><a href="https://www.instagram.com/melconsorcios.sp" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" data-whats="rodape">📲 (11) 94078-6152</a></li>
+                    <li><span style="font-size:13px;color:rgba(255,255,255,.65)">📍 São Paulo – SP</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Simulações ilustrativas. Contemplação por sorteio ou lance, conforme o contrato do grupo. Aluguel e valorização não são garantidos.</p>
+            <p>Melebruque Serviços de Apoio Administrativo Ltda · CNPJ 39.749.199/0001-90</p>
+            <p>© 2026 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do Brasil · <a href="politica-de-privacidade.html">Política de Privacidade</a></p>
+        </div>
+    </footer>
+
+    <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="whats-float" data-whats="flutuante" aria-label="Fale conosco no WhatsApp">💬</a>
+
+    <script>
+        function pixel(evento, dados) { if (typeof fbq === 'function') fbq('track', evento, dados || {}); }
+        document.querySelectorAll('[data-whats]').forEach(link => {
+            link.addEventListener('click', () => pixel(link.dataset.whats === 'cta-aposentadoria' ? 'Lead' : 'Contact', { content_name: 'Patrimônio - ' + link.dataset.whats, content_category: 'Imóveis' }));
+        });
+
+        function toggleMenu(abrir) {
+            document.body.classList.toggle('menu-aberto', abrir);
+            document.getElementById('hamburger').setAttribute('aria-expanded', abrir ? 'true' : 'false');
+            document.getElementById('menu-mobile').setAttribute('aria-hidden', abrir ? 'false' : 'true');
+        }
+        document.querySelectorAll('#menu-mobile a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+
+        document.querySelectorAll('.faq-q').forEach(btn => btn.addEventListener('click', () => {
+            const aberto = btn.parentElement.classList.toggle('open');
+            btn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        }));
+
+        /* ===== EXEMPLOS (simulações SimulaProX) E ANÁLISE PATRIMONIAL ===== */
+        const CARTAS = {
+            400:  { carta: 400000, parcela: 2961.12, mes: 94, credito: 601452.10, pago: 338610.52, parcelaPos: 4355.79, custo: 821675.97, cet: 5.52 },
+            1000: { carta: 1000000, parcela: 7402.81, mes: 96, credito: 1503630.26, pago: 868305.26, parcelaPos: 11514.06, custo: 2054189.93, cet: 5.71 }
+        };
+        const PRAZO = 182, DESCONTO = 0.10;
+        let atual = CARTAS[400];
+        const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const brl0 = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+        const pct = (v, d = 2) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d }) + '%';
+
+        function preencherExemplo() {
+            const c = atual, set = (k, v) => document.querySelectorAll('[data-v="' + k + '"]').forEach(e => e.textContent = v);
+            set('carta', brl(c.carta)); set('parcela', brl(c.parcela)); set('mesContemp', 'Mês ' + c.mes);
+            set('credito', brl(c.credito)); set('pago', brl(c.pago)); set('parcelaPos', brl(c.parcelaPos));
+            set('custo', brl(c.custo)); set('cet', pct(c.cet) + ' ao ano');
+        }
+
+        function calcular() {
+            const c = atual;
+            const r = parseFloat(document.getElementById('c-aluguel').value) / 100;
+            const g = parseFloat(document.getElementById('c-valoriza').value) / 100;
+            const n = parseInt(document.getElementById('c-imoveis').value, 10);
+            const meses = PRAZO - c.mes;
+            const parcelasDepois = c.custo - c.pago;              // total pago depois da contemplação, com reajustes
+            const gm = Math.pow(1 + g, 1 / 12);
+            let alugueis = 0;
+            for (let t = 1; t <= meses; t++) alugueis += c.credito * Math.pow(gm, t) * r * (1 - DESCONTO);
+            const bolsoDepois = Math.max(0, parcelasDepois - alugueis);
+            const sobra = Math.max(0, alugueis - parcelasDepois);
+            const investido = c.pago + bolsoDepois;
+            const imovelFim = c.credito * Math.pow(gm, meses);
+            const aluguelInicio = c.credito * r * (1 - DESCONTO);
+            const renda = imovelFim * r * (1 - DESCONTO);
+            const mediaParcela = parcelasDepois / meses;
+
+            document.getElementById('c-aluguel-v').textContent = pct(r * 100) + ' ao mês';
+            document.getElementById('c-valoriza-v').textContent = pct(g * 100, 1) + ' ao ano';
+            document.getElementById('c-imoveis-v').textContent = n + (n > 1 ? ' imóveis' : ' imóvel');
+
+            document.getElementById('r-aluguel').textContent = brl(aluguelInicio * n);
+            const cobre = alugueis / parcelasDepois * 100;
+            document.getElementById('r-cobre').textContent = cobre >= 100 ? 'o aluguel paga todas as parcelas depois da contemplação' : 'o aluguel paga cerca de ' + Math.round(cobre) + '% das parcelas depois da contemplação';
+            document.getElementById('r-bolso').textContent = bolsoDepois > 0 ? brl(bolsoDepois / meses * n) : 'R$ 0,00';
+            document.getElementById('r-investido').textContent = brl0(investido * n);
+            document.getElementById('r-imovel').textContent = brl0(imovelFim * n);
+            document.getElementById('r-imovel-s').textContent = n > 1 ? 'valor somado dos ' + n + ' imóveis quitados' : 'imóvel quitado, com a valorização escolhida';
+            document.getElementById('r-renda').textContent = brl(renda * n) + ' /mês';
+            document.getElementById('r-renda-s').textContent = 'aluguel líquido a partir do mês 182' + (sobra > 0 ? ', e ainda sobram ' + brl0(sobra * n) + ' de aluguel no caminho' : '') + '. Parcela média depois da contemplação: ' + brl(mediaParcela * n) + '.';
+        }
+
+        document.querySelectorAll('.carta-btn').forEach(b => b.addEventListener('click', () => {
+            atual = CARTAS[b.dataset.carta];
+            document.querySelectorAll('.carta-btn').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+            preencherExemplo(); calcular();
+        }));
+        ['c-aluguel', 'c-valoriza', 'c-imoveis'].forEach(id => document.getElementById(id).addEventListener('input', calcular));
+        preencherExemplo(); calcular();
+    </script>
+</body>
+
+</html>
