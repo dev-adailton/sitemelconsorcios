@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | Mel Consórcios</title>
+    <meta name="description" content="Saiba como a Mel Consórcios coleta, usa e protege seus dados pessoais, conforme a LGPD.">
+    <meta name="robots" content="index, follow">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: #fff;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 6%;
+        }
+
+        header img { height: 60px; max-width: 140px; object-fit: contain; }
+
+        .header-btn {
+            display: flex;
+            gap: 8px;
+            background: #22c55e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+            white-space: nowrap;
+        }
+
+        .header-btn:hover { background: #16a34a; transform: translateY(-1px); }
+
+        /* ===== TOPO DA PÁGINA ===== */
+        .page-hero {
+            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+            color: #fff;
+            padding: 140px 6% 60px;
+        }
+
+        .page-hero .tag {
+            display: inline-block;
+            background: #c6a55c;
+            color: #0a1c36;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+
+        .page-hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .page-hero p {
+            font-size: 15px;
+            opacity: .85;
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        /* ===== CONTEÚDO ===== */
+        .politica {
+            max-width: 860px;
+            margin: -30px auto 80px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(10, 28, 54, 0.08);
+            padding: 48px 56px;
+            position: relative;
+        }
+
+        .indice {
+            background: #f5f7fb;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 36px;
+        }
+
+        .indice strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #c6a55c;
+            margin-bottom: 10px;
+        }
+
+        .indice ol {
+            columns: 2;
+            column-gap: 30px;
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .indice a { color: #0a1c36; text-decoration: none; }
+        .indice a:hover { color: #c6a55c; }
+
+        .politica h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: #0a1c36;
+            margin: 36px 0 14px;
+            scroll-margin-top: 100px;
+        }
+
+        .politica h2:first-of-type { margin-top: 0; }
+
+        .politica p, .politica li {
+            font-size: 15px;
+            line-height: 1.75;
+            color: #475569;
+        }
+
+        .politica p + p { margin-top: 12px; }
+
+        .politica ul {
+            padding-left: 22px;
+            margin: 10px 0;
+        }
+
+        .politica li { margin-bottom: 6px; }
+        .politica li strong, .politica p strong { color: #1e293b; }
+
+        .politica a { color: #0e3766; font-weight: 600; }
+
+        .destaque {
+            border-left: 4px solid #c6a55c;
+            background: #fbf8f1;
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+
+        .contato-box {
+            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
+            color: #fff;
+            border-radius: 14px;
+            padding: 26px 28px;
+            margin-top: 20px;
+        }
+
+        .contato-box p { color: rgba(255, 255, 255, .85); }
+        .contato-box strong { color: #fff; }
+        .contato-box a { color: #c6a55c; }
+
+        .atualizacao {
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px !important;
+            color: #94a3b8 !important;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0e3766;
+            color: #fff;
+            padding: 36px 6% 28px;
+            text-align: center;
+        }
+
+        footer nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px 26px;
+            margin-bottom: 20px;
+        }
+
+        footer nav a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+
+        footer nav a:hover { color: #c6a55c; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.8;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 760px) {
+            header { padding: 10px 5%; }
+            header img { height: 48px; }
+            .header-btn { padding: 10px 16px; font-size: 14px; }
+            .page-hero { padding: 110px 5% 50px; }
+            .page-hero h1 { font-size: 30px; }
+            .politica { margin: -24px 4% 50px; padding: 30px 22px; border-radius: 16px; }
+            .indice ol { columns: 1; }
+        }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '809733666063952');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="mel.png" alt="Mel Consórcios"></a>
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="header-btn">📲 Fale no WhatsApp</a>
+    </header>
+
+    <section class="page-hero">
+        <span class="tag">✦ LGPD · Lei nº 13.709/2018</span>
+        <h1>Política de Privacidade</h1>
+        <p>Esta política explica quais dados pessoais a Mel Consórcios coleta, para que usa, com quem compartilha e como você pode exercer seus direitos.</p>
+    </section>
+
+    <main class="politica">
+
+        <nav class="indice" aria-label="Índice">
+            <strong>Nesta página</strong>
+            <ol>
+                <li><a href="#quem-somos">Quem somos</a></li>
+                <li><a href="#dados">Dados que coletamos</a></li>
+                <li><a href="#finalidades">Para que usamos</a></li>
+                <li><a href="#bases-legais">Bases legais</a></li>
+                <li><a href="#compartilhamento">Com quem compartilhamos</a></li>
+                <li><a href="#cookies">Cookies e Meta Pixel</a></li>
+                <li><a href="#retencao">Por quanto tempo guardamos</a></li>
+                <li><a href="#seguranca">Segurança</a></li>
+                <li><a href="#direitos">Seus direitos</a></li>
+                <li><a href="#menores">Menores de idade</a></li>
+                <li><a href="#alteracoes">Alterações</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ol>
+        </nav>
+
+        <h2 id="quem-somos">1. Quem somos</h2>
+        <p>A <strong>Mel Consórcios</strong> ([RAZÃO SOCIAL], CNPJ [00.000.000/0000-00]), com sede em São Paulo – SP, é parceira credenciada da <strong>Canopus Administradora de Consórcios S.A.</strong>. Atuamos na apresentação, simulação e venda de cotas de consórcio de imóveis e veículos administradas pela Canopus.</p>
+        <p>Para os fins da Lei Geral de Proteção de Dados (LGPD), a Mel Consórcios é a <strong>controladora</strong> dos dados coletados neste site, nos nossos anúncios e no nosso atendimento.</p>
+
+        <h2 id="dados">2. Dados que coletamos</h2>
+        <p><strong>Dados que você nos informa</strong>, quando usa o simulador, fala conosco no WhatsApp ou preenche um formulário nos nossos anúncios do Facebook e do Instagram:</p>
+        <ul>
+            <li>nome completo;</li>
+            <li>número de telefone e WhatsApp;</li>
+            <li>e-mail, quando informado;</li>
+            <li>tipo de consórcio, valor de crédito ou de parcela pretendido e o objetivo da compra;</li>
+            <li>documentos e informações cadastrais, somente se você decidir contratar uma cota (por exemplo RG, CPF, comprovante de endereço e de renda), conforme exigido pela administradora.</li>
+        </ul>
+        <p><strong>Dados coletados automaticamente</strong> quando você navega no site: páginas visitadas, data e hora de acesso, tipo de dispositivo e navegador, endereço IP aproximado e identificadores de cookies, incluindo os do Meta Pixel (veja o item 6).</p>
+
+        <h2 id="finalidades">3. Para que usamos seus dados</h2>
+        <ul>
+            <li>Responder ao seu contato e enviar a simulação que você pediu.</li>
+            <li>Apresentar propostas de consórcio e tirar suas dúvidas.</li>
+            <li>Encaminhar sua proposta e sua documentação à Canopus, quando você decidir contratar.</li>
+            <li>Acompanhar o seu atendimento, incluindo mensagens de retorno sobre a simulação enviada.</li>
+            <li>Medir o desempenho dos nossos anúncios e do site e mostrar anúncios mais relevantes.</li>
+            <li>Cumprir obrigações legais e regulatórias e nos defender em processos, quando necessário.</li>
+        </ul>
+        <div class="destaque">
+            <p><strong>Não vendemos seus dados</strong> e não os usamos para finalidades diferentes das descritas aqui sem avisar você antes.</p>
+        </div>
+
+        <h2 id="bases-legais">4. Bases legais</h2>
+        <p>Tratamos seus dados com base no artigo 7º da LGPD, conforme a situação:</p>
+        <ul>
+            <li><strong>Procedimentos preliminares a um contrato</strong>, a seu pedido: simulação, proposta e atendimento.</li>
+            <li><strong>Execução de contrato</strong>: quando você adere a um grupo de consórcio.</li>
+            <li><strong>Consentimento</strong>: cookies de publicidade e envio de mensagens que dependam da sua autorização. Você pode retirar o consentimento a qualquer momento.</li>
+            <li><strong>Legítimo interesse</strong>: melhorar nosso atendimento e medir resultados, sempre respeitando seus direitos.</li>
+            <li><strong>Cumprimento de obrigação legal ou regulatória</strong>.</li>
+        </ul>
+
+        <h2 id="compartilhamento">5. Com quem compartilhamos</h2>
+        <ul>
+            <li><strong>Canopus Administradora de Consórcios S.A.</strong>, para análise cadastral, adesão ao grupo e administração da sua cota.</li>
+            <li><strong>Meta Platforms</strong> (Facebook, Instagram e WhatsApp), que operam os anúncios, os formulários de cadastro e o canal de atendimento.</li>
+            <li><strong>Fornecedores de tecnologia</strong> que nos ajudam a operar, como plataforma de simulação e de gestão de clientes, hospedagem do site e ferramentas de mensagem. Eles só usam os dados para prestar o serviço contratado.</li>
+            <li><strong>Autoridades públicas</strong>, quando houver obrigação legal ou ordem judicial.</li>
+        </ul>
+        <p>Alguns desses fornecedores podem armazenar dados fora do Brasil. Nesses casos, a transferência segue as regras da LGPD.</p>
+
+        <h2 id="cookies">6. Cookies e Meta Pixel</h2>
+        <p>Este site usa cookies e o <strong>Meta Pixel</strong>, uma ferramenta do Facebook que registra visitas e ações no site (por exemplo, o clique em "Quero minha simulação"). Isso nos ajuda a saber quais anúncios funcionam e a mostrar anúncios da Mel Consórcios a quem já demonstrou interesse.</p>
+        <p>Você pode bloquear ou apagar cookies nas configurações do seu navegador e ajustar as suas preferências de anúncios na sua conta do Facebook ou do Instagram, em <em>Central de Contas › Preferências de anúncios</em>. O site continua funcionando sem esses cookies.</p>
+
+        <h2 id="retencao">7. Por quanto tempo guardamos</h2>
+        <ul>
+            <li><strong>Contatos e simulações</strong> que não viraram contratação: até 24 meses após o último contato, ou antes, se você pedir a exclusão.</li>
+            <li><strong>Clientes</strong>: durante a vigência do grupo de consórcio e pelos prazos exigidos pela legislação depois disso.</li>
+            <li><strong>Dados de navegação</strong>: pelos prazos definidos pelas ferramentas utilizadas e pela legislação aplicável.</li>
+        </ul>
+        <p>Terminado o prazo, os dados são excluídos ou anonimizados.</p>
+
+        <h2 id="seguranca">8. Segurança</h2>
+        <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acesso não autorizado, perda ou uso indevido, como controle de acesso por usuário e uso de plataformas com conexão segura. Nenhum sistema é totalmente imune a falhas. Se ocorrer um incidente de segurança relevante, avisaremos você e a Autoridade Nacional de Proteção de Dados (ANPD), conforme a lei.</p>
+
+        <h2 id="direitos">9. Seus direitos</h2>
+        <p>Pelo artigo 18 da LGPD, você pode pedir a qualquer momento:</p>
+        <ul>
+            <li>confirmação de que tratamos seus dados e acesso a eles;</li>
+            <li>correção de dados incompletos, inexatos ou desatualizados;</li>
+            <li>anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desacordo com a lei;</li>
+            <li>portabilidade dos dados a outro fornecedor;</li>
+            <li>eliminação dos dados tratados com base no seu consentimento;</li>
+            <li>informação sobre com quem compartilhamos seus dados;</li>
+            <li>revogação do consentimento e oposição a tratamentos que você não aceite.</li>
+        </ul>
+        <p>Para exercer qualquer um desses direitos, fale conosco pelos canais do item 12. Respondemos em até 15 dias. Você também pode registrar reclamação na ANPD, em <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+
+        <h2 id="menores">10. Menores de idade</h2>
+        <p>Nossos serviços são destinados a maiores de 18 anos. Não coletamos intencionalmente dados de crianças e adolescentes. Se identificarmos esse tipo de dado, ele será excluído.</p>
+
+        <h2 id="alteracoes">11. Alterações nesta política</h2>
+        <p>Podemos atualizar esta política para refletir mudanças nos nossos serviços ou na legislação. A versão em vigor é sempre a publicada nesta página, com a data de atualização abaixo.</p>
+
+        <h2 id="contato">12. Contato e encarregado de dados</h2>
+        <div class="contato-box">
+            <p><strong>Mel Consórcios</strong> · São Paulo – SP</p>
+            <p>WhatsApp: <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener">(11) 94078-6152</a></p>
+            <p>E-mail: <a href="mailto:[seu-email@melconsorcios.com.br]">[seu-email@melconsorcios.com.br]</a></p>
+            <p>Encarregado pelo tratamento de dados (DPO): [NOME DO RESPONSÁVEL]</p>
+        </div>
+
+        <p class="atualizacao">Última atualização: 6 de novembro de 2026.</p>
+    </main>
+
+    <footer>
+        <nav aria-label="Rodapé">
+            <a href="index.html">Início</a>
+            <a href="consorcio-imoveis.html">Consórcio de Imóveis</a>
+            <a href="consorcio-veiculos.html">Consórcio de Veículos</a>
+            <a href="como-funciona.html">Como Funciona</a>
+            <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        </nav>
+        <div class="footer-bottom">
+            <p>© 2026 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do Brasil</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
