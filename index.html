@@ -4,55 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mel Consórcios</title>
+    <title>Mel Consórcios | Consórcio de Imóveis e Veículos Canopus em São Paulo</title>
+    <meta name="description" content="Consórcio de imóveis e veículos Canopus em São Paulo. Compre sem juros de financiamento, com taxa de administração, e receba sua simulação no WhatsApp em minutos.">
+
+    <!-- Prévia ao compartilhar o link (WhatsApp, Instagram, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Mel Consórcios">
+    <meta property="og:title" content="Mel Consórcios | Consórcio de Imóveis e Veículos em SP">
+    <meta property="og:description" content="Compre seu imóvel ou veículo sem juros de financiamento. Simulação grátis no WhatsApp.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <link rel="icon" type="image/png" href="mel.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* ===== RESET GERAL ===== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ===== CORES E BASE ===== */
+        :root {
+            --navy: #0a1c36;
+            --navy-2: #173f66;
+            --navy-footer: #0e3766;
+            --gold: #c6a55c;
+            --green: #22c55e;
+            --green-dark: #16a34a;
+            --ink: #1e293b;
+            --muted: #64748b;
+            --soft: #94a3b8;
+            --line: #e2e8f0;
+            --bg: #f5f7fb;
         }
 
-        html,
-        body {
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+        html, body {
             font-family: 'Inter', sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
+            background: var(--bg);
+            color: var(--ink);
             overflow-x: hidden;
             width: 100%;
         }
 
-        /* ===== HEADER DESKTOP ===== */
+        button { font: inherit; }
+
+        :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
+        }
+
+        /* ===== HEADER ===== */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: #fff;
             box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            /* 3 colunas reais */
             align-items: center;
-
             padding: 12px 6%;
         }
 
-        header img {
-            height: 60px;
-            max-width: 140px;
-            object-fit: contain;
-        }
+        header > a:first-child { justify-self: start; }
 
-        /* Menu Premium Glassmorphism */
+        header img { height: 60px; max-width: 140px; object-fit: contain; display: block; }
+
+        .header-center { display: flex; justify-self: center; align-items: center; }
+
         #menu-desktop {
             display: flex;
-            justify-self: center;
+            align-items: center;
             gap: 6px;
             background: rgba(10, 28, 54, 0.7);
             backdrop-filter: blur(12px);
@@ -63,48 +89,30 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .menu-link {
-            color: #fff;
+        .menu-link, .menu-link-destaque {
             text-decoration: none;
             font-size: 13px;
-            font-weight: 600;
             padding: 10px 18px;
             border-radius: 100px;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
-        .menu-link:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #c6a55c;
-        }
+        .menu-link { color: #fff; font-weight: 600; }
+        .menu-link:hover { background: rgba(255, 255, 255, 0.15); color: var(--gold); }
 
-        .menu-divisor {
-            width: 1px;
-            height: 16px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 0 4px;
-        }
+        .menu-link-destaque { color: var(--gold); font-weight: 700; }
+        .menu-link-destaque:hover { background: rgba(198, 165, 92, 0.15); }
 
-        .menu-link-destaque {
-            color: #c6a55c;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 18px;
-            border-radius: 100px;
-            transition: all 0.3s;
-        }
+        .menu-divisor { width: 1px; height: 16px; background: rgba(255, 255, 255, 0.2); margin: 0 4px; }
 
-        .menu-link-destaque:hover {
-            background: rgba(198, 165, 92, 0.15);
-        }
-
-        /* Botão WhatsApp Header */
         .header-btn {
             display: flex;
+            align-items: center;
+            justify-content: center;
             justify-self: end;
             gap: 8px;
-            background: #22c55e;
+            background: var(--green);
             color: #fff;
             font-weight: 700;
             font-size: 15px;
@@ -115,67 +123,68 @@
             white-space: nowrap;
         }
 
-        .header-btn:hover {
-            background: #16a34a;
-            transform: translateY(-1px);
-        }
+        .header-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
 
-        #whats-icon {
-            display: none;
-        }
+        #whats-icon { display: none; }
 
-        /* Ícone Hamburguer Escondido no PC */
         #hamburger {
             display: none;
+            background: none;
+            border: 0;
             cursor: pointer;
             font-size: 28px;
-            color: #0a1c36;
-            z-index: 101;
+            line-height: 1;
+            color: var(--navy);
+            padding: 6px 10px;
         }
 
-        /* ===== MENU MOBILE LATERAL (escondido por padrão) ===== */
+        /* ===== MENU MOBILE ===== */
+        #menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 28, 54, 0.45);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
         #menu-mobile {
             position: fixed;
             top: 0;
-            right: -100%;
+            right: 0;
             width: 280px;
+            max-width: 85%;
             height: 100vh;
-            background: linear-gradient(135deg, #0a1c36, #173f66);
-            padding: 30px 20px;
-            transition: right 0.3s ease;
+            background: linear-gradient(135deg, var(--navy), var(--navy-2));
+            padding: 30px 24px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
             z-index: 9999;
             box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+            visibility: hidden;
         }
 
-        .menu-mob-link {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
+        body.menu-aberto #menu-mobile { transform: translateX(0); visibility: visible; }
+        body.menu-aberto #menu-overlay { opacity: 1; pointer-events: auto; }
 
-        .menu-mob-destaque {
-            display: block;
-            color: #c6a55c;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            margin-top: 10px;
-        }
+        .menu-mob-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .menu-mob-topo strong { color: var(--gold); font-size: 14px; letter-spacing: 1px; }
+        .menu-mob-fechar { background: none; border: 0; font-size: 28px; cursor: pointer; color: #fff; line-height: 1; }
+
+        .menu-mob-link { display: block; color: #fff; text-decoration: none; margin-bottom: 20px; font-size: 16px; }
+        .menu-mob-destaque { display: block; color: var(--gold); text-decoration: none; font-weight: 700; font-size: 16px; margin-top: 10px; }
 
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
-            padding-top: 120px;
-            padding-bottom: 80px;
+            padding: 140px 6% 80px;
             background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             position: relative;
             display: flex;
-            align-items: flex-start;
-            padding-left: 6%;
-            padding-right: 6%;
+            align-items: center;
             justify-content: space-between;
+            gap: 48px;
         }
 
         .hero-overlay {
@@ -184,17 +193,12 @@
             background: linear-gradient(105deg, rgba(10, 28, 54, 0.93) 45%, rgba(10, 28, 54, 0.35) 100%);
         }
 
-        .hero-left {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            width: 100%;
-        }
+        .hero-left { position: relative; z-index: 2; color: #fff; max-width: 580px; flex: 1; }
 
         .hero-tag {
             display: inline-block;
-            background: #c6a55c;
-            color: #0a1c36;
+            background: var(--gold);
+            color: var(--navy);
             font-size: 11px;
             font-weight: 800;
             letter-spacing: 1.5px;
@@ -212,36 +216,17 @@
             text-transform: uppercase;
         }
 
-        .hero-left h1 span {
-            color: #c6a55c;
-        }
+        .hero-left h1 span { color: var(--gold); }
 
-        .hero-left p {
-            font-size: 16px;
-            line-height: 1.7;
-            opacity: .88;
-            margin-bottom: 34px;
-            max-width: 420px;
-        }
+        .hero-left p { font-size: 16px; line-height: 1.7; opacity: .88; margin-bottom: 34px; max-width: 440px; }
 
-        .hero-checks {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .hero-checks { display: flex; flex-direction: column; gap: 10px; }
 
-        .hero-checks span {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            opacity: .92;
-        }
+        .hero-checks span { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; opacity: .92; }
 
         .hero-checks span::before {
             content: '✔';
-            background: #22c55e;
+            background: var(--green);
             color: #fff;
             width: 22px;
             height: 22px;
@@ -254,73 +239,43 @@
         }
 
         /* ===== SIMULADOR ===== */
-        .hero-right {
-            position: relative;
-            z-index: 2;
-            flex-shrink: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            /* centraliza no mobile */
-        }
+        .hero-right { position: relative; z-index: 2; flex-shrink: 0; display: flex; justify-content: center; }
 
         .simulador {
-
             background: #fff;
             border-radius: 20px;
             padding: 36px 32px;
             width: 100%;
-            /* Ocupa o espaço que tiver disponível... */
             max-width: 400px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
         }
 
-        .sim-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0a1c36;
-            text-align: center;
-            margin-bottom: 4px;
-        }
+        .sim-title { font-size: 20px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 4px; }
+        .sim-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 22px; line-height: 1.5; }
 
-        .sim-sub {
-            font-size: 13px;
-            color: #64748b;
-            text-align: center;
-            margin-bottom: 22px;
-        }
-
-        .pill-group {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
+        .pill-group { display: flex; gap: 8px; margin-bottom: 12px; }
 
         .pill {
             flex: 1;
             padding: 9px 6px;
             border-radius: 8px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid var(--line);
             background: #f8fafc;
             font-size: 13px;
             font-weight: 700;
-            color: #64748b;
+            color: var(--muted);
             text-align: center;
             cursor: pointer;
             transition: all .18s;
             user-select: none;
         }
 
-        .pill.active {
-            background: #0a1c36;
-            color: #fff;
-            border-color: #0a1c36;
-        }
+        .pill[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
 
         .sim-label {
             font-size: 11px;
             font-weight: 700;
-            color: #94a3b8;
+            color: var(--soft);
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
@@ -331,17 +286,19 @@
         .sim-valor {
             font-size: 42px;
             font-weight: 800;
-            color: #0a1c36;
+            color: var(--navy);
             text-align: center;
             margin-bottom: 14px;
             line-height: 1;
+            font-variant-numeric: tabular-nums;
         }
 
         input[type=range] {
             appearance: none;
+            -webkit-appearance: none;
             width: 100%;
             height: 5px;
-            background: #e2e8f0;
+            background: var(--line);
             border-radius: 3px;
             outline: none;
             margin-bottom: 6px;
@@ -352,23 +309,25 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: #c6a55c;
+            background: var(--gold);
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(198, 165, 92, .5);
         }
 
-        .range-minmax {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #94a3b8;
-            font-weight: 600;
-            margin-bottom: 20px;
+        input[type=range]::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
         }
+
+        .range-minmax { display: flex; justify-content: space-between; font-size: 11px; color: var(--soft); font-weight: 600; margin-bottom: 20px; }
 
         .sim-cta {
             width: 100%;
-            background: #22c55e;
+            background: var(--green);
             color: #fff;
             font-size: 16px;
             font-weight: 800;
@@ -380,17 +339,9 @@
             letter-spacing: .3px;
         }
 
-        .sim-cta:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-        }
+        .sim-cta:hover { background: var(--green-dark); transform: translateY(-2px); }
 
-        .sim-disclaimer {
-            font-size: 11px;
-            color: #94a3b8;
-            text-align: center;
-            margin-top: 10px;
-        }
+        .sim-disclaimer { font-size: 11px; color: var(--soft); text-align: center; margin-top: 10px; line-height: 1.5; }
 
         /* ===== PARCERIA ===== */
         .parceria {
@@ -403,74 +354,37 @@
             border-bottom: 1px solid #e8edf2;
         }
 
-        .parceria p {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #94a3b8;
-        }
-
-        .parceria-line {
-            width: 1px;
-            height: 44px;
-            background: #e2e8f0;
-        }
-
-        .parceria img {
-            height: auto;
-            max-height: 60px;
-            object-fit: contain;
-        }
+        .parceria p { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--soft); }
+        .parceria-line { width: 1px; height: 44px; background: var(--line); }
+        .parceria img { height: auto; max-height: 60px; max-width: 100%; object-fit: contain; }
 
         /* ===== NÚMEROS ===== */
-        .numeros {
-            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-            padding: 60px 6%;
-        }
+        .numeros { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); padding: 60px 6%; }
 
         .numeros-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 2px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             overflow: hidden;
         }
 
-        .numero-item {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 32px 20px;
-            text-align: center;
-        }
+        .numero-item { background: rgba(255, 255, 255, 0.04); padding: 32px 20px; text-align: center; }
 
-        .numero-item strong {
-            display: block;
-            font-size: 36px;
-            font-weight: 800;
-            color: #22c55e;
-            margin-bottom: 6px;
-        }
+        .numero-item strong { display: block; font-size: 36px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+        .numero-item span { font-size: 13px; color: rgba(255, 255, 255, 0.7); font-weight: 600; }
 
-        .numero-item span {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
-        }
+        .numeros-fonte { margin-top: 14px; text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.45); }
 
-        /* ===== VANTAGENS ===== */
-        .vantagens {
-            padding: 80px 6%;
-            background: #f5f7fb;
-        }
-
+        /* ===== SEÇÕES PADRÃO ===== */
         .section-eyebrow {
             text-align: center;
             font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #c6a55c;
+            color: var(--gold);
             margin-bottom: 10px;
         }
 
@@ -478,16 +392,24 @@
             text-align: center;
             font-size: 34px;
             font-weight: 800;
-            color: #0a1c36;
+            color: var(--navy);
             margin-bottom: 50px;
             line-height: 1.2;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
+        .section-sub {
+            text-align: center;
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 620px;
+            margin: -34px auto 46px;
+            line-height: 1.6;
         }
+
+        /* ===== VANTAGENS ===== */
+        .vantagens { padding: 80px 6%; background: var(--bg); }
+
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 
         .card {
             background: #fff;
@@ -498,10 +420,7 @@
             transition: transform .25s, box-shadow .25s;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); }
 
         .card-icon {
             width: 60px;
@@ -515,34 +434,74 @@
             font-size: 26px;
         }
 
-        .card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #0a1c36;
-            margin-bottom: 12px;
+        .card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+        .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+        /* ===== PATRIMÔNIO (ALAVANCAGEM) ===== */
+        .patrimonio { padding: 80px 6%; background: #fff; }
+
+        .patrimonio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+        .estrategia {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--bg);
         }
 
-        .card p {
-            font-size: 14px;
-            color: #64748b;
-            line-height: 1.7;
+        .estrategia-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--navy);
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        .estrategia h3 { font-size: 17px; font-weight: 700; color: var(--navy); }
+        .estrategia p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+        .patrimonio-aviso {
+            margin: 28px auto 0;
+            max-width: 760px;
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--soft);
+            line-height: 1.6;
+        }
+
+        .patrimonio-cta { text-align: center; margin-top: 30px; }
+
+        .btn-navy {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--navy);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 800;
+            padding: 15px 32px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .2s, transform .2s;
+        }
+
+        .btn-navy:hover { background: var(--navy-2); transform: translateY(-2px); }
 
         /* ===== PRODUTOS ===== */
-        .produtos {
-            padding: 80px 6%;
-            background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-        }
+        .produtos { padding: 80px 6%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); }
+        .produtos .section-heading { color: #fff; }
 
-        .produtos .section-heading {
-            color: #fff;
-        }
-
-        .produtos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-        }
+        .produtos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 
         .produto-card {
             background: rgba(255, 255, 255, 0.06);
@@ -553,129 +512,74 @@
             align-items: center;
             gap: 20px;
             transition: background .2s;
+            text-align: left;
+            color: inherit;
             cursor: pointer;
+            width: 100%;
         }
 
-        .produto-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .produto-icon {
-            font-size: 36px;
-            flex-shrink: 0;
-        }
-
-        .produto-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .produto-card p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.65);
-            line-height: 1.5;
-        }
-
-        .produto-card a {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #22c55e;
-            text-decoration: none;
-        }
+        .produto-card:hover { background: rgba(255, 255, 255, 0.1); }
+        .produto-icon { font-size: 36px; flex-shrink: 0; }
+        .produto-titulo { display: block; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .produto-desc { display: block; font-size: 13px; color: rgba(255, 255, 255, 0.65); line-height: 1.5; }
+        .produto-card .produto-link { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--green); }
 
         /* ===== FAQ ===== */
-        .faq {
-            padding: 80px 6%;
-            background: #f5f7fb;
-        }
+        .faq { padding: 80px 6%; background: var(--bg); }
 
         .faq-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 24px;
             max-width: 960px;
             margin: 0 auto;
+            align-items: start;
         }
 
-        .faq-item {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+        .faq-item { background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 
         .faq-q {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             padding: 18px 20px;
             font-size: 14px;
             font-weight: 700;
-            color: #0a1c36;
+            color: var(--navy);
             cursor: pointer;
-            user-select: none;
             gap: 12px;
+            background: none;
+            border: 0;
+            text-align: left;
         }
 
-        .faq-arrow {
-            font-size: 12px;
-            color: #94a3b8;
-            transition: transform .25s;
-            flex-shrink: 0;
-        }
-
-        .faq-item.open .faq-arrow {
-            transform: rotate(180deg);
-        }
+        .faq-arrow { font-size: 12px; color: var(--soft); transition: transform .25s; flex-shrink: 0; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
 
         .faq-a {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .3s ease;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .3s ease;
             font-size: 13px;
-            color: #64748b;
+            color: var(--muted);
             line-height: 1.7;
         }
 
-        .faq-a-inner {
-            padding: 0 20px 18px;
-        }
-
-        .faq-item.open .faq-a {
-            max-height: 180px;
-        }
+        .faq-item.open .faq-a { grid-template-rows: 1fr; }
+        .faq-a-inner { overflow: hidden; }
+        .faq-a-inner p { padding: 0 20px 18px; }
 
         /* ===== CTA FINAL ===== */
-        .cta-final {
-            background: #fff;
-            padding: 80px 6%;
-            text-align: center;
-        }
-
-        .cta-final h2 {
-            font-size: 32px;
-            font-weight: 800;
-            color: #0a1c36;
-            margin-bottom: 14px;
-        }
-
-        .cta-final p {
-            font-size: 16px;
-            color: #64748b;
-            max-width: 480px;
-            margin: 0 auto 36px;
-            line-height: 1.6;
-        }
+        .cta-final { background: #fff; padding: 80px 6%; text-align: center; }
+        .cta-final h2 { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+        .cta-final p { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.6; }
 
         .cta-final a {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: #22c55e;
+            background: var(--green);
             color: #fff;
             font-size: 16px;
             font-weight: 800;
@@ -685,71 +589,29 @@
             transition: background .2s, transform .2s;
         }
 
-        .cta-final a:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-        }
+        .cta-final a:hover { background: var(--green-dark); transform: translateY(-2px); }
 
         /* ===== FOOTER ===== */
-        footer {
-            background: #0e3766;
-            color: #fff;
-            padding: 60px 6% 30px;
-        }
+        footer { background: var(--navy-footer); color: #fff; padding: 60px 6% 30px; }
 
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 48px;
-        }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 48px; }
 
-        .footer-logo {
-            height: 52px;
-            display: block;
-            margin-bottom: 18px;
-            filter: brightness(0) invert(1);
-        }
-
-        .footer-desc {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .footer-canopus {
-            height: 38px;
-            opacity: .7;
-        }
+        .footer-desc { font-size: 13px; color: rgba(255, 255, 255, 0.6); line-height: 1.7; margin-bottom: 20px; }
+        .footer-canopus-img { max-width: 250px; width: 100%; height: auto; }
 
         footer h4 {
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #c6a55c;
+            color: var(--gold);
             margin-bottom: 18px;
         }
 
-        footer ul {
-            list-style: none;
-        }
-
-        footer ul li {
-            margin-bottom: 10px;
-        }
-
-        footer ul li a {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.65);
-            text-decoration: none;
-            transition: color .2s;
-        }
-
-        footer ul li a:hover {
-            color: #c6a55c;
-        }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        footer ul li a { font-size: 13px; color: rgba(255, 255, 255, 0.65); text-decoration: none; transition: color .2s; }
+        footer ul li a:hover { color: var(--gold); }
 
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -760,7 +622,9 @@
             line-height: 1.8;
         }
 
-        /* ===== WHATSAPP FLOAT ===== */
+        .footer-bottom a { color: inherit; }
+
+        /* ===== WHATSAPP FLUTUANTE ===== */
         .whats-float {
             position: fixed;
             bottom: 28px;
@@ -779,725 +643,120 @@
             transition: transform .2s;
         }
 
-        .whats-float:hover {
-            transform: scale(1.1);
+        .whats-float:hover { transform: scale(1.1); }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 1100px) {
+            .patrimonio-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ===== NUMEROS CARROSSEL (mobile) ===== */
-        .numeros-carousel-wrap {
-            display: block;
-            /* escondido no desktop */
-        }
-
-        .header-center {
-            display: flex;
-            justify-self: center;
-            align-items: center;
-        }
-
-
-        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 980px) {
+            header { padding: 10px 5%; }
+            #menu-desktop { display: none; }
+            #hamburger { display: block; }
 
-            /* --- HEADER --- */
-            @media (max-width: 980px) {
-
-                header {
-                    grid-template-columns: 1fr auto 1fr;
-                    padding: 10px 5%;
-                }
-
-                /* esconde menu desktop */
-                #menu-desktop {
-                    display: none !important;
-                }
-
-                /* mostra hamburguer */
-                #hamburger {
-                    display: flex !important;
-                    align-items: center;
-                    font-size: 26px;
-                    cursor: pointer;
-                    color: #0a1c36;
-                }
-
-                /* botão vira círculo */
-                .header-btn {
-                    justify-self: end;
-                    width: 44px;
-                    height: 44px;
-                    padding: 0;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                #whats-text {
-                    display: none;
-                }
-
-                #whats-icon {
-                    display: block;
-                    font-size: 22px;
-                }
-            }
-
-
-            /* LOGO */
-            header>a:first-child {
-                justify-self: start;
-            }
-
-            /* BOTÃO WHATS (direita) */
-            .header-btn {
-                justify-self: end;
-                width: 44px;
-                height: 44px;
-                padding: 0;
-                border-radius: 50%;
-            }
-
-            #whats-text {
-                display: none;
-            }
-
-            #menu-desktop {
-                display: none !important;
-            }
-
-            #hamburger {
-                display: flex !important;
-                justify-self: center;
-                align-items: center;
-                font-size: 26px;
-                cursor: pointer;
-                color: #0a1c36;
-                z-index: 101;
-                position: static;
-                transform: none;
-            }
-
-            /* Botão whats vira círculo */
-            #header-whats {
-                width: 44px;
-                height: 44px;
-                padding: 0;
-                border-radius: 50%;
-            }
-
-            #whats-text {
-                display: none;
-            }
-
-            #whats-icon {
-                display: block;
-                font-size: 22px;
-            }
+            .header-btn { width: 44px; height: 44px; padding: 0; border-radius: 50%; }
+            #whats-text { display: none; }
+            #whats-icon { display: block; font-size: 22px; }
 
             .hero {
                 flex-direction: column;
-                /* Transforma as colunas em linhas (empilha) */
                 align-items: center;
-                /* Centraliza os elementos */
+                text-align: center;
+                padding: 110px 6% 60px;
+                min-height: auto;
                 gap: 40px;
-                /* Dá um espaço entre o texto e o simulador */
-                text-align: center;
-                /* Opcional: centraliza o texto do lado esquerdo */
             }
 
-            .hero-left,
-            .hero-right {
-                width: 100%;
-                /* Faz ambos ocuparem a tela toda antes de descerem */
-            }
-
-            /* ===== HERO ===== */
-            .hero {
-                min-height: 100vh;
-                padding-top: 110px;
-                padding-top: 60px;
-                background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-                position: relative;
-                display: flex;
-                align-items: center;
-                padding-left: 6%;
-                padding-right: 6%;
-                justify-content: space-between;
-            }
-
-            .hero-overlay {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(105deg, rgba(10, 28, 54, 0.93) 45%, rgba(10, 28, 54, 0.35) 100%);
-            }
-
-            .hero-left {
-                position: relative;
-                z-index: 2;
-                color: #fff;
-                max-width: 580px;
-                flex: 1;
-            }
-
-            .hero-tag {
-                display: inline-block;
-                background: #c6a55c;
-                color: #0a1c36;
-                font-size: 11px;
-                font-weight: 800;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                padding: 5px 14px;
-                border-radius: 20px;
-                margin-bottom: 22px;
-            }
-
-            .hero-left h1 {
-                font-size: 48px;
-                font-weight: 800;
-                line-height: 1.05;
-                margin-bottom: 24px;
-                text-transform: uppercase;
-            }
-
-            .hero-left h1 span {
-                color: #c6a55c;
-            }
-
-            .hero-left p {
-                font-size: 16px;
-                line-height: 1.7;
-                opacity: .88;
-                margin-bottom: 34px;
-                max-width: 420px;
-            }
-
-            .hero-checks {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .hero-checks span {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                font-size: 15px;
-                font-weight: 600;
-                opacity: .92;
-            }
-
-            .hero-checks span::before {
-                content: '✔';
-                background: #22c55e;
-                color: #fff;
-                width: 22px;
-                height: 22px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 11px;
-                flex-shrink: 0;
-            }
-
-            /* ===== SIMULADOR ===== */
-            .hero-right {
-                position: relative;
-                z-index: 2;
-                flex-shrink: 0;
-            }
-
-            .sim-title {
-                font-size: 20px;
-                font-weight: 800;
-                color: #0a1c36;
-                text-align: center;
-                margin-bottom: 4px;
-            }
-
-            .sim-sub {
-                font-size: 13px;
-                color: #64748b;
-                text-align: center;
-                margin-bottom: 22px;
-            }
-
-            .pill-group {
-                display: flex;
-                gap: 8px;
-                margin-bottom: 12px;
-            }
-
-            .pill {
-                flex: 1;
-                padding: 9px 6px;
-                border-radius: 8px;
-                border: 1.5px solid #e2e8f0;
-                background: #f8fafc;
-                font-size: 13px;
-                font-weight: 700;
-                color: #64748b;
-                text-align: center;
-                cursor: pointer;
-                transition: all .18s;
-                user-select: none;
-            }
-
-            .pill.active {
-                background: #0a1c36;
-                color: #fff;
-                border-color: #0a1c36;
-            }
-
-            .sim-label {
-                font-size: 11px;
-                font-weight: 700;
-                color: #94a3b8;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                text-align: center;
-                margin-top: 18px;
-                margin-bottom: 4px;
-            }
-
-            .sim-valor {
-                font-size: 46px;
-                font-weight: 800;
-                color: #0a1c36;
-                text-align: center;
-                margin-bottom: 14px;
-                line-height: 1;
-            }
-
-            input[type=range] {
-                appearance: none;
-                width: 100%;
-                height: 5px;
-                background: #e2e8f0;
-                border-radius: 3px;
-                outline: none;
-                margin-bottom: 6px;
-            }
-
-            input[type=range]::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                width: 22px;
-                height: 22px;
-                border-radius: 50%;
-                background: #c6a55c;
-                cursor: pointer;
-                box-shadow: 0 2px 8px rgba(198, 165, 92, .5);
-            }
-
-            .range-minmax {
-                display: flex;
-                justify-content: space-between;
-                font-size: 11px;
-                color: #94a3b8;
-                font-weight: 600;
-                margin-bottom: 20px;
-            }
-
-            .sim-cta {
-                width: 100%;
-                background: #22c55e;
-                color: #fff;
-                font-size: 16px;
-                font-weight: 800;
-                padding: 16px;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-                transition: background .2s, transform .2s;
-                letter-spacing: .3px;
-            }
-
-            .sim-cta:hover {
-                background: #16a34a;
-                transform: translateY(-2px);
-            }
-
-            .sim-disclaimer {
-                font-size: 11px;
-                color: #94a3b8;
-                text-align: center;
-                margin-top: 10px;
-            }
-
-            /* ===== PARCERIA ===== */
-            .parceria {
-                background: #fff;
-                padding: 36px 6%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 28px;
-                border-bottom: 1px solid #e8edf2;
-            }
-
-            .parceria p {
-                font-size: 12px;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                color: #94a3b8;
-            }
-
-            .parceria-line {
-                width: 1px;
-                height: 44px;
-                background: #e2e8f0;
-            }
-
-            .parceria img {
-                height: 52px;
-                object-fit: contain;
-            }
-
-            /* ===== NÚMEROS ===== */
-            .numeros {
-                background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-                padding: 60px 6%;
-            }
-
-            .numeros-grid {
-                display: grid;
-                gap: 2px;
-                background: rgba(255, 255, 255, 0.08);
-                border-radius: 16px;
-                overflow: hidden;
-            }
-
-            .numero-item {
-                background: rgba(255, 255, 255, 0.04);
-                padding: 32px 20px;
-                text-align: center;
-            }
-
-            .numero-item strong {
-                display: block;
-                font-size: 36px;
-                font-weight: 800;
-                color: #22c55e;
-                margin-bottom: 6px;
-            }
-
-            .numero-item span {
-                font-size: 13px;
-                color: rgba(255, 255, 255, 0.7);
-                font-weight: 600;
-            }
-
-            /* ===== VANTAGENS ===== */
-            .vantagens {
-                padding: 80px 6%;
-                background: #f5f7fb;
-            }
-
-            .section-eyebrow {
-                text-align: center;
-                font-size: 12px;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #c6a55c;
-                margin-bottom: 10px;
-            }
-
-            .section-heading {
-                text-align: center;
-                font-size: 34px;
-                font-weight: 800;
-                color: #0a1c36;
-                margin-bottom: 50px;
-                line-height: 1.2;
-            }
-
-            .card {
-                background: #fff;
-                border-radius: 16px;
-                padding: 36px 28px;
-                text-align: center;
-                border: 1px solid #f1f5f9;
-                transition: transform .25s, box-shadow .25s;
-            }
-
-            .card:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-            }
-
-            .card-icon {
-                width: 60px;
-                height: 60px;
-                background: #f0f9ff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 20px;
-                font-size: 26px;
-            }
-
-            .card h3 {
-                font-size: 18px;
-                font-weight: 700;
-                color: #0a1c36;
-                margin-bottom: 12px;
-            }
-
-            .card p {
-                font-size: 14px;
-                color: #64748b;
-                line-height: 1.7;
-            }
-
-            /* ===== PRODUTOS ===== */
-            .produtos {
-                padding: 80px 6%;
-                background: linear-gradient(135deg, #0a1c36 0%, #173f66 100%);
-            }
-
-            .produtos .section-heading {
-                color: #fff;
-            }
-
-            .produtos-grid {
-                display: grid;
-                gap: 20px;
-            }
-
-            .produto-card {
-                background: rgba(255, 255, 255, 0.06);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: 14px;
-                padding: 28px 24px;
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                transition: background .2s;
-                cursor: pointer;
-            }
-
-            .produto-card:hover {
-                background: rgba(255, 255, 255, 0.1);
-            }
-
-            .produto-icon {
-                font-size: 36px;
-                flex-shrink: 0;
-            }
-
-            .produto-card h3 {
-                font-size: 18px;
-                font-weight: 700;
-                color: #fff;
-                margin-bottom: 6px;
-            }
-
-            .produto-card p {
-                font-size: 13px;
-                color: rgba(255, 255, 255, 0.65);
-                line-height: 1.5;
-            }
-
-            .produto-card a {
-                display: inline-block;
-                margin-top: 10px;
-                font-size: 13px;
-                font-weight: 700;
-                color: #22c55e;
-                text-decoration: none;
-            }
-
-            /* ===== FAQ ===== */
-            .faq {
-                padding: 80px 6%;
-                background: #f5f7fb;
-            }
-
-            .faq-grid {
-                display: grid;
-                gap: 14px;
-                max-width: 960px;
-                margin: 0 auto;
-            }
-
-            .faq-item {
-                background: #fff;
-                border: 1px solid #e2e8f0;
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            .faq-q {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 18px 20px;
-                font-size: 14px;
-                font-weight: 700;
-                color: #0a1c36;
-                cursor: pointer;
-                user-select: none;
-                gap: 12px;
-            }
-
-            .faq-arrow {
-                font-size: 12px;
-                color: #94a3b8;
-                transition: transform .25s;
-                flex-shrink: 0;
-            }
-
-            .faq-item.open .faq-arrow {
-                transform: rotate(180deg);
-            }
-
-            .faq-a {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height .3s ease;
-                font-size: 13px;
-                color: #64748b;
-                line-height: 1.7;
-            }
-
-            .faq-a-inner {
-                padding: 0 20px 18px;
-            }
-
-            .faq-item.open .faq-a {
-                max-height: 180px;
-            }
-
-            /* ===== CTA FINAL ===== */
-            .cta-final {
-                background: #fff;
-                padding: 80px 6%;
-                text-align: center;
-            }
-
-            .cta-final h2 {
-                font-size: 32px;
-                font-weight: 800;
-                color: #0a1c36;
-                margin-bottom: 14px;
-            }
-
-            .cta-final p {
-                font-size: 16px;
-                color: #64748b;
-                max-width: 480px;
-                margin: 0 auto 36px;
-                line-height: 1.6;
-            }
-
-            .cta-final a {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                background: #22c55e;
-                color: #fff;
-                font-size: 16px;
-                font-weight: 800;
-                padding: 17px 44px;
-                border-radius: 10px;
-                text-decoration: none;
-                transition: background .2s, transform .2s;
-            }
-
-            .cta-final a:hover {
-                background: #16a34a;
-                transform: translateY(-2px);
-            }
-
-            footer {
-                padding: 40px 5% 24px;
-            }
-
-            .numeros-carousel-wrap {
-                display: none;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: center;
-            }
-
-            footer ur {
-                padding: 0;
-            }
+            .hero-left { max-width: 620px; }
+            .hero-left p { margin-left: auto; margin-right: auto; }
+            .hero-checks { align-items: center; }
+            .hero-right { width: 100%; }
+
+            .numeros-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .footer-top { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            footer ul li { justify-content: center; }
+            footer { padding: 40px 5% 24px; }
+        }
+
+        @media (max-width: 640px) {
+            header img { height: 48px; }
+            .hero-left h1 { font-size: 34px; }
+            .simulador { padding: 28px 22px; }
+            .sim-valor { font-size: 36px; }
+            .section-heading { font-size: 27px; }
+            .cta-final h2 { font-size: 26px; }
+            .numero-item { padding: 24px 12px; }
+            .numero-item strong { font-size: 28px; }
+            .patrimonio-grid, .faq-grid { grid-template-columns: 1fr; }
+            .parceria { flex-direction: column; gap: 14px; text-align: center; }
+            .parceria-line { display: none; }
+            .whats-float { bottom: 18px; right: 18px; }
         }
     </style>
-    
+
     <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '809733666063952');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-    
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '809733666063952');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body>
 
     <!-- HEADER -->
     <header>
-        <!-- COLUNA 1: LOGO -->
         <a href="index.html">
             <img src="mel.png" alt="Mel Consórcios">
         </a>
 
-        <!-- COLUNA 2: CENTRO (menu desktop ou hamburguer) -->
         <div class="header-center">
-
-            <!-- MENU DESKTOP -->
-            <div id="menu-desktop">
+            <nav id="menu-desktop" aria-label="Menu principal">
                 <a href="consorcio-veiculos.html" class="menu-link">Veículos</a>
                 <a href="consorcio-imoveis.html" class="menu-link">Imóveis</a>
+                <a href="#patrimonio" class="menu-link">Patrimônio</a>
                 <a href="como-funciona.html" class="menu-link">Como Funciona</a>
-                <div class="menu-divisor"></div>
-                <a href="index.html" class="menu-link-destaque">Simulador 🧮</a>
-            </div>
+                <div class="menu-divisor" aria-hidden="true"></div>
+                <a href="#simulador" class="menu-link-destaque">Simulador 🧮</a>
+            </nav>
 
-            <!-- HAMBURGUER MOBILE -->
-            <div id="hamburger" onclick="toggleMenu()">☰</div>
-
+            <button id="hamburger" type="button" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false" onclick="toggleMenu(true)">☰</button>
         </div>
 
-        <!-- COLUNA 3: BOTÃO WHATSAPP -->
-        <a href="https://w.app/sitemelconsorcios" target="_blank" class="header-btn" id="header-whats">
-            <span id="whats-icon">💬</span>
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="header-btn" id="header-whats" data-whats="header" aria-label="Fale no WhatsApp">
+            <span id="whats-icon" aria-hidden="true">💬</span>
             <span id="whats-text">📲 Fale no WhatsApp</span>
         </a>
     </header>
 
-    <!-- MENU MOBILE ESCONDIDO -->
-    <div id="menu-mobile">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-            <strong style="color:#c6a55c; font-size:14px; letter-spacing:1px;">MENU</strong>
-            <span onclick="toggleMenu()" style="font-size:28px; cursor:pointer; color:#fff;">✖</span>
+    <!-- MENU MOBILE -->
+    <div id="menu-overlay" onclick="toggleMenu(false)"></div>
+    <nav id="menu-mobile" aria-label="Menu" aria-hidden="true">
+        <div class="menu-mob-topo">
+            <strong>MENU</strong>
+            <button type="button" class="menu-mob-fechar" aria-label="Fechar menu" onclick="toggleMenu(false)">✖</button>
         </div>
         <a href="consorcio-veiculos.html" class="menu-mob-link">Consórcio de Veículos</a>
         <a href="consorcio-imoveis.html" class="menu-mob-link">Consórcio de Imóveis</a>
+        <a href="#patrimonio" class="menu-mob-link">Construir patrimônio</a>
         <a href="como-funciona.html" class="menu-mob-link">Como Funciona</a>
-        <a href="index.html" class="menu-mob-destaque">Acessar Simulador →</a>
-    </div>
+        <a href="#simulador" class="menu-mob-destaque">Acessar Simulador →</a>
+    </nav>
+
+    <main>
 
     <!-- HERO -->
     <section class="hero">
@@ -1508,44 +767,46 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
 
             <h1>Conquiste seu bem<br><span>sem pagar juros</span></h1>
 
+            <!-- REVISAR (item 2): "segurança total" é uma promessa forte; prefira "com uma administradora autorizada pelo Banco Central". -->
             <p>Simule agora e descubra como adquirir seu imóvel ou veículo com parcelas acessíveis, sem entrada e com
                 segurança total.</p>
 
             <div class="hero-checks">
-                <span>Sem juros - economia real no longo prazo</span>
+                <span>Sem juros, só taxa de administração</span>
                 <span>Sem entrada obrigatória</span>
+                <!-- REVISAR (item 2): "Aprovado mesmo com score médio" promete aprovação de crédito; troque ou remova. -->
                 <span>Aprovado mesmo com score médio</span>
                 <span>Regulamentado pelo Banco Central</span>
                 <span>Parceria oficial com a Canopus</span>
             </div>
         </div>
 
-        <div class="hero-right">
+        <div class="hero-right" id="simulador">
             <div class="simulador">
-                <p class="sim-title">Simule e veja sua parcela agora</p>
-                <p class="sim-sub">Leva menos de 30 segundos. Sem compromisso.</p>
+                <p class="sim-title">Simule seu consórcio</p>
+                <p class="sim-sub">Escolha o valor e receba sua simulação completa no WhatsApp em minutos. Sem compromisso.</p>
 
-                <div class="pill-group" id="g-produto">
-                    <div class="pill active" onclick="setProduto(this,'AUTOMOVEL')">🚗 Veículos</div>
-                    <div class="pill" onclick="setProduto(this,'IMOVEIS')">🏠 Imóveis</div>
+                <div class="pill-group" id="g-produto" role="group" aria-label="Tipo de consórcio">
+                    <button type="button" class="pill" data-produto="AUTOMOVEL" aria-pressed="true">🚗 Veículos</button>
+                    <button type="button" class="pill" data-produto="IMOVEIS" aria-pressed="false">🏠 Imóveis</button>
                 </div>
 
-                <div class="pill-group" id="g-modo">
-                    <div class="pill active" onclick="setModo(this,'credito')">Crédito</div>
-                    <div class="pill" onclick="setModo(this,'parcela')">Parcela</div>
+                <div class="pill-group" id="g-modo" role="group" aria-label="Simular por">
+                    <button type="button" class="pill" data-modo="credito" aria-pressed="true">Crédito</button>
+                    <button type="button" class="pill" data-modo="parcela" aria-pressed="false">Parcela</button>
                 </div>
 
-                <p class="sim-label" id="sim-label">Valor do Crédito</p>
-                <div class="sim-valor" id="sim-valor">R$ 50.000</div>
+                <label class="sim-label" id="sim-label" for="sim-range">Valor do Crédito</label>
+                <div class="sim-valor" id="sim-valor" aria-live="polite">R$ 50.000</div>
 
-                <input type="range" id="sim-range" min="30000" max="300000" step="1000" value="50000">
+                <input type="range" id="sim-range" min="30000" max="480000" step="1000" value="50000">
                 <div class="range-minmax">
                     <span id="r-min">R$ 30.000</span>
-                    <span id="r-max">R$ 300.000</span>
+                    <span id="r-max">R$ 480.000</span>
                 </div>
 
-                <button class="sim-cta" onclick="enviarWhats()">QUERO MINHA SIMULAÇÃO 🚀</button>
-                <p class="sim-disclaimer">Resposta rápida no WhatsApp. 100% gratuito.</p>
+                <button type="button" class="sim-cta" onclick="enviarWhats()">RECEBER MINHA SIMULAÇÃO 🚀</button>
+                <p class="sim-disclaimer">Você recebe parcela, prazo e comparativo com financiamento no WhatsApp. 100% gratuito.</p>
             </div>
         </div>
     </section>
@@ -1553,14 +814,13 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
     <!-- PARCERIA -->
     <section class="parceria">
         <p>Empresa autorizada e regulamentada</p>
-        <div class="parceria-line"></div>
-        <img src="logo-canopus.png" alt="Canopus Consórcios">
+        <div class="parceria-line" aria-hidden="true"></div>
+        <img src="logo-canopus.png" alt="Consórcio Canopus">
     </section>
 
     <!-- NÚMEROS -->
-    <section class="numeros">
-
-        <!-- Grid desktop (4 colunas) -->
+    <!-- REVISAR (item 2): confirme estes números com a Canopus e indique a fonte na linha abaixo da grade. -->
+    <section class="numeros" aria-label="Números">
         <div class="numeros-grid">
             <div class="numero-item">
                 <strong>+1.500</strong>
@@ -1575,60 +835,34 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
                 <span>Clientes ativos</span>
             </div>
             <div class="numero-item">
+                <!-- REVISAR (item 2): "taxa de aprovação" promete aprovação de crédito. -->
                 <strong>+85%</strong>
                 <span>Taxa de aprovação</span>
             </div>
         </div>
-
-        <!-- Carrossel mobile -->
-        <div class="numeros-carousel-wrap">
-            <div class="numeros-carousel-track" id="numCarousel">
-                <div class="numero-card-mob">
-                    <strong>+1.500</strong>
-                    <span>Contemplações por mês</span>
-                </div>
-                <div class="numero-card-mob">
-                    <strong>+16 Bi</strong>
-                    <span>Em créditos administrados</span>
-                </div>
-                <div class="numero-card-mob">
-                    <strong>+78 Mil</strong>
-                    <span>Clientes ativos</span>
-                </div>
-                <div class="numero-card-mob">
-                    <strong>+85%</strong>
-                    <span>Taxa de aprovação</span>
-                </div>
-            </div>
-            <div class="carousel-dots" id="numDots">
-                <span class="active" onclick="scrollToCard(0)"></span>
-                <span onclick="scrollToCard(1)"></span>
-                <span onclick="scrollToCard(2)"></span>
-                <span onclick="scrollToCard(3)"></span>
-            </div>
-        </div>
-
+        <p class="numeros-fonte">Números do Consórcio Canopus.</p>
     </section>
 
     <!-- VANTAGENS -->
     <section class="vantagens">
         <p class="section-eyebrow">Por que escolher</p>
-        <h2 class="section-heading">A Mel Consórcios é tão vantajosa?</h2>
+        <h2 class="section-heading">Por que a Mel Consórcios é tão vantajosa?</h2>
         <div class="cards-grid">
             <div class="card">
-                <div class="card-icon">💰</div>
+                <div class="card-icon" aria-hidden="true">💰</div>
                 <h3>Economia Incomparável</h3>
+                <!-- REVISAR (item 2): confirme com a Canopus se os grupos de vocês não cobram fundo de reserva. -->
                 <p>Sem juros e sem fundo reserva - você paga apenas a taxa administrativa. No longo prazo, economiza
                     muito mais do que qualquer financiamento tradicional.</p>
             </div>
             <div class="card">
-                <div class="card-icon">📊</div>
+                <div class="card-icon" aria-hidden="true">📊</div>
                 <h3>Maior Flexibilidade</h3>
                 <p>Escolha o valor do crédito e o prazo que cabe no seu orçamento. Planos de 36 a 222 meses adaptados à
                     sua realidade.</p>
             </div>
             <div class="card">
-                <div class="card-icon">🏆</div>
+                <div class="card-icon" aria-hidden="true">🏆</div>
                 <h3>Planejamento Seguro</h3>
                 <p>Com a solidez da Canopus - administradora regulamentada pelo Banco Central do Brasil - seu patrimônio
                     está protegido.</p>
@@ -1636,28 +870,64 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
         </div>
     </section>
 
+    <!-- PATRIMÔNIO (ALAVANCAGEM) -->
+    <section class="patrimonio" id="patrimonio">
+        <p class="section-eyebrow">Consórcio como investimento</p>
+        <h2 class="section-heading">Como construir patrimônio em imóveis com consórcio</h2>
+        <p class="section-sub">Quem planeja não paga juros de financiamento. Veja quatro formas de usar o consórcio de imóveis para crescer o seu patrimônio em São Paulo.</p>
+
+        <div class="patrimonio-grid">
+            <div class="estrategia">
+                <span class="estrategia-num">1</span>
+                <h3>Imóvel de renda</h3>
+                <p>Depois de contemplado, você compra um imóvel para alugar. O aluguel pode ajudar a pagar as parcelas restantes enquanto o imóvel é seu.</p>
+            </div>
+            <div class="estrategia">
+                <span class="estrategia-num">2</span>
+                <h3>Cartas escalonadas</h3>
+                <p>Cotas em grupos diferentes, contratadas ao longo do tempo, para ir comprando um imóvel depois do outro e montar uma carteira.</p>
+            </div>
+            <div class="estrategia">
+                <span class="estrategia-num">3</span>
+                <h3>Lance embutido</h3>
+                <p>Parte da própria carta de crédito pode ser usada como lance, conforme as regras do grupo. O valor usado reduz o crédito disponível.</p>
+            </div>
+            <div class="estrategia">
+                <span class="estrategia-num">4</span>
+                <h3>FGTS</h3>
+                <p>No consórcio de imóveis, o FGTS pode ser usado para dar lance ou complementar a compra, dentro das regras do fundo.</p>
+            </div>
+        </div>
+
+        <p class="patrimonio-aviso">As estratégias dependem da contemplação, por sorteio ou lance, e das regras de cada grupo. O aluguel e a valorização do imóvel não são garantidos. Consórcio administrado pela Canopus.</p>
+
+        <div class="patrimonio-cta">
+            <button type="button" class="btn-navy" onclick="abrirSimulador('IMOVEIS')">Simular consórcio de imóvel →</button>
+        </div>
+    </section>
+
     <!-- PRODUTOS -->
     <section class="produtos">
-        <p class="section-eyebrow" style="color:#c6a55c">Os nossos</p>
+        <p class="section-eyebrow">Os nossos</p>
         <h2 class="section-heading">Produtos</h2>
         <div class="produtos-grid">
-            <div class="produto-card" onclick="abrirSimulador('AUTOMOVEL')">
-                <div class="produto-icon">🚗</div>
-                <div>
-                    <h3>Consórcio de Veículos</h3>
-                    <p>Conquiste seu veículo com parcelas que cabem no bolso, sem juros, sem fundo reserva e sem entrada
-                        obrigatória.</p>
-                    <a href="#">Simular agora →</a>
-                </div>
-            </div>
-            <div class="produto-card" onclick="abrirSimulador('IMOVEIS      ')">
-                <div class="produto-icon">🏠</div>
-                <div>
-                    <h3>Consórcio de Imóveis</h3>
-                    <p>Realize o sonho da casa própria com planejamento, segurança e sem pagar juros abusivos.</p>
-                    <a href="#">Simular agora →</a>
-                </div>
-            </div>
+            <button type="button" class="produto-card" onclick="abrirSimulador('AUTOMOVEL')">
+                <span class="produto-icon" aria-hidden="true">🚗</span>
+                <span>
+                    <span class="produto-titulo">Consórcio de Veículos</span>
+                    <span class="produto-desc">Conquiste seu veículo com parcelas que cabem no bolso, sem juros, sem fundo reserva e sem entrada
+                        obrigatória.</span>
+                    <span class="produto-link">Simular agora →</span>
+                </span>
+            </button>
+            <button type="button" class="produto-card" onclick="abrirSimulador('IMOVEIS')">
+                <span class="produto-icon" aria-hidden="true">🏠</span>
+                <span>
+                    <span class="produto-titulo">Consórcio de Imóveis</span>
+                    <span class="produto-desc">Realize o sonho da casa própria ou invista em imóveis com planejamento, segurança e sem pagar juros de financiamento.</span>
+                    <span class="produto-link">Simular agora →</span>
+                </span>
+            </button>
         </div>
     </section>
 
@@ -1667,53 +937,44 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
         <h2 class="section-heading">Perguntas Frequentes</h2>
         <div class="faq-grid">
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">01. Como funciona um consórcio? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Consórcio é quando um grupo de pessoas se une para obter um bem de forma
-                        programada. Você paga parcelas mensais mais baratas pois não há juros, apenas taxa
-                        administrativa.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">01. Como funciona um consórcio? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Consórcio é quando um grupo de pessoas se une para obter um bem de forma
+                    programada. Você paga parcelas mensais mais baratas pois não há juros, apenas taxa administrativa.</p></div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">05. Quando posso retirar meu crédito? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Você pode ser contemplado por sorteio em qualquer assembleia mensal, ou
-                        antecipar com lances. Todos são contemplados até o final do grupo.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">02. O que posso adquirir? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Imóveis residenciais, comerciais, terrenos e veículos leves e pesados. A
+                    carta de crédito dá poder de compra à vista.</p></div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">02. O que posso adquirir? <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Imóveis residenciais, comerciais, terrenos e veículos leves e pesados. A
-                        carta de crédito dá poder de compra à vista.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">03. Quem controla os consórcios? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Os consórcios são regulamentados e fiscalizados pelo Banco Central do
+                    Brasil, garantindo total segurança e transparência.</p></div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">06. Por que é melhor que o financiamento? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">No financiamento você paga juros que podem dobrar o valor do bem. No
-                        consórcio a taxa é muito menor — e você paga o preço justo do início ao fim.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">04. Quando posso retirar meu crédito? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Você pode ser contemplado por sorteio em qualquer assembleia mensal, ou
+                    antecipar com lances. Todos são contemplados até o final do grupo.</p></div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">03. Quem controla os consórcios? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">Os consórcios são regulamentados e fiscalizados pelo Banco Central do
-                        Brasil, garantindo total segurança e transparência.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">05. Por que é melhor que o financiamento? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>No financiamento você paga juros que podem dobrar o valor do bem. No
+                    consórcio não há juros, só a taxa de administração, e você planeja a compra do início ao fim.</p></div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">07. Como pagar as parcelas? <span
-                        class="faq-arrow">▼</span></div>
-                <div class="faq-a">
-                    <div class="faq-a-inner">As parcelas podem ser pagas via boleto bancário ou débito automático,
-                        conforme as opções disponibilizadas pela Administradora.</div>
-                </div>
+                <button type="button" class="faq-q" aria-expanded="false">06. Posso usar o FGTS? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>Sim, no consórcio de imóveis. O FGTS pode ser usado para dar lance ou
+                    complementar a compra do imóvel, desde que você e o imóvel atendam às regras do fundo.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">07. O que é lance embutido? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>É usar parte da própria carta de crédito como lance, quando o grupo permite.
+                    Isso aumenta a chance de contemplação sem tirar dinheiro do bolso, mas reduz o crédito disponível para a compra.</p></div></div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-q" aria-expanded="false">08. Como pagar as parcelas? <span class="faq-arrow" aria-hidden="true">▼</span></button>
+                <div class="faq-a"><div class="faq-a-inner"><p>As parcelas podem ser pagas via boleto bancário ou débito automático,
+                    conforme as opções disponibilizadas pela Administradora.</p></div></div>
             </div>
         </div>
     </section>
@@ -1721,9 +982,11 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
     <!-- CTA FINAL -->
     <section class="cta-final">
         <h2>Descubra quanto você pode pagar hoje</h2>
-        <p>Fale com um especialista e receba uma simulação personalizada em poucos minutos — sem compromisso.</p>
-        <a href="https://w.app/sitemelconsorcios" target="_blank">📲 Quero falar com um especialista</a>
+        <p>Fale com um especialista e receba uma simulação personalizada em poucos minutos, sem compromisso.</p>
+        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" data-whats="cta-final">📲 Quero falar com um especialista</a>
     </section>
+
+    </main>
 
     <!-- FOOTER -->
     <footer>
@@ -1731,7 +994,7 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
             <div>
                 <p class="footer-desc">A Mel Consórcios é parceira credenciada da Consórcio Canopus, administradora de
                     consórcios autorizada e regulamentada pelo Banco Central do Brasil.</p>
-                <img src="canopus.png" width="250" alt="Canopus">
+                <img src="canopus.png" class="footer-canopus-img" alt="Consórcio Canopus">
             </div>
             <div>
                 <h4>Consórcios</h4>
@@ -1739,124 +1002,139 @@ src="https://www.facebook.com/tr?id=809733666063952&ev=PageView&noscript=1"
                     <li><a href="consorcio-veiculos.html">Consórcio de Veículos</a></li>
                     <li><a href="consorcio-imoveis.html">Consórcio de Imóveis</a></li>
                     <li><a href="como-funciona.html">Como Funciona</a></li>
-                    <li><a href="#">Simulador</a></li>
+                    <li><a href="#simulador">Simulador</a></li>
                     <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
                 </ul>
             </div>
             <div>
                 <h4>Contato</h4>
                 <ul>
-                    <li><img src="logo-instagram.png" width="20" style="vertical-align:middle; margin-right:6px;"
-                            alt="Instagram"><a href="https://www.instagram.com/melconsorcios.sp">Instagram</a></li>
-                    <li><a href="https://w.app/sitemelconsorcios">📲 (11) 94078-6152</a></li>
-                    <li><a href="#">📍 São Paulo – SP</a></li>
+                    <li><img src="logo-instagram.png" width="20" height="20" alt=""><a href="https://www.instagram.com/melconsorcios.sp" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" data-whats="rodape">📲 (11) 94078-6152</a></li>
+                    <li><span style="font-size:13px;color:rgba(255,255,255,.65)">📍 São Paulo – SP</span></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>Todas as imagens são de caráter meramente ilustrativo.</p>
-            <p>© 2026 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do
-                Brasil · <a href="politica-de-privacidade.html" style="color:inherit">Política de Privacidade</a></p>
+            <!-- REVISAR (item 2): acrescente o CNPJ da Mel Consórcios nesta linha. -->
+            <p>© 2026 Mel Consórcios · Parceiro Autorizado Consórcio Canopus · Regulamentado pelo Banco Central do Brasil · <a href="politica-de-privacidade.html">Política de Privacidade</a></p>
         </div>
     </footer>
 
     <!-- WHATSAPP FLUTUANTE -->
-    <a href="https://w.app/sitemelconsorcios" target="_blank" class="whats-float">💬</a>
+    <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="whats-float" data-whats="flutuante" aria-label="Fale conosco no WhatsApp">💬</a>
 
     <script>
-        /* ===== MENU MOBILE ===== */
-        function toggleMenu() {
-            const menu = document.getElementById('menu-mobile');
-            menu.style.right = (menu.style.right === '0px') ? '-100%' : '0px';
+        const WHATS_NUMERO = '5511940786152';
+
+        /* ===== PIXEL: registra quem chama no WhatsApp ===== */
+        function pixel(evento, dados) {
+            if (typeof fbq === 'function') fbq('track', evento, dados || {});
         }
 
+        document.querySelectorAll('[data-whats]').forEach(link => {
+            link.addEventListener('click', () => pixel('Contact', { content_name: 'WhatsApp - ' + link.dataset.whats }));
+        });
+
+        /* ===== MENU MOBILE ===== */
+        function toggleMenu(abrir) {
+            document.body.classList.toggle('menu-aberto', abrir);
+            document.getElementById('hamburger').setAttribute('aria-expanded', abrir ? 'true' : 'false');
+            document.getElementById('menu-mobile').setAttribute('aria-hidden', abrir ? 'false' : 'true');
+        }
+
+        document.querySelectorAll('#menu-mobile a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+
         /* ===== SIMULADOR ===== */
+        const LIMITES = {
+            AUTOMOVEL: { min: 30000, max: 480000, step: 1000, padrao: 50000 },
+            IMOVEIS: { min: 100000, max: 1500000, step: 10000, padrao: 400000 },
+            PARCELA: { min: 500, max: 10000, step: 50, padrao: 1500 }
+        };
+
         const STATE = { produto: 'AUTOMOVEL', modo: 'credito', valor: 50000 };
         const rangeEl = document.getElementById('sim-range');
+        const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
-        rangeEl.oninput = () => { STATE.valor = parseInt(rangeEl.value); updateUI(); };
+        rangeEl.addEventListener('input', () => { STATE.valor = parseInt(rangeEl.value, 10); updateUI(); });
 
-        function setProduto(btn, p) {
+        document.querySelectorAll('#g-produto .pill').forEach(btn =>
+            btn.addEventListener('click', () => setProduto(btn.dataset.produto)));
+        document.querySelectorAll('#g-modo .pill').forEach(btn =>
+            btn.addEventListener('click', () => setModo(btn.dataset.modo)));
+
+        function aplicarLimites(valorDesejado) {
+            const lim = STATE.modo === 'parcela' ? LIMITES.PARCELA : LIMITES[STATE.produto];
+            rangeEl.min = lim.min;
+            rangeEl.max = lim.max;
+            rangeEl.step = lim.step;
+            const v = valorDesejado && valorDesejado >= lim.min && valorDesejado <= lim.max ? valorDesejado : lim.padrao;
+            STATE.valor = v;
+            rangeEl.value = v;
+        }
+
+        function marcar(grupo, attr, valor) {
+            document.querySelectorAll(`#${grupo} .pill`).forEach(b =>
+                b.setAttribute('aria-pressed', b.dataset[attr] === valor ? 'true' : 'false'));
+        }
+
+        function setProduto(p, valor) {
             STATE.produto = p;
-            document.getElementById('g-produto').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (STATE.modo === 'credito') {
-                if (p === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
-                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
-                rangeEl.value = STATE.valor;
-            }
+            marcar('g-produto', 'produto', p);
+            aplicarLimites(valor);
             updateUI();
         }
 
-        function setModo(btn, m) {
+        function setModo(m, valor) {
             STATE.modo = m;
-            document.getElementById('g-modo').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (m === 'credito') {
-                document.getElementById('sim-label').innerText = 'Valor do Crédito';
-                if (STATE.produto === 'AUTOMOVEL') { rangeEl.min = 30000; rangeEl.max = 480000; rangeEl.step = 1000; STATE.valor = 50000; }
-                else { rangeEl.min = 200000; rangeEl.max = 480000; rangeEl.step = 5000; STATE.valor = 250000; }
-            } else {
-                document.getElementById('sim-label').innerText = 'Valor da Parcela';
-                rangeEl.min = 500; rangeEl.max = 10000; rangeEl.step = 50; STATE.valor = 1500;
-            }
-            rangeEl.value = STATE.valor;
+            marcar('g-modo', 'modo', m);
+            document.getElementById('sim-label').textContent = m === 'credito' ? 'Valor do Crédito' : 'Valor da Parcela';
+            aplicarLimites(valor);
             updateUI();
         }
 
         function updateUI() {
-            const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-            document.getElementById('sim-valor').innerText = fmt(STATE.valor);
-            document.getElementById('r-min').innerText = fmt(parseInt(rangeEl.min));
-            document.getElementById('r-max').innerText = fmt(parseInt(rangeEl.max));
+            document.getElementById('sim-valor').textContent = fmt(STATE.valor);
+            document.getElementById('r-min').textContent = fmt(parseInt(rangeEl.min, 10));
+            document.getElementById('r-max').textContent = fmt(parseInt(rangeEl.max, 10));
         }
 
         function enviarWhats() {
             const modo = STATE.modo === 'credito' ? 'crédito de' : 'parcelas de';
             const prod = STATE.produto === 'AUTOMOVEL' ? 'Veículos' : 'Imóveis';
-            const val = STATE.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\\n\\nProduto: ${prod}\\nQuero ${modo}: ${val}\\n\\nPode me ajudar?`;
-            window.open(`https://wa.me/5511940786152?text=${encodeURIComponent(msg)}`, '_blank');
+            const val = fmt(STATE.valor);
+            const msg = `Olá! Vi o site da Mel Consórcios e quero simular.\n\nProduto: ${prod}\nQuero ${modo}: ${val}\n\nPode me ajudar?`;
+            pixel('Lead', { content_name: 'Simulador do site', content_category: prod, value: STATE.valor, currency: 'BRL' });
+            window.open(`https://wa.me/${WHATS_NUMERO}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
         }
 
         function abrirSimulador(p) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            const btn = document.querySelector(`#g-produto .pill${p === 'AUTOMOVEL' ? ':first-child' : ':last-child'}`);
-            if (btn) setProduto(btn, p);
+            setProduto(p);
+            document.getElementById('simulador').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
-
-        /* ===== CARROSSEL NÚMEROS (mobile) ===== */
-        function scrollToCard(index) {
-            const track = document.getElementById('numCarousel');
-            const cards = track.querySelectorAll('.numero-card-mob');
-            if (cards[index]) {
-                track.scrollTo({ left: cards[index].offsetLeft - 16, behavior: 'smooth' });
-            }
-            updateDots(index);
-        }
-
-        function updateDots(activeIndex) {
-            document.querySelectorAll('#numDots span').forEach((dot, i) => {
-                dot.classList.toggle('active', i === activeIndex);
+        /* ===== FAQ ===== */
+        document.querySelectorAll('.faq-q').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const aberto = item.classList.toggle('open');
+                btn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
             });
-        }
-
-        // Atualiza dot ao scrollar manualmente
-        document.getElementById('numCarousel').addEventListener('scroll', function () {
-            const track = this;
-            const cards = track.querySelectorAll('.numero-card-mob');
-            let closest = 0;
-            let minDist = Infinity;
-            cards.forEach((card, i) => {
-                const dist = Math.abs(card.offsetLeft - track.scrollLeft - 16);
-                if (dist < minDist) { minDist = dist; closest = i; }
-            });
-            updateDots(closest);
         });
 
-        updateUI();
+        /* ===== LINK DOS ANÚNCIOS: ?produto=imoveis&modo=parcela&valor=300000 ===== */
+        (function lerParametros() {
+            const q = new URLSearchParams(location.search);
+            const produto = (q.get('produto') || '').toLowerCase();
+            const modo = (q.get('modo') || '').toLowerCase();
+            const valor = parseInt(q.get('valor'), 10) || null;
+            if (modo === 'parcela') { STATE.modo = 'parcela'; marcar('g-modo', 'modo', 'parcela'); document.getElementById('sim-label').textContent = 'Valor da Parcela'; }
+            if (produto.startsWith('imov')) setProduto('IMOVEIS', valor);
+            else if (produto.startsWith('veic') || produto.startsWith('auto')) setProduto('AUTOMOVEL', valor);
+            else { aplicarLimites(valor); updateUI(); }
+        })();
     </script>
 </body>
 
