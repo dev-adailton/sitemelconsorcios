@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consórcio de Imóveis em São Paulo | Mel Consórcios · Canopus</title>
-    <meta name="description" content="Consórcio de imóveis Canopus em São Paulo para morar ou investir. Sem juros, sem fundo de reserva, parcela reduzida até a contemplação e uso do FGTS. Simulação grátis no WhatsApp.">
+    <meta name="description" content="Consórcio de imóveis Canopus em São Paulo para morar ou investir. Sem juros, sem fundo de reserva, parcela reduzida até a contemplação e uso do FGTS. Simulação grátis em 1 minuto.">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:site_name" content="Mel Consórcios">
     <meta property="og:title" content="Consórcio de Imóveis em SP sem juros de financiamento">
-    <meta property="og:description" content="Compre, construa, reforme ou invista em imóveis com planejamento. Simulação grátis no WhatsApp.">
+    <meta property="og:description" content="Compre, construa, reforme ou invista em imóveis com planejamento. Simulação grátis em 1 minuto.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&h=630&q=80">
 
     <link rel="icon" type="image/png" href="mel.png">
@@ -367,9 +367,9 @@
             <button id="hamburger" type="button" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false" onclick="toggleMenu(true)">☰</button>
         </div>
 
-        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="header-btn" id="header-whats" data-whats="header" aria-label="Fale no WhatsApp">
-            <span id="whats-icon" aria-hidden="true">💬</span>
-            <span id="whats-text">📲 Fale no WhatsApp</span>
+        <a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=imoveis&amp;utm_content=header" target="_blank" rel="noopener" class="header-btn" id="header-whats" data-quiz="header" aria-label="Fazer simulação">
+            <span id="whats-icon" aria-hidden="true">🧮</span>
+            <span id="whats-text">🧮 Fazer simulação</span>
         </a>
     </header>
 
@@ -408,7 +408,7 @@
         <div class="hero-right" id="simulador">
             <div class="simulador">
                 <p class="sim-title">Simule seu consórcio de imóvel</p>
-                <p class="sim-sub">Escolha o valor e receba parcela, prazo e comparativo com financiamento no WhatsApp.</p>
+                <p class="sim-sub">Escolha um valor de referência e responda 4 perguntas rápidas para ver a simulação feita para você.</p>
 
                 <div class="pill-group" id="g-modo" role="group" aria-label="Simular por">
                     <button type="button" class="pill" data-modo="credito" aria-pressed="true">Valor do imóvel</button>
@@ -423,8 +423,8 @@
 
                 <label class="sim-check"><input type="checkbox" id="sim-reduzida"> Quero ver a opção com parcela reduzida</label>
 
-                <button type="button" class="sim-cta" onclick="enviarWhats()">RECEBER MINHA SIMULAÇÃO 🚀</button>
-                <p class="sim-disclaimer">Simulação gratuita e sem compromisso. Valores conforme os grupos disponíveis na Canopus.</p>
+                <button type="button" class="sim-cta" onclick="abrirQuiz('simulador')">FAZER MINHA SIMULAÇÃO 🚀</button>
+                <p class="sim-disclaimer">Leva 1 minuto. Gratuita e sem compromisso. Valores conforme os grupos disponíveis na Canopus.</p>
             </div>
         </div>
     </section>
@@ -556,8 +556,8 @@
              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80'">
         <div class="conteudo">
             <h2>Planeje hoje o imóvel que vai fazer parte do <span>seu patrimônio</span></h2>
-            <p>Receba uma simulação personalizada no WhatsApp, com parcela, prazo e comparativo com financiamento.</p>
-            <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="btn-verde" data-whats="faixa-foto">📲 Quero minha simulação</a>
+            <p>Responda 4 perguntas rápidas e veja uma simulação personalizada, com parcela, prazo e comparativo com financiamento.</p>
+            <a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=imoveis&amp;utm_content=faixa-foto" target="_blank" rel="noopener" class="btn-verde" data-quiz="faixa-foto">🧮 Quero minha simulação</a>
         </div>
     </section>
 
@@ -604,8 +604,8 @@
     <!-- CTA FINAL -->
     <section class="cta-final">
         <h2>Descubra quanto fica o seu imóvel</h2>
-        <p>Fale com um especialista da Mel Consórcios e receba uma simulação personalizada em poucos minutos, sem compromisso.</p>
-        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="btn-verde" data-whats="cta-final">📲 Quero falar com um especialista</a>
+        <p>Responda 4 perguntas rápidas, veja sua simulação na hora e, se fizer sentido, receba uma proposta de um especialista da Mel Consórcios. Sem compromisso.</p>
+        <a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=imoveis&amp;utm_content=cta-final" target="_blank" rel="noopener" class="btn-verde" data-quiz="cta-final">🧮 Fazer minha simulação</a>
     </section>
 
     </main>
@@ -648,8 +648,13 @@
 
     <script>
         const WHATS_NUMERO = '5511940786152';
+        const QUIZ_URL = 'https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9';
 
         function pixel(evento, dados) { if (typeof fbq === 'function') fbq('track', evento, dados || {}); }
+
+        document.querySelectorAll('[data-quiz]').forEach(link => {
+            link.addEventListener('click', () => pixel('ViewContent', { content_name: 'Quiz imóveis - ' + link.dataset.quiz, content_category: 'Imóveis' }));
+        });
 
         document.querySelectorAll('[data-whats]').forEach(link => {
             link.addEventListener('click', () => pixel('Contact', { content_name: 'WhatsApp imóveis - ' + link.dataset.whats }));
@@ -692,13 +697,9 @@
             document.getElementById('r-max').textContent = fmt(parseInt(rangeEl.max, 10));
         }
 
-        function enviarWhats() {
-            const reduzida = document.getElementById('sim-reduzida').checked;
-            const linha = STATE.modo === 'credito' ? `Crédito de: ${fmt(STATE.valor)}` : `Parcela de até: ${fmt(STATE.valor)}`;
-            const msg = `Olá! Vi a página de consórcio de imóveis da Mel Consórcios e quero simular.\n\n${linha}` +
-                (reduzida ? `\nQuero ver a opção com parcela reduzida.` : '') + `\n\nPode me ajudar?`;
-            pixel('Lead', { content_name: 'Simulador imóveis', content_category: 'Imóveis', value: STATE.valor, currency: 'BRL' });
-            window.open(`https://wa.me/${WHATS_NUMERO}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+        function abrirQuiz(origem) {
+            pixel('ViewContent', { content_name: 'Quiz imóveis - ' + origem, content_category: 'Imóveis', value: STATE.valor, currency: 'BRL' });
+            window.open(`${QUIZ_URL}?utm_source=site&utm_medium=imoveis&utm_content=${origem}`, '_blank', 'noopener');
         }
 
         document.querySelectorAll('.faq-q').forEach(btn => btn.addEventListener('click', () => {
