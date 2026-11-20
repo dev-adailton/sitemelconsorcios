@@ -264,6 +264,10 @@
         .cta-final { background: #fff; padding: 80px 6%; text-align: center; }
         .cta-final h2 { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
         .cta-final p { font-size: 16px; color: var(--muted); max-width: 500px; margin: 0 auto 32px; line-height: 1.6; }
+        .cta-botoes { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn-sec { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 800; padding: 14px 28px; border-radius: 10px; text-decoration: none; background: #fff; color: var(--navy); border: 2px solid var(--navy); transition: background .2s, transform .2s; }
+        .btn-sec:hover { background: var(--bg); transform: translateY(-2px); }
+        @media (max-width: 640px) { .cta-botoes a { width: 100%; justify-content: center; padding-left: 16px; padding-right: 16px; } }
 
         /* ===== FOOTER ===== */
         footer { background: var(--navy-footer); color: #fff; padding: 60px 6% 30px; }
@@ -567,9 +571,12 @@
 
     <!-- CTA FINAL -->
     <section class="cta-final">
-        <h2>Ficou alguma dúvida?</h2>
-        <p>Fale com um especialista da Mel Consórcios e receba uma simulação personalizada em poucos minutos, sem compromisso.</p>
-        <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="btn-verde" data-whats="cta-final">📲 Falar com um especialista</a>
+        <h2>Pronto para o próximo passo?</h2>
+        <p>Escolha o seu consórcio e receba uma simulação personalizada, sem compromisso.</p>
+        <div class="cta-botoes">
+            <a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=como-funciona&amp;utm_content=cta-final" target="_blank" rel="noopener" class="btn-verde" data-quiz="cta-final">🏠 Simular consórcio de imóvel</a>
+            <a href="https://w.app/sitemelconsorcios" target="_blank" rel="noopener" class="btn-sec" data-whats="cta-final-veiculos">🚗 Simular veículo (WhatsApp)</a>
+        </div>
     </section>
 
     </main>
@@ -614,6 +621,9 @@
         function pixel(evento, dados) { if (typeof fbq === 'function') fbq('track', evento, dados || {}); }
         document.querySelectorAll('[data-whats]').forEach(link => {
             link.addEventListener('click', () => pixel('Contact', { content_name: 'WhatsApp como funciona - ' + link.dataset.whats }));
+        });
+        document.querySelectorAll('[data-quiz]').forEach(link => {
+            link.addEventListener('click', () => pixel('ViewContent', { content_name: 'Quiz imóveis - como funciona ' + link.dataset.quiz, content_category: 'Imóveis' }));
         });
 
         function toggleMenu(abrir) {
