@@ -598,6 +598,7 @@
             </div>
         </div>
         <p class="nota centro-txt">Simulação ilustrativa. Desconta 10% do aluguel para vacância e manutenção. Considera a média das parcelas depois da contemplação, já com reajustes. Não inclui condomínio, IPTU nem imposto de renda sobre o aluguel. Aluguel e valorização não são garantidos.</p>
+        <div class="centro"><a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=patrimonio&amp;utm_content=calculadora" target="_blank" rel="noopener" class="btn-navy" data-quiz="calculadora">Simular com os meus números →</a></div>
     </section>
 
     <!-- ESTRATÉGIAS -->
@@ -679,8 +680,8 @@
     <!-- CTA FINAL -->
     <section class="cta-final">
         <h2>Monte o seu plano de aposentadoria com imóveis</h2>
-        <p>Fale com um especialista da Mel Consórcios e receba uma simulação com a sua idade, a sua renda e o seu objetivo.</p>
-        <a href="https://wa.me/5511940786152?text=Ol%C3%A1!%20Quero%20simular%20o%20cons%C3%B3rcio%20de%20im%C3%B3vel%20como%20aposentadoria." target="_blank" rel="noopener" class="btn-verde" data-whats="cta-aposentadoria">📲 Quero simular minha aposentadoria</a>
+        <p>Responda 4 perguntas rápidas, escolha "Construir minha aposentadoria" e veja uma simulação feita para o seu objetivo. Se fizer sentido, um especialista da Mel Consórcios te chama.</p>
+        <a href="https://www.simulaprox.com.br/c/campanha-imoveis/3yytv9?utm_source=site&amp;utm_medium=patrimonio&amp;utm_content=cta-final" target="_blank" rel="noopener" class="btn-verde" data-quiz="cta-final">🧮 Quero simular minha aposentadoria</a>
     </section>
 
     </main>
@@ -723,7 +724,10 @@
     <script>
         function pixel(evento, dados) { if (typeof fbq === 'function') fbq('track', evento, dados || {}); }
         document.querySelectorAll('[data-whats]').forEach(link => {
-            link.addEventListener('click', () => pixel(link.dataset.whats === 'cta-aposentadoria' ? 'Lead' : 'Contact', { content_name: 'Patrimônio - ' + link.dataset.whats, content_category: 'Imóveis' }));
+            link.addEventListener('click', () => pixel('Contact', { content_name: 'Patrimônio - ' + link.dataset.whats, content_category: 'Imóveis' }));
+        });
+        document.querySelectorAll('[data-quiz]').forEach(link => {
+            link.addEventListener('click', () => pixel('ViewContent', { content_name: 'Quiz imóveis - patrimônio ' + link.dataset.quiz, content_category: 'Imóveis' }));
         });
 
         function toggleMenu(abrir) {
